@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Character</title>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<!-- end jQuery -->
+
+<!--  Bootstrap -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+<!-- end Bootstrap -->
+
+<script>
+	
+</script>
+</head>
+<body>
+	<!-- Bootstrap -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- end Bootstrap -->
+
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Character Creator</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+					<li><a href="#">Link</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">One more separated link</a></li>
+						</ul></li>
+				</ul>
+				<form class="navbar-form navbar-left">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Link</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<div class="container">
+		<div class="">
+			<div class="form-group">
+				<label for="characterName" class="control-label">Character
+					Name</label><input type="text" class="form-control input-lg"
+					id="characterName">
+			</div>
+		</div>
+
+
+		<ul class="nav nav-pills" role="tablist">
+			<li role="presentation" class="active"><a href="#main"
+				aria-controls="main" role="tab" data-toggle="tab">Main</a></li>
+			<li role="presentation"><a href="#abilities"
+				aria-controls="abilities" role="tab" data-toggle="tab">Abilities</a></li>
+			<li role="presentation"><a href="#spells"
+				aria-controls="spells" role="tab" data-toggle="tab">Spells</a></li>
+			<li role="presentation"><a href="#possessions"
+				aria-controls="possessions" role="tab" data-toggle="tab">Possessions</a></li>
+		</ul>
+		<br/>
+		<div class="tab-content">
+		
+			<!-- Main tab -->
+			<div role="tabpanel" class="tab-pane active" id="main">
+				<!-- General Information -->
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#generalInfo"
+									aria-expanded="false" aria-controls="generalInfo"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								General Information
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="generalInfo">
+
+							<div class="form-group col-md-2">
+								<label for="alignment">Alignment</label> <select
+									class="form-control" id="alignment">
+									<option>Lawful Good</option>
+									<option>Neutral Good</option>
+									<option>Chaotic Good</option>
+									<option>Lawful Neutral</option>
+									<option>True Neutral</option>
+									<option>Chaotic Neutral</option>
+									<option>Lawful Evil</option>
+									<option>Neutral Evil</option>
+									<option>Chaotic Evil</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="race">Race</label> <input type="text"
+									class="form-control" id="race">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="deity">Deity</label> <input type="text"
+									class="form-control" id="deity">
+							</div>
+							<div class="form-group col-md-1">
+								<label for="gender">Gender</label> <input type="text"
+									class="form-control" id="gender">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="eyes">Eyes</label> <input type="text"
+									class="form-control" id="eyes">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="hair">Hair</label> <input type="text"
+									class="form-control" id="hair">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="skin">Skin</label> <input type="text"
+									class="form-control" id="skin">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="age">Age</label> <input type="number"
+									class="form-control" id="age">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="size">Size</label> <select class="form-control"
+									id="size">
+									<option>Fine</option>
+									<option>Diminutive</option>
+									<option>Tiny</option>
+									<option>Small</option>
+									<option selected="selected">Medium</option>
+									<option>Large</option>
+									<option>Huge</option>
+									<option>Gargantuan</option>
+									<option>Colossal</option>
+								</select>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="height">Height</label> <input type="text"
+									class="form-control" id="height">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="weight">Weight</label>
+								<div class="input-group">
+
+									<input type="number" class="form-control" id="weight"
+										aria-describedby="weight-addon"> <span
+										class="input-group-addon" id="weight-addon">lbs</span>
+								</div>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="xpTotal">XP Total</label>
+								<div class="input-group">
+									<input id="xpTotal" type="text" class="form-control"
+										disabled="disabled"> <span class="input-group-btn">
+										<button class="btn btn-default" type="button">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+										</button>
+									</span>
+								</div>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="nextLevel">Next Level</label> <input type="text"
+									class="form-control" id="nextLevel">
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- Abilities -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#abilityScores"
+									aria-expanded="false" aria-controls="abilityScores"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Ability Scores
+							</h3>
+						</div>
+						<div class="panel-body collapse in" id="abilityScores">
+							<table class="table-condensed">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Mod</th>
+										<th>Roll</th>
+										<th>Racial</th>
+										<th>Misc</th>
+										<th>Misc</th>
+										<th>Misc</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Strength</td>
+										<td><input type="number" class="form-control" id="strMod"
+											disabled="disabled"></td>
+										<td><input type="number" class="form-control"
+											id="strRoll"></td>
+										<td><input type="number" class="form-control"
+											id="strRacial"></td>
+										<td><input type="number" class="form-control"
+											id="strMisc1"></td>
+										<td><input type="number" class="form-control"
+											id="strMisc2"></td>
+										<td><input type="number" class="form-control"
+											id="strMisc3"></td>
+									</tr>
+									<tr>
+										<td>Dexterity</td>
+										<td><input type="number" class="form-control" id="dexMod"
+											disabled="disabled"></td>
+										<td><input type="number" class="form-control"
+											id="dexRoll"></td>
+										<td><input type="number" class="form-control"
+											id="dexRacial"></td>
+										<td><input type="number" class="form-control"
+											id="dexMisc1"></td>
+										<td><input type="number" class="form-control"
+											id="dexMisc2"></td>
+										<td><input type="number" class="form-control"
+											id="dexMisc3"></td>
+									</tr>
+									<tr>
+										<td>Constitution</td>
+										<td><input type="number" class="form-control" id="conMod"
+											disabled="disabled"></td>
+										<td><input type="number" class="form-control"
+											id="conRoll"></td>
+										<td><input type="number" class="form-control"
+											id="conRacial"></td>
+										<td><input type="number" class="form-control"
+											id="conMisc1"></td>
+										<td><input type="number" class="form-control"
+											id="conMisc2"></td>
+										<td><input type="number" class="form-control"
+											id="conMisc3"></td>
+									</tr>
+									<tr>
+										<td>Intelligence</td>
+										<td><input type="number" class="form-control" id="intMod"
+											disabled="disabled"></td>
+										<td><input type="number" class="form-control"
+											id="intRoll"></td>
+										<td><input type="number" class="form-control"
+											id="intRacial"></td>
+										<td><input type="number" class="form-control"
+											id="intMisc1"></td>
+										<td><input type="number" class="form-control"
+											id="intMisc2"></td>
+										<td><input type="number" class="form-control"
+											id="intMisc3"></td>
+									</tr>
+									<tr>
+										<td>Wisdom</td>
+										<td><input type="number" class="form-control" id="wisMod"
+											disabled="disabled"></td>
+										<td><input type="number" class="form-control"
+											id="wisRoll"></td>
+										<td><input type="number" class="form-control"
+											id="wisRacial"></td>
+										<td><input type="number" class="form-control"
+											id="wisMisc1"></td>
+										<td><input type="number" class="form-control"
+											id="wisMisc2"></td>
+										<td><input type="number" class="form-control"
+											id="wisMisc3"></td>
+									</tr>
+									<tr>
+										<td>Charisma</td>
+										<td><input type="number" class="form-control" id="chaMod"
+											disabled="disabled"></td>
+										<td><input type="number" class="form-control"
+											id="chaRoll"></td>
+										<td><input type="number" class="form-control"
+											id="chaRacial"></td>
+										<td><input type="number" class="form-control"
+											id="chaMisc1"></td>
+										<td><input type="number" class="form-control"
+											id="chaMisc2"></td>
+										<td><input type="number" class="form-control"
+											id="chaMisc3"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<!-- Status -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#health"
+									aria-expanded="false" aria-controls="health"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Health <span class="label label-success">Alive</span>
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="health">
+							<div class="col-md-12">
+								<div class="progress" style="text-align: vertical">
+									<div class="progress-bar" role="progressbar" aria-valuenow="60"
+										aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+										60%</div>
+								</div>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="hpTotal">HP Total</label> <input type="number"
+									class="form-control" disabled="disabled" id="hpTotal">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="hpCurrent">HP Current</label> <input type="number"
+									class="form-control" disabled="disabled" id="hpCurrent">
+							</div>
+
+							<div class="form-group col-md-4">
+								<label for="hpTemp">Temp HP</label> <input type="number"
+									class="form-control" id="hpTemp">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="damage">Damage</label> <input type="number"
+									class="form-control" id="damage">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="nonlethal">Nonlethal</label> <input type="number"
+									class="form-control" id="nonlethal">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Other Statistics -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#otherStats"
+									aria-expanded="false" aria-controls="otherStats"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Other Statistics
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="otherStats">
+							<div class="form-group col-md-4">
+								<fieldset>
+									<legend title="Armor Class">
+										<small>AC</small>
+									</legend>
+									<label for="acTotal">Total</label> <input type="number"
+										class="form-control" disabled="disabled" id="acTotal">
+									<label for="acTemp">Temp</label> <input type="number"
+										class="form-control" id="acTemp">
+								</fieldset>
+							</div>
+							<div class="form-group col-md-4">
+								<fieldset>
+									<legend>
+										<small>Touch</small>
+									</legend>
+									<label for="touchAcTotal">Total</label> <input type="number"
+										class="form-control" disabled="disabled" id="touchAcTotal">
+									<label for="touchAcTemp">Temp</label> <input type="number"
+										class="form-control" id="touchAcTemp">
+								</fieldset>
+							</div>
+							<div class="form-group col-md-4">
+								<fieldset>
+									<legend>
+										<small>Flat-footed</small>
+									</legend>
+									<label for="flatFootedAcTotal">Total</label> <input
+										type="number" class="form-control" disabled="disabled"
+										id="flatFootedAcTotal"> <label for="flatFootedAcTemp">Temp</label>
+									<input type="number" class="form-control" id="flatFootedAcTemp">
+								</fieldset>
+							</div>
+							<div class="form-group col-md-4">
+								<fieldset>
+									<legend>
+										<small>Initiative</small>
+									</legend>
+									<label for="initiativeTotal">Total</label> <input type="number"
+										class="form-control" disabled="disabled" id="initiativeTotal">
+									<label for="initiativeTemp">Temp</label> <input type="number"
+										class="form-control" id="initiativeTemp">
+								</fieldset>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="dr" title="Damage Resistance">DR</label> <input
+									type="text" class="form-control" id="dr">
+							</div>
+
+							<div class="form-group col-md-4">
+								<label for="speed">Speed</label> <input type="text"
+									class="form-control" id="speed">
+							</div>
+							<div class="form-group col-md-4">
+								<label for="spellResistance" title="Spell Resistance">SR</label>
+								<input type="text" class="form-control" id="spellResistance">
+							</div>
+
+
+							<div class="form-group col-md-4">
+								<fieldset>
+									<legend>
+										<small>Saves</small>
+									</legend>
+									<table class="table-condensed">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Total</th>
+												<th>Temp</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td title="Fortitude">Fort</td>
+												<td><input type="number" class="form-control"
+													id="fortSave" disabled="disabled"></td>
+												<td><input type="number" class="form-control"
+													id="fortTemp"></td>
+											</tr>
+											<tr>
+												<td title="Reflex">Ref</td>
+												<td><input type="number" class="form-control"
+													id="fortSave" disabled="disabled"></td>
+												<td><input type="number" class="form-control"
+													id="fortTemp"></td>
+											</tr>
+											<tr>
+												<td>Will</td>
+												<td><input type="number" class="form-control"
+													id="fortSave" disabled="disabled"></td>
+												<td><input type="number" class="form-control"
+													id="fortTemp"></td>
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Attacks -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#attacks"
+									aria-expanded="false" aria-controls="attacks"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Attacks
+								<button type="button" class="btn-xs btn-success pull-right"
+									title="Add attack">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button>
+							</h3>
+						</div>
+						<div class="panel-body collapse in list-group" id="attacks">
+							<li class="list-group-item row">
+								<div class="form-group col-md-9">
+									<label for="attackName">Name</label> <input type="text"
+										class="form-control" id="attackName">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackBonus">Bonus</label> <input type="text"
+										class="form-control" id="attackBonus">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackDamage">Damage</label> <input type="text"
+										class="form-control" id="attackDamage">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackType">Type</label> <input type="text"
+										class="form-control" id=""attackType"">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="range">Range</label> <input type="text"
+										class="form-control" id="range">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="ammunition">Ammunition</label> <input type="text"
+										class="form-control" id="ammunition">
+								</div>
+								<div class="form-group col-md-10">
+									<label for="attackNotes">Notes</label> <input type="text"
+										class="form-control" id="attackNotes">
+								</div>
+								<div class=" col-md-2">
+									<br />
+									<button type="button" class="btn btn-danger"
+										title="Delete attack">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+							</li>
+							<li class="list-group-item row">
+								<div class="form-group col-md-9">
+									<label for="attackName">Name</label> <input type="text"
+										class="form-control" id="attackName">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackBonus">Bonus</label> <input type="text"
+										class="form-control" id="attackBonus">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackDamage">Damage</label> <input type="text"
+										class="form-control" id="attackDamage">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackType">Type</label> <input type="text"
+										class="form-control" id=""attackType"">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="range">Range</label> <input type="text"
+										class="form-control" id="range">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="ammunition">Ammunition</label> <input type="text"
+										class="form-control" id="ammunition">
+								</div>
+								<div class="form-group col-md-10">
+									<label for="attackNotes">Notes</label> <input type="text"
+										class="form-control" id="attackNotes">
+								</div>
+								<div class=" col-md-2">
+									<br />
+									<button type="button" class="btn btn-danger"
+										title="Delete attack">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+							</li>
+							<li class="list-group-item row">
+								<div class="form-group col-md-9">
+									<label for="attackName">Name</label> <input type="text"
+										class="form-control" id="attackName">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackBonus">Bonus</label> <input type="text"
+										class="form-control" id="attackBonus">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackDamage">Damage</label> <input type="text"
+										class="form-control" id="attackDamage">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackType">Type</label> <input type="text"
+										class="form-control" id=""attackType"">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="range">Range</label> <input type="text"
+										class="form-control" id="range">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="ammunition">Ammunition</label> <input type="text"
+										class="form-control" id="ammunition">
+								</div>
+								<div class="form-group col-md-10">
+									<label for="attackNotes">Notes</label> <input type="text"
+										class="form-control" id="attackNotes">
+								</div>
+								<div class=" col-md-2">
+									<br />
+									<button type="button" class="btn btn-danger"
+										title="Delete attack">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+							</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Abilities tab -->
+			<div role="tabpanel" class="tab-pane" id="abilities">
+			
+			</div>
+			
+			<!-- Spells tab -->
+			<div role="tabpanel" class="tab-pane" id="spells">
+			
+			</div>
+			
+			<!-- Possessions tab -->
+			<div role="tabpanel" class="tab-pane" id="possessions">
+			
+			</div>
+		</div>
+	</div>
+</body>
+</html>
