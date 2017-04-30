@@ -30,6 +30,12 @@
 <script>
 	
 </script>
+
+<style type="text/css">
+html, body {
+    overflow: visible;
+}
+</style>
 </head>
 <body>
 	<!-- Bootstrap -->
@@ -108,8 +114,8 @@
 		<ul class="nav nav-pills" role="tablist">
 			<li role="presentation" class="active"><a href="#main"
 				aria-controls="main" role="tab" data-toggle="tab">Main</a></li>
-			<li role="presentation"><a href="#levels"
-				aria-controls="levels" role="tab" data-toggle="tab">Levels</a></li>
+			<li role="presentation"><a href="#levels" aria-controls="levels"
+				role="tab" data-toggle="tab">Levels</a></li>
 			<li role="presentation"><a href="#abilities"
 				aria-controls="abilities" role="tab" data-toggle="tab">Abilities</a></li>
 			<li role="presentation"><a href="#spells" aria-controls="spells"
@@ -225,7 +231,7 @@
 					</div>
 				</div>
 
-				<!-- Abilities -->
+				<!-- Ability Scores -->
 				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -600,18 +606,89 @@
 					</div>
 				</div>
 			</div>
-			
-			<!-- Abilities tab -->
-			<div role="tabpanel" class="tab-pane" id="levels">Add levels individually -- for each level, choose class, enter HD roll, select class skills and points going to each. How to handle gestalt characters? Should skills/abilities be automatically summarized elsewhere?</div>
+
+			<!-- Levels tab -->
+			<div role="tabpanel" class="tab-pane" id="levels">
+				
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#attacks"
+									aria-expanded="false" aria-controls="attacks"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Levels
+								<button type="button" class="btn-xs btn-success pull-right"
+									title="Add attack">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button>
+							</h3>
+						</div>
+						<div class="panel-body collapse in list-group" id="attacks">
+							<li class="list-group-item row">
+								<div class="form-group col-md-7">
+									<label for="className">Class</label> <input type="text"
+										class="form-control" id="className">
+								</div>
+								<div class="form-group col-md-2">
+									<label for="attackBonus">Class Level</label> <input type="number"
+										class="form-control" id="attackBonus">
+								</div>
+								<div class="form-group col-md-2">
+									<label for="hdRoll">HD Roll</label> <input type="number"
+										class="form-control" id="hdRoll">
+								</div>
+								<div class=" col-md-1">
+									<br />
+									<button type="button" class="btn btn-danger"
+										title="Delete attack">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+							</li>
+							<li class="list-group-item row">
+								<div class="form-group col-md-7">
+									<label for="className">Class</label> <input type="text"
+										class="form-control" id="className">
+								</div>
+								<div class="form-group col-md-2">
+									<label for="attackBonus">Class Level</label> <input type="number"
+										class="form-control" id="attackBonus">
+								</div>
+								<div class="form-group col-md-2">
+									<label for="hdRoll">HD Roll</label> <input type="number"
+										class="form-control" id="hdRoll">
+								</div>
+								<div class=" col-md-1">
+									<br />
+									<button type="button" class="btn btn-danger"
+										title="Delete attack">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+							</li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
 
 			<!-- Abilities tab -->
-			<div role="tabpanel" class="tab-pane" id="abilities">Feats, class features, racial abilities. Skills?</div>
+			<div role="tabpanel" class="tab-pane" id="abilities">Feats,
+				class features, racial abilities. Skills?</div>
 
 			<!-- Spells tab -->
-			<div role="tabpanel" class="tab-pane" id="spells">Track spells per day per class, as well as provide spellbook for spells known/prepared</div>
+			<div role="tabpanel" class="tab-pane" id="spells">Track spells
+				per day per class, as well as provide spellbook for spells
+				known/prepared</div>
 
 			<!-- Possessions tab -->
-			<div role="tabpanel" class="tab-pane" id="possessions">All character possessions. Track location, and whether an item or location counts toward weight carried (IE, items in a bag of holding don't)</div>
+			<div role="tabpanel" class="tab-pane" id="possessions">All
+				character possessions. Track location, and whether an item or
+				location counts toward weight carried (IE, items in a bag of holding
+				don't)</div>
 		</div>
 	</div>
 </body>
