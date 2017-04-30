@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Character</title>
+<title>Character Builder</title>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -48,7 +48,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Character Creator</a>
+				<a class="navbar-brand" href="#">Character Builder</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -108,20 +108,23 @@
 		<ul class="nav nav-pills" role="tablist">
 			<li role="presentation" class="active"><a href="#main"
 				aria-controls="main" role="tab" data-toggle="tab">Main</a></li>
+			<li role="presentation"><a href="#levels"
+				aria-controls="levels" role="tab" data-toggle="tab">Levels</a></li>
 			<li role="presentation"><a href="#abilities"
 				aria-controls="abilities" role="tab" data-toggle="tab">Abilities</a></li>
-			<li role="presentation"><a href="#spells"
-				aria-controls="spells" role="tab" data-toggle="tab">Spells</a></li>
+			<li role="presentation"><a href="#spells" aria-controls="spells"
+				role="tab" data-toggle="tab">Spells</a></li>
 			<li role="presentation"><a href="#possessions"
 				aria-controls="possessions" role="tab" data-toggle="tab">Possessions</a></li>
 		</ul>
-		<br/>
+		<br />
 		<div class="tab-content">
-		
+
 			<!-- Main tab -->
 			<div role="tabpanel" class="tab-pane active" id="main">
+
 				<!-- General Information -->
-				<div class="col-md-12">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -133,7 +136,7 @@
 						</div>
 						<div class="panel-body collapse in row" id="generalInfo">
 
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-4">
 								<label for="alignment">Alignment</label> <select
 									class="form-control" id="alignment">
 									<option>Lawful Good</option>
@@ -147,35 +150,35 @@
 									<option>Chaotic Evil</option>
 								</select>
 							</div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-6">
 								<label for="race">Race</label> <input type="text"
 									class="form-control" id="race">
 							</div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-6">
 								<label for="deity">Deity</label> <input type="text"
 									class="form-control" id="deity">
 							</div>
-							<div class="form-group col-md-1">
+							<div class="form-group col-md-2">
 								<label for="gender">Gender</label> <input type="text"
 									class="form-control" id="gender">
 							</div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-6">
 								<label for="eyes">Eyes</label> <input type="text"
 									class="form-control" id="eyes">
 							</div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-6">
 								<label for="hair">Hair</label> <input type="text"
 									class="form-control" id="hair">
 							</div>
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-6">
 								<label for="skin">Skin</label> <input type="text"
 									class="form-control" id="skin">
 							</div>
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-4">
 								<label for="age">Age</label> <input type="number"
 									class="form-control" id="age">
 							</div>
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-4">
 								<label for="size">Size</label> <select class="form-control"
 									id="size">
 									<option>Fine</option>
@@ -189,11 +192,11 @@
 									<option>Colossal</option>
 								</select>
 							</div>
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-4">
 								<label for="height">Height</label> <input type="text"
 									class="form-control" id="height">
 							</div>
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-4">
 								<label for="weight">Weight</label>
 								<div class="input-group">
 
@@ -202,7 +205,7 @@
 										class="input-group-addon" id="weight-addon">lbs</span>
 								</div>
 							</div>
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-4">
 								<label for="xpTotal">XP Total</label>
 								<div class="input-group">
 									<input id="xpTotal" type="text" class="form-control"
@@ -213,7 +216,7 @@
 									</span>
 								</div>
 							</div>
-							<div class="form-group col-md-2">
+							<div class="form-group col-md-4">
 								<label for="nextLevel">Next Level</label> <input type="text"
 									class="form-control" id="nextLevel">
 							</div>
@@ -591,43 +594,7 @@
 									</button>
 								</div>
 							</li>
-							<li class="list-group-item row">
-								<div class="form-group col-md-9">
-									<label for="attackName">Name</label> <input type="text"
-										class="form-control" id="attackName">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="attackBonus">Bonus</label> <input type="text"
-										class="form-control" id="attackBonus">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="attackDamage">Damage</label> <input type="text"
-										class="form-control" id="attackDamage">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="attackType">Type</label> <input type="text"
-										class="form-control" id=""attackType"">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="range">Range</label> <input type="text"
-										class="form-control" id="range">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="ammunition">Ammunition</label> <input type="text"
-										class="form-control" id="ammunition">
-								</div>
-								<div class="form-group col-md-10">
-									<label for="attackNotes">Notes</label> <input type="text"
-										class="form-control" id="attackNotes">
-								</div>
-								<div class=" col-md-2">
-									<br />
-									<button type="button" class="btn btn-danger"
-										title="Delete attack">
-										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-									</button>
-								</div>
-							</li>
+
 							</ul>
 						</div>
 					</div>
@@ -635,19 +602,16 @@
 			</div>
 			
 			<!-- Abilities tab -->
-			<div role="tabpanel" class="tab-pane" id="abilities">
-			
-			</div>
-			
+			<div role="tabpanel" class="tab-pane" id="levels">Add levels individually -- for each level, choose class, enter HD roll, select class skills and points going to each. How to handle gestalt characters? Should skills/abilities be automatically summarized elsewhere?</div>
+
+			<!-- Abilities tab -->
+			<div role="tabpanel" class="tab-pane" id="abilities">Feats, class features, racial abilities. Skills?</div>
+
 			<!-- Spells tab -->
-			<div role="tabpanel" class="tab-pane" id="spells">
-			
-			</div>
-			
+			<div role="tabpanel" class="tab-pane" id="spells">Track spells per day per class, as well as provide spellbook for spells known/prepared</div>
+
 			<!-- Possessions tab -->
-			<div role="tabpanel" class="tab-pane" id="possessions">
-			
-			</div>
+			<div role="tabpanel" class="tab-pane" id="possessions">All character possessions. Track location, and whether an item or location counts toward weight carried (IE, items in a bag of holding don't)</div>
 		</div>
 	</div>
 </body>
