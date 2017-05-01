@@ -27,14 +27,10 @@
 	crossorigin="anonymous"></script>
 <!-- end Bootstrap -->
 
-<script>
-	
-</script>
+<script src="/character.js"></script>
 
 <style type="text/css">
-html, body {
-    overflow: visible;
-}
+
 </style>
 </head>
 <body>
@@ -609,67 +605,73 @@ html, body {
 
 			<!-- Levels tab -->
 			<div role="tabpanel" class="tab-pane" id="levels">
-				
+
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								<a role="button" data-toggle="collapse" href="#attacks"
-									aria-expanded="false" aria-controls="attacks"><span
+								<a role="button" data-toggle="collapse" href="#levels"
+									aria-expanded="false" aria-controls="levels"><span
 									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
 								Levels
 								<button type="button" class="btn-xs btn-success pull-right"
-									title="Add attack">
+									title="Add level">
 									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 								</button>
 							</h3>
 						</div>
-						<div class="panel-body collapse in list-group" id="attacks">
+						<ol class="panel-body collapse in list-group" id="levels">
 							<li class="list-group-item row">
-								<div class="form-group col-md-7">
+								<div class="form-group col-md-9">
 									<label for="className">Class</label> <input type="text"
 										class="form-control" id="className">
 								</div>
-								<div class="form-group col-md-2">
-									<label for="attackBonus">Class Level</label> <input type="number"
-										class="form-control" id="attackBonus">
-								</div>
-								<div class="form-group col-md-2">
+								<div class="form-group col-md-1">
 									<label for="hdRoll">HD Roll</label> <input type="number"
 										class="form-control" id="hdRoll">
 								</div>
 								<div class=" col-md-1">
 									<br />
+									<button type="button" class="btn" title="Edit skills">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										Skills
+									</button>
+								</div>
+								<div class=" col-md-1">
+									<br />
 									<button type="button" class="btn btn-danger"
-										title="Delete attack">
+										title="Delete level">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 									</button>
 								</div>
 							</li>
 							<li class="list-group-item row">
-								<div class="form-group col-md-7">
+								<div class="form-group col-md-9">
 									<label for="className">Class</label> <input type="text"
 										class="form-control" id="className">
 								</div>
-								<div class="form-group col-md-2">
-									<label for="attackBonus">Class Level</label> <input type="number"
-										class="form-control" id="attackBonus">
-								</div>
-								<div class="form-group col-md-2">
+								<div class="form-group col-md-1">
 									<label for="hdRoll">HD Roll</label> <input type="number"
 										class="form-control" id="hdRoll">
 								</div>
 								<div class=" col-md-1">
 									<br />
+									<button type="button" class="btn" title="Edit skills">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										Skills
+									</button>
+								</div>
+								<div class=" col-md-1">
+									<br />
 									<button type="button" class="btn btn-danger"
-										title="Delete attack">
+										title="Delete level">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 									</button>
 								</div>
 							</li>
 
-							</ul>
-						</div>
+						</ol>
+
 					</div>
 				</div>
 
