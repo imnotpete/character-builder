@@ -35,21 +35,16 @@
 	crossorigin="anonymous"></script>
 <!-- end Bootstrap -->
 
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="js/character.js"></script>
 <script src="js/recalculate.js"></script>
 
-<script>
-
-</script>
 <style type="text/css">
 </style>
 </head>
 <body>
-	<!-- Bootstrap -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<!-- end Bootstrap -->
-
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -558,10 +553,8 @@
 								</button>
 							</h3>
 						</div>
-						<div class="panel-body collapse in list-group" id="levelsContainer">
-
-
-						</div>
+						<div class="panel-body collapse in list-group"
+							id="levelsContainer"></div>
 
 					</div>
 				</div>
@@ -600,7 +593,8 @@
 				</div>
 				<div class=" col-md-2">
 					<br />
-					<button type="button" class="btn btn-danger deleteAttack" title="Delete attack">
+					<button type="button" class="btn btn-danger deleteAttack"
+						title="Delete attack">
 						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 					</button>
 				</div>
@@ -624,7 +618,8 @@
 				</div>
 				<div class=" col-md-1">
 					<br />
-					<button type="button" class="btn btn-danger deleteLevel" title="Delete level">
+					<button type="button" class="btn btn-danger deleteLevel"
+						title="Delete level">
 						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 					</button>
 				</div>
@@ -644,6 +639,15 @@
 				location counts toward weight carried (IE, items in a bag of holding
 				don't)</div>
 		</div>
+	</div>
+
+
+	<div id="dialog-confirm" title="Delete?">
+		<p>
+			<span class="ui-icon ui-icon-alert"
+				style="float: left; margin: 12px 12px 20px 0;"></span>This entry
+			will be permanently deleted. Are you sure?
+		</p>
 	</div>
 </body>
 </html>

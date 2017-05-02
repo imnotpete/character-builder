@@ -24,5 +24,24 @@ function addLevel() {
 }
 
 function deleteListGroupItem() {
-	$(this).parents('.list-group-item').remove();
+	var button = $(this);
+	$("#dialog-confirm").dialog({
+		resizable : false,
+		height : "auto",
+		width : 400,
+		modal : true,
+		buttons : {
+			"Delete" : function() {
+				confirmDeleteListGroupItem(button);
+				$(this).dialog("close");
+			},
+			Cancel : function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+}
+
+function confirmDeleteListGroupItem(button) {
+	button.parents('.list-group-item').remove();
 }
