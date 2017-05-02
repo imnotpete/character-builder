@@ -5,7 +5,6 @@ function setup() {
 	$('#addAttackButton').click(addAttack);
 	$('#addLevelButton').click(addLevel);
 	recalculateAll();
-	
 }
 
 function addAttack() {
@@ -13,10 +12,7 @@ function addAttack() {
 	var newAttack = $('#attackTemplate').clone();
 	attacks.append(newAttack);
 	newAttack.show();
-}
-
-function deleteAttack() {
-	
+	newAttack.find(".deleteAttack").click(deleteListGroupItem);
 }
 
 function addLevel() {
@@ -24,8 +20,9 @@ function addLevel() {
 	var newLevel = $('#levelTemplate').clone();
 	levels.append(newLevel);
 	newLevel.show();
+	newLevel.find(".deleteLevel").click(deleteListGroupItem);
 }
 
-function deleteLevel() {
-	
+function deleteListGroupItem() {
+	$(this).parents('.list-group-item').remove();
 }
