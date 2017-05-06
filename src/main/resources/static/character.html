@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Character Builder</title>
 
 <!-- jQuery -->
@@ -35,9 +37,11 @@
 	crossorigin="anonymous"></script>
 <!-- end Bootstrap -->
 
-<link rel="stylesheet"
+<!-- <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
+<script src="//rubaxa.github.io/Sortable/Sortable.js"></script>
 <script src="js/character.js"></script>
 <script src="js/recalculate.js"></script>
 
@@ -62,39 +66,19 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">Link</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Dropdown <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
-						</ul></li>
-				</ul>
-				<form class="navbar-form navbar-left">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
-					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
-				</form>
+
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Link</a></li>
+					<li><a href="#">My Characters</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Dropdown <span class="caret"></span></a>
+						aria-expanded="false">Sam Jones <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Action</a></li>
 							<li><a href="#">Another action</a></li>
 							<li><a href="#">Something else here</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-user"
+									aria-hidden="true"></span> Profile</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -114,16 +98,16 @@
 
 
 		<ul class="nav nav-pills" role="tablist">
-			<li role="presentation" class="active"><a href="#main"
-				aria-controls="main" role="tab" data-toggle="tab">Main</a></li>
-			<li role="presentation"><a href="#levels" aria-controls="levels"
-				role="tab" data-toggle="tab">Levels</a></li>
-			<li role="presentation"><a href="#abilities"
-				aria-controls="abilities" role="tab" data-toggle="tab">Abilities</a></li>
-			<li role="presentation"><a href="#spells" aria-controls="spells"
-				role="tab" data-toggle="tab">Spells</a></li>
-			<li role="presentation"><a href="#possessions"
-				aria-controls="possessions" role="tab" data-toggle="tab">Possessions</a></li>
+			<li role="presentation" class="active"><a href="#mainTab"
+				aria-controls="mainTab" role="tab" data-toggle="tab">Main</a></li>
+			<li role="presentation"><a href="#levelsTab"
+				aria-controls="levelsTab" role="tab" data-toggle="tab">Levels</a></li>
+			<li role="presentation"><a href="#abilitiesTab"
+				aria-controls="abilitiesTab" role="tab" data-toggle="tab">Abilities</a></li>
+			<li role="presentation"><a href="#spellsTab"
+				aria-controls="spellsTab" role="tab" data-toggle="tab">Spells</a></li>
+			<li role="presentation"><a href="#possessionsTab"
+				aria-controls="possessionsTab" role="tab" data-toggle="tab">Possessions</a></li>
 			<li role="presentation"><a href="#notesTab"
 				aria-controls="notesTab" role="tab" data-toggle="tab">Notes</a></li>
 		</ul>
@@ -131,7 +115,7 @@
 		<div class="tab-content">
 
 			<!-- Main tab -->
-			<div role="tabpanel" class="tab-pane active" id="main">
+			<div role="tabpanel" class="tab-pane active" id="mainTab">
 
 				<!-- General Information -->
 				<div class="col-md-6">
@@ -529,17 +513,13 @@
 								</button>
 							</h3>
 						</div>
-						<div class="panel-body collapse in list-group" id="attacks">
-
-
-						</div>
-
+						<div class="panel-body collapse in list-group sortable" id="attacks"></div>
 					</div>
 				</div>
 			</div>
 
 			<!-- Levels tab -->
-			<div role="tabpanel" class="tab-pane" id="levels">
+			<div role="tabpanel" class="tab-pane" id="levelsTab">
 
 				<div class="col-md-12">
 					<div class="panel panel-default">
@@ -555,17 +535,14 @@
 								</button>
 							</h3>
 						</div>
-						<div class="panel-body collapse in list-group"
-							id="levelsContainer"></div>
-
+						<ol class="panel-body collapse in list-group sortable" id="levels"></ol>
 					</div>
 				</div>
 
 			</div>
 
-
 			<!-- Abilities tab -->
-			<div role="tabpanel" class="tab-pane" id="abilities">
+			<div role="tabpanel" class="tab-pane" id="abilitiesTab">
 
 				<!-- Class -->
 				<div class="col-md-6">
@@ -639,12 +616,12 @@
 			</div>
 
 			<!-- Spells tab -->
-			<div role="tabpanel" class="tab-pane" id="spells">Track spells
-				per day per class, as well as provide spellbook for spells
+			<div role="tabpanel" class="tab-pane" id="spellsTab">Track
+				spells per day per class, as well as provide spellbook for spells
 				known/prepared</div>
 
 			<!-- Possessions tab -->
-			<div role="tabpanel" class="tab-pane" id="possessions">All
+			<div role="tabpanel" class="tab-pane" id="possessionsTab">All
 				character possessions. Track location, and whether an item or
 				location counts toward weight carried (IE, items in a bag of holding
 				don't)</div>
@@ -690,7 +667,10 @@
 		<div class=" col-md-2">
 			<br />
 			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#deleteConfirmationDialog" data-deletetype="attack" title="Delete attack"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+				data-target="#deleteConfirmationDialog" data-deletetype="attack"
+				title="Delete attack">
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			</button>
 		</div>
 	</li>
 	<li class="list-group-item row" style="display: none"
@@ -705,7 +685,13 @@
 		</div>
 		<div class=" col-md-1">
 			<br />
-			<button type="button" class="btn" title="Edit skills">
+			<!-- <button type="button" class="btn" title="Edit skills">
+				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+				Skills
+			</button> -->
+
+			<button type="button" class="btn" data-toggle="modal"
+				data-target="#skillsDialog" title="Edit skills">
 				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 				Skills
 			</button>
@@ -713,20 +699,14 @@
 		<div class=" col-md-1">
 			<br />
 			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#deleteConfirmationDialog" data-deletetype="level" title="Delete level"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-		</div>
-	</li>
+				data-target="#deleteConfirmationDialog" data-deletetype="level"
+				title="Delete level">
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			</button>
+		</div></li>
 
-	<div id="skillsDialog" title="Delete?" style="display: none">
-		<p>
-			<span class="ui-icon ui-icon-alert"
-				style="float: left; margin: 12px 12px 20px 0;"></span>This entry
-			will be permanently deleted. Are you sure?
-		</p>
-	</div>
-
-	<div class="modal fade" id="deleteConfirmationDialog" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
+	<div class="modal fade" id="skillsDialog" tabindex="-1" role="dialog"
+		aria-labelledby="skillsModalLabel">
 		<div class="modal-dialog modal-sm" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -734,14 +714,50 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Delete <span class="deletetype"></span>?</h4>
+					<h4 class="modal-title" id="skillsModalLabel">
+						<span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+						Delete <span class="deletetype"></span>?
+					</h4>
 				</div>
 				<div class="modal-body">
-					<p>This <span class="deletetype"></span> will be permanently deleted. Are you sure?</p>
+					<p>
+						This <span class="deletetype"></span> will be permanently deleted.
+						Are you sure?
+					</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal" id="deleteConfirmationButton">Delete</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal"
+						id="skillsSaveButton">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="deleteConfirmationDialog" tabindex="-1"
+		role="dialog" aria-labelledby="deleteConfirmationLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="deleteConfirmationLabel">
+						<span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+						Delete <span class="deletetype"></span>?
+					</h4>
+				</div>
+				<div class="modal-body">
+					<p>
+						This <span class="deletetype"></span> will be permanently deleted.
+						Are you sure?
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						id="deleteConfirmationButton">Delete</button>
 				</div>
 			</div>
 		</div>

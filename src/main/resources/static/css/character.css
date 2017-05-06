@@ -1,0 +1,9 @@
+/* .list-group-item {
+	display: list-item;
+	margin-left: 30px;
+} */
+
+.sortable {
+  cursor: move;
+  cursor: -webkit-grabbing;
+}
