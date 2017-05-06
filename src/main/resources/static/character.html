@@ -689,10 +689,8 @@
 		</div>
 		<div class=" col-md-2">
 			<br />
-			<button type="button" class="btn btn-danger deleteAttack"
-				title="Delete attack">
-				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-			</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#deleteConfirmationDialog" data-deletetype="attack" title="Delete attack"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 		</div>
 	</li>
 	<li class="list-group-item row" style="display: none"
@@ -714,19 +712,39 @@
 		</div>
 		<div class=" col-md-1">
 			<br />
-			<button type="button" class="btn btn-danger deleteLevel"
-				title="Delete level">
-				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-			</button>
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#deleteConfirmationDialog" data-deletetype="level" title="Delete level"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 		</div>
 	</li>
 
-	<div id="dialog-confirm" title="Delete?" style="display: none">
+	<div id="skillsDialog" title="Delete?" style="display: none">
 		<p>
 			<span class="ui-icon ui-icon-alert"
 				style="float: left; margin: 12px 12px 20px 0;"></span>This entry
 			will be permanently deleted. Are you sure?
 		</p>
+	</div>
+
+	<div class="modal fade" id="deleteConfirmationDialog" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Delete <span class="deletetype"></span>?</h4>
+				</div>
+				<div class="modal-body">
+					<p>This <span class="deletetype"></span> will be permanently deleted. Are you sure?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="deleteConfirmationButton">Delete</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

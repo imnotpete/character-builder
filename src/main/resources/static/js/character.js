@@ -4,44 +4,36 @@ function setup() {
 	$('input').change(recalculateAll);
 	$('#addAttackButton').click(addAttack);
 	$('#addLevelButton').click(addLevel);
+	$('#deleteConfirmationDialog').on('show.bs.modal', setupDeletionModal);
+
 	recalculateAll();
 }
 
 function addAttack() {
 	var attacks = $('#attacks');
 	var newAttack = $('#attackTemplate').clone();
+
+	newAttack.attr('id', '');
 	attacks.append(newAttack);
 	newAttack.show();
-	newAttack.find(".deleteAttack").click(deleteListGroupItem);
 }
 
 function addLevel() {
 	var levels = $('#levelsContainer');
 	var newLevel = $('#levelTemplate').clone();
+	
+	newLevel.attr('id', '');
 	levels.append(newLevel);
 	newLevel.show();
-	newLevel.find(".deleteLevel").click(deleteListGroupItem);
 }
 
-function deleteListGroupItem() {
-	var button = $(this);
-	$("#dialog-confirm").dialog({
-		resizable : false,
-		height : "auto",
-		width : 400,
-		modal : true,
-		buttons : {
-			"Delete" : function() {
-				confirmDeleteListGroupItem(button);
-				$(this).dialog("close");
-			},
-			Cancel : function() {
-				$(this).dialog("close");
-			}
-		}
-	});
-}
-
-function confirmDeleteListGroupItem(button) {
-	button.parents('.list-group-item').remove();
+function setupDeletionModal(event) {
+	var button = $(event.relatedTarget) // Button that triggered the modal
+	
+	var deletetype = button.data('deletetype');
+	$('#deleteConfirmationDialog').find('.deletetype').text(deletetype);
+	
+	$('#deleteConfirmationButton').click(function() {
+		button.parents('.list-group-item').remove();
+	})
 }
