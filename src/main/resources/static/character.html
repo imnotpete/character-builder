@@ -204,7 +204,8 @@
 								<div class="input-group">
 									<input id="xpTotal" type="text" class="form-control"
 										disabled="disabled"> <span class="input-group-btn">
-										<button class="btn btn-default" type="button">
+										<button class="btn btn-default" type="button"
+											data-toggle="modal" data-target="#xpDialog" title="Edit XP">
 											<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 										</button>
 									</span>
@@ -212,7 +213,7 @@
 							</div>
 							<div class="form-group col-md-4">
 								<label for="nextLevel">Next Level</label> <input type="text"
-									class="form-control" id="nextLevel">
+									class="form-control" id="nextLevel" disabled="disabled">
 							</div>
 
 						</div>
@@ -513,7 +514,8 @@
 								</button>
 							</h3>
 						</div>
-						<div class="panel-body collapse in list-group sortable" id="attacks"></div>
+						<div class="panel-body collapse in list-group sortable"
+							id="attacks"></div>
 					</div>
 				</div>
 			</div>
@@ -673,6 +675,7 @@
 			</button>
 		</div>
 	</li>
+
 	<li class="list-group-item row" style="display: none"
 		id="levelTemplate">
 		<div class="form-group col-md-8">
@@ -703,11 +706,38 @@
 				title="Delete level">
 				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 			</button>
-		</div></li>
+		</div>
+	</li>
+
+	<div class="modal fade" id="xpDialog" tabindex="-1" role="dialog"
+		aria-labelledby="xpModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="xpModalLabel">
+						<span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+						XP
+					</h4>
+				</div>
+				<div class="modal-body">
+					<p>A place to track xp earned</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal"
+						id="xpSaveButton">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="modal fade" id="skillsDialog" tabindex="-1" role="dialog"
 		aria-labelledby="skillsModalLabel">
-		<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -715,15 +745,12 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title" id="skillsModalLabel">
-						<span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
-						Delete <span class="deletetype"></span>?
+						<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+						Skills
 					</h4>
 				</div>
 				<div class="modal-body">
-					<p>
-						This <span class="deletetype"></span> will be permanently deleted.
-						Are you sure?
-					</p>
+					<p>This will have Skills in it</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
