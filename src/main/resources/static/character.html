@@ -124,6 +124,8 @@
 				role="tab" data-toggle="tab">Spells</a></li>
 			<li role="presentation"><a href="#possessions"
 				aria-controls="possessions" role="tab" data-toggle="tab">Possessions</a></li>
+			<li role="presentation"><a href="#notesTab"
+				aria-controls="notesTab" role="tab" data-toggle="tab">Notes</a></li>
 		</ul>
 		<br />
 		<div class="tab-content">
@@ -561,72 +563,80 @@
 
 			</div>
 
-			<li class="list-group-item row" style="display: none"
-				id="attackTemplate">
-				<div class="form-group col-md-9">
-					<label for="attackName">Name</label> <input type="text"
-						class="form-control" id="attackName">
-				</div>
-				<div class="form-group col-md-3">
-					<label for="attackBonus">Bonus</label> <input type="text"
-						class="form-control" id="attackBonus">
-				</div>
-				<div class="form-group col-md-3">
-					<label for="attackDamage">Damage</label> <input type="text"
-						class="form-control" id="attackDamage">
-				</div>
-				<div class="form-group col-md-3">
-					<label for="attackType">Type</label> <input type="text"
-						class="form-control" id=""attackType"">
-				</div>
-				<div class="form-group col-md-3">
-					<label for="range">Range</label> <input type="text"
-						class="form-control" id="range">
-				</div>
-				<div class="form-group col-md-3">
-					<label for="ammunition">Ammunition</label> <input type="text"
-						class="form-control" id="ammunition">
-				</div>
-				<div class="form-group col-md-10">
-					<label for="attackNotes">Notes</label> <input type="text"
-						class="form-control" id="attackNotes">
-				</div>
-				<div class=" col-md-2">
-					<br />
-					<button type="button" class="btn btn-danger deleteAttack"
-						title="Delete attack">
-						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-					</button>
-				</div>
-			</li>
-			<li class="list-group-item row" style="display: none"
-				id="levelTemplate">
-				<div class="form-group col-md-8">
-					<label for="className">Class</label> <input type="text"
-						class="form-control" id="className">
-				</div>
-				<div class="form-group col-md-2">
-					<label for="hdRoll">HD Roll</label> <input type="number"
-						class="form-control" id="hdRoll">
-				</div>
-				<div class=" col-md-1">
-					<br />
-					<button type="button" class="btn" title="Edit skills">
-						<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-						Skills
-					</button>
-				</div>
-				<div class=" col-md-1">
-					<br />
-					<button type="button" class="btn btn-danger deleteLevel"
-						title="Delete level">
-						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-					</button>
-				</div>
-			</li>
+
 			<!-- Abilities tab -->
-			<div role="tabpanel" class="tab-pane" id="abilities">Feats,
-				class features, racial abilities. Skills?</div>
+			<div role="tabpanel" class="tab-pane" id="abilities">
+
+				<!-- Class -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse"
+									href="#classFeaturesPanel" aria-expanded="false"
+									aria-controls="classFeaturesPanel"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Class Features
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="classFeaturesPanel">
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control" id="classFeatures"></textarea>
+							</div>
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control" id="classFeatures2"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Race -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse"
+									href="#raceFeaturesPanel" aria-expanded="false"
+									aria-controls="raceFeaturesPanel"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Race Features
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="raceFeaturesPanel">
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control" id="raceFeatures"></textarea>
+							</div>
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control" id="raceFeatures2"></textarea>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Feats -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#featsPanel"
+									aria-expanded="false" aria-controls="featsPanel"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Feats
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="featsPanel">
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control" id="feats"></textarea>
+							</div>
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control" id="feats2"></textarea>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
 
 			<!-- Spells tab -->
 			<div role="tabpanel" class="tab-pane" id="spells">Track spells
@@ -638,11 +648,80 @@
 				character possessions. Track location, and whether an item or
 				location counts toward weight carried (IE, items in a bag of holding
 				don't)</div>
+
+			<!-- Notes tab -->
+			<div role="tabpanel" class="tab-pane" id="notesTab">
+				<textarea rows="20" class="form-control" draggable="true"></textarea>
+			</div>
 		</div>
 	</div>
 
+	<!-- Hidden Template/Dialog stuff -->
+	<li class="list-group-item row" style="display: none"
+		id="attackTemplate">
+		<div class="form-group col-md-9">
+			<label for="attackName">Name</label> <input type="text"
+				class="form-control" id="attackName">
+		</div>
+		<div class="form-group col-md-3">
+			<label for="attackBonus">Bonus</label> <input type="text"
+				class="form-control" id="attackBonus">
+		</div>
+		<div class="form-group col-md-3">
+			<label for="attackDamage">Damage</label> <input type="text"
+				class="form-control" id="attackDamage">
+		</div>
+		<div class="form-group col-md-3">
+			<label for="attackType">Type</label> <input type="text"
+				class="form-control" id=""attackType"">
+		</div>
+		<div class="form-group col-md-3">
+			<label for="range">Range</label> <input type="text"
+				class="form-control" id="range">
+		</div>
+		<div class="form-group col-md-3">
+			<label for="ammunition">Ammunition</label> <input type="text"
+				class="form-control" id="ammunition">
+		</div>
+		<div class="form-group col-md-10">
+			<label for="attackNotes">Notes</label> <input type="text"
+				class="form-control" id="attackNotes">
+		</div>
+		<div class=" col-md-2">
+			<br />
+			<button type="button" class="btn btn-danger deleteAttack"
+				title="Delete attack">
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			</button>
+		</div>
+	</li>
+	<li class="list-group-item row" style="display: none"
+		id="levelTemplate">
+		<div class="form-group col-md-8">
+			<label for="className">Class</label> <input type="text"
+				class="form-control" id="className">
+		</div>
+		<div class="form-group col-md-2">
+			<label for="hdRoll">HD Roll</label> <input type="number"
+				class="form-control" id="hdRoll">
+		</div>
+		<div class=" col-md-1">
+			<br />
+			<button type="button" class="btn" title="Edit skills">
+				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+				Skills
+			</button>
+		</div>
+		<div class=" col-md-1">
+			<br />
+			<button type="button" class="btn btn-danger deleteLevel"
+				title="Delete level">
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			</button>
+		</div>
+	</li>
 
-	<div id="dialog-confirm" title="Delete?">
+	<div id="dialog-confirm" title="Delete?" style="display: none">
 		<p>
 			<span class="ui-icon ui-icon-alert"
 				style="float: left; margin: 12px 12px 20px 0;"></span>This entry
