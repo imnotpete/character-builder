@@ -1,4 +1,6 @@
 function CharacterViewModel(data) {
+	console.log("loading data " + data);
+	
 	var self = this;
 	self.id = ko.observable(data.id);
 
@@ -21,7 +23,7 @@ function CharacterViewModel(data) {
 	}
 
 	self.save = function() {
-		$.ajax("/characters", {
+		$.ajax("characters", {
 			data : {
 				id : self.id,
 				name : self.name,
@@ -39,12 +41,31 @@ function CharacterViewModel(data) {
 			}
 		});
 	};
+
+	self.deleteCharacter = function() {
+		$.ajax("characters/" + self.id(), {
+			type : "DELETE",
+			success : function(result) {
+				window.location.href = "index.html";
+			},
+			error : function() {
+				alert("Error! not deleted");
+			}
+		});
+	};
+	
+
+	console.log("setup finished");
 }
 
 function setupViewModel(data) {
+
+	console.log("got data " + data);
+	
 	if (!data) {
 		data = {};
 	}
+	
 
 	ko.applyBindings(new CharacterViewModel(data));
 }
@@ -63,11 +84,14 @@ function getUrlParameter(param) {
 };
 
 $(document).ready(function() {
+	console.log("start");
 	var id = getUrlParameter("id");
 
 	if (id) {
-		$.getJSON("characters/1", setupViewModel);
+		console.log("getting character " + id);
+		$.getJSON("characters/" + id, setupViewModel);
 	} else {
+		console.log("new character");
 		setupViewModel({});
 	}
 });

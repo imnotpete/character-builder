@@ -3,6 +3,7 @@ package com.imnotpete.rpg.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,5 +37,10 @@ public class CharacterController {
 	public Long saveCharacter(DndCharacter dndChar) {
 		dndChar = charRepo.save(dndChar);
 		return dndChar.getId();
+	}
+
+	@DeleteMapping("/characters/{id}")
+	public void deleteCharacter(@PathVariable("id") Long id) {
+		charRepo.delete(id);
 	}
 }
