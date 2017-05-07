@@ -89,7 +89,7 @@ function setupGeneral(self, data) {
 	});
 
 	self.nextLevelXp = ko.computed(function() {
-		var nextLevel = 2;
+		var nextLevel = self.levels().length+1;
 
 		return getXpForLevel(nextLevel);
 	});

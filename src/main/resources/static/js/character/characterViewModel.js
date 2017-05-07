@@ -1,6 +1,4 @@
 function CharacterViewModel(data) {
-	console.log("loading data " + data);
-	
 	var self = this;
 	self.id = ko.observable(data.id);
 
@@ -15,7 +13,7 @@ function CharacterViewModel(data) {
 	setupMainTab(self, json);
 	setupAbilitiesTab(self, json);
 	// Spells tab
-	// Possessions tab
+	// Inventory tab
 	setupNotesTab(self, json);
 
 	self.updateData = function(data) {
@@ -53,20 +51,13 @@ function CharacterViewModel(data) {
 			}
 		});
 	};
-	
-
-	console.log("setup finished");
 }
 
 function setupViewModel(data) {
-
-	console.log("got data " + data);
-	
 	if (!data) {
 		data = {};
 	}
 	
-
 	ko.applyBindings(new CharacterViewModel(data));
 }
 
@@ -84,14 +75,11 @@ function getUrlParameter(param) {
 };
 
 $(document).ready(function() {
-	console.log("start");
 	var id = getUrlParameter("id");
 
 	if (id) {
-		console.log("getting character " + id);
 		$.getJSON("characters/" + id, setupViewModel);
 	} else {
-		console.log("new character");
 		setupViewModel({});
 	}
 });

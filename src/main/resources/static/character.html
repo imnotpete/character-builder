@@ -90,7 +90,6 @@
 			</div>
 		</div>
 
-
 		<ul class="nav nav-pills" role="tablist">
 			<li role="presentation" class="active"><a href="#mainTab"
 				aria-controls="mainTab" role="tab" data-toggle="tab">Main</a></li>
@@ -100,8 +99,8 @@
 				aria-controls="abilitiesTab" role="tab" data-toggle="tab">Abilities</a></li>
 			<li role="presentation"><a href="#spellsTab"
 				aria-controls="spellsTab" role="tab" data-toggle="tab">Spells</a></li>
-			<li role="presentation"><a href="#possessionsTab"
-				aria-controls="possessionsTab" role="tab" data-toggle="tab">Possessions</a></li>
+			<li role="presentation"><a href="#inventoryTab"
+				aria-controls="inventoryTab" role="tab" data-toggle="tab">Inventory</a></li>
 			<li role="presentation"><a href="#notesTab"
 				aria-controls="notesTab" role="tab" data-toggle="tab">Notes</a></li>
 		</ul>
@@ -244,7 +243,7 @@
 								<tbody data-bind="foreach: abilityScores">
 									<tr>
 										<td data-bind="text: name"></td>
-										<td data-bind="text: mod"></td>
+										<td data-bind="text: mod" class="abilityMod"></td>
 										<td><input data-bind="value: roll" type="number"
 											class="form-control"></td>
 										<td><input data-bind="value: racial" type="number"
@@ -667,9 +666,9 @@
 				spells per day per class, as well as provide spellbook for spells
 				known/prepared</div>
 
-			<!-- Possessions tab -->
-			<div role="tabpanel" class="tab-pane" id="possessionsTab">All
-				character possessions. Track location, and whether an item or
+			<!-- inventory tab -->
+			<div role="tabpanel" class="tab-pane" id="inventoryTab">All
+				character inventory. Track location, and whether an item or
 				location counts toward weight carried (IE, items in a bag of holding
 				don't)</div>
 
@@ -766,7 +765,7 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						<span data-bind="text: name"></span> will be permanently deleted.
+						<span data-bind="text: name" class="characterNameDelete"></span> will be permanently deleted.
 						Are you sure? This cannot be undone!
 					</p>
 				</div>
