@@ -1,5 +1,7 @@
 function CharacterViewModel() {
 	var self = this;
+	
+	self.id = ko.observable("");
 
 	setupMainTab(self);
 	setupLevelsTab(self);

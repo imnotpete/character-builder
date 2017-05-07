@@ -599,10 +599,12 @@
 						</div>
 						<div class="panel-body collapse in row" id="classFeaturesPanel">
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" data-bind="value: classFeatures1"></textarea>
+								<textarea rows="20" class="form-control"
+									data-bind="value: classFeatures1"></textarea>
 							</div>
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" data-bind="value: classFeatures2"></textarea>
+								<textarea rows="20" class="form-control"
+									data-bind="value: classFeatures2"></textarea>
 							</div>
 						</div>
 					</div>
@@ -622,10 +624,12 @@
 						</div>
 						<div class="panel-body collapse in row" id="raceFeaturesPanel">
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" data-bind="value: raceFeatures1"></textarea>
+								<textarea rows="20" class="form-control"
+									data-bind="value: raceFeatures1"></textarea>
 							</div>
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" data-bind="value: raceFeatures2"></textarea>
+								<textarea rows="20" class="form-control"
+									data-bind="value: raceFeatures2"></textarea>
 							</div>
 						</div>
 
@@ -645,10 +649,12 @@
 						</div>
 						<div class="panel-body collapse in row" id="featsPanel">
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" data-bind="value: feats1"></textarea>
+								<textarea rows="20" class="form-control"
+									data-bind="value: feats1"></textarea>
 							</div>
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" data-bind="value: feats2"></textarea>
+								<textarea rows="20" class="form-control"
+									data-bind="value: feats2"></textarea>
 							</div>
 						</div>
 
@@ -669,9 +675,20 @@
 
 			<!-- Notes tab -->
 			<div role="tabpanel" class="tab-pane" id="notesTab">
-				<textarea rows="20" class="form-control" draggable="true" data-bind="value: notes"></textarea>
+				<textarea rows="20" class="form-control" draggable="true"
+					data-bind="value: notes"></textarea>
 			</div>
 		</div>
+	</div>
+	
+	<div id="footer" class="span12 text-center">
+		<form action="characters/" method="post">
+			<input type="text" name="id" data-bind="value: id"></input>
+			<input type="text" name="name" data-bind="value: name"></input>
+			<textarea name="json" data-bind="value: ko.toJSON($root)" rows="20" cols="200"> </textarea>
+			<button class="btn btn-success" type="submit">Save</button>
+		</form>
+		<!-- <button class="btn btn-success" data-binding="click: save">Save</button> -->
 	</div>
 
 	<!-- Hidden Template/Dialog stuff -->
@@ -734,6 +751,6 @@
 		</div>
 	</div>
 
-	<textarea data-bind="value: ko.toJSON($root)" rows="20" cols="200"> </textarea>
+	
 </body>
 </html>

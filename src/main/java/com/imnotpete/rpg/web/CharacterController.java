@@ -3,13 +3,16 @@ package com.imnotpete.rpg.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.imnotpete.rpg.model.DndCharacter;
+import com.imnotpete.rpg.model.DndCharacterSummary;
 import com.imnotpete.rpg.model.repository.DndCharacterRepository;
 
 @RestController
@@ -23,8 +26,8 @@ public class CharacterController {
 	}
 
 	@GetMapping("/characters")
-	public List<DndCharacter> getAllCharacters() {
-		return charRepo.findAll();
+	public List<DndCharacterSummary> getAllCharacters() {
+		return charRepo.findByIdIsNotNull();
 	}
 
 	@GetMapping("/characters/{id}")
@@ -32,8 +35,17 @@ public class CharacterController {
 		return charRepo.findOne(id);
 	}
 
-	@PostMapping("/characters/{id}")
-	public DndCharacter saveCharacter(@PathVariable(name = "id") Long id, @RequestBody DndCharacter dndChar) {
-		return charRepo.save(dndChar);
+	@PostMapping("/characters")
+	public Long saveCharacter(@RequestParam(required=false) Long id, @RequestParam String name, @RequestParam String json) {
+		
+		System.out.println("in save method");
+		System.out.println("json: " + json);
+		DndCharacter dndChar = new DndCharacter();
+		dndChar.setId(id);
+		dndChar.setJson(json);
+		
+		dndChar = charRepo.save(dndChar);
+		System.out.println("id: " + dndChar.getId());
+		return dndChar.getId();
 	}
 }
