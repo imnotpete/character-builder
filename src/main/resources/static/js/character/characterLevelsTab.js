@@ -1,5 +1,13 @@
-function setupLevelsTab(self) {
+function setupLevelsTab(self, data) {
+	if (!data) {
+		data = {}
+	}
+
 	self.levels = ko.observableArray([]);
+
+	for (i in data.levels) {
+		self.levels().push(new Level(data.levels[i]))
+	}
 
 	self.addLevel = function() {
 		var level = new Level({});
@@ -16,7 +24,9 @@ function Level(data) {
 	self.name = ko.observable(data.name);
 	self.hdRoll = ko.observable(data.hdRoll);
 	// self.skills = ko.observableArray(data.skills);
-	self.confirmingDeletion = ko.observable(false);
+	self.confirmingDeletion = ko
+			.observable(data.confirmingDeletion ? data.confirmingDeletion
+					: false);
 
 	self.tryDeletion = function() {
 		self.confirmingDeletion(true);
@@ -27,8 +37,8 @@ function Level(data) {
 	};
 }
 
-//function Skill(data) {
-//	var self = this;
-//	self.name = data.name;
-//	self.classSkill = data.classkill;
-//}
+// function Skill(data) {
+// var self = this;
+// self.name = data.name;
+// self.classSkill = data.classkill;
+// }

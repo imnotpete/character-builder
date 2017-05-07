@@ -1,9 +1,13 @@
-function setupMainTab(self) {
-	setupGeneral(self);
-	setupAbilityScores(self);
-	setupHealth(self);
-	setupOtherStatistics(self);
-	setupAttacks(self);
+function setupMainTab(self, data) {
+	if (!data) {
+		data = {}
+	}
+
+	setupGeneral(self, data);
+	setupAbilityScores(self, data);
+	setupHealth(self, data);
+	setupOtherStatistics(self, data);
+	setupAttacks(self, data);
 }
 
 function XpEntry(entry) {
@@ -54,20 +58,24 @@ function AbilityScore(data) {
 	});
 }
 
-function setupGeneral(self) {
-	self.name = ko.observable();
-	self.alignment = ko.observable();
-	self.race = ko.observable();
-	self.deity = ko.observable();
-	self.gender = ko.observable();
-	self.eyes = ko.observable();
-	self.hair = ko.observable();
-	self.skin = ko.observable();
-	self.age = ko.observable();
-	self.size = ko.observable();
-	self.height = ko.observable();
-	self.weight = ko.observable();
+function setupGeneral(self, data) {
+	self.name = ko.observable(data.name);
+	self.alignment = ko.observable(data.alignment);
+	self.race = ko.observable(data.race);
+	self.deity = ko.observable(data.deity);
+	self.gender = ko.observable(data.gender);
+	self.eyes = ko.observable(data.eyes);
+	self.hair = ko.observable(data.hair);
+	self.skin = ko.observable(data.skin);
+	self.age = ko.observable(data.age);
+	self.size = ko.observable(data.size);
+	self.height = ko.observable(data.height);
+	self.weight = ko.observable(data.weight);
 	self.xpEntries = ko.observableArray([]);
+
+	for (i in data.xpEntries) {
+		self.xpEntries().push(new XpEntry(data.xpEntries[i].entry));
+	}
 
 	self.xpTotal = ko.computed(function() {
 		var total = 0;
@@ -91,50 +99,28 @@ function setupGeneral(self) {
 	};
 }
 
-function setupAbilityScores(self) {
-	self.abilityScores = ko.observableArray([ new AbilityScore({
-		name : "Strength",
-		roll : "",
-		racial : "",
-		misc1 : "",
-		misc2 : "",
-		misc3 : ""
-	}), new AbilityScore({
-		name : "Dexterity",
-		roll : "",
-		racial : "",
-		misc1 : "",
-		misc2 : "",
-		misc3 : ""
-	}), new AbilityScore({
-		name : "Constitution",
-		roll : "",
-		racial : "",
-		misc1 : "",
-		misc2 : "",
-		misc3 : ""
-	}), new AbilityScore({
-		name : "Intelligence",
-		roll : "",
-		racial : "",
-		misc1 : "",
-		misc2 : "",
-		misc3 : ""
-	}), new AbilityScore({
-		name : "Wisdom",
-		roll : "",
-		racial : "",
-		misc1 : "",
-		misc2 : "",
-		misc3 : ""
-	}), new AbilityScore({
-		name : "Charisma",
-		roll : "",
-		racial : "",
-		misc1 : "",
-		misc2 : "",
-		misc3 : ""
-	}) ]);
+function setupAbilityScores(self, data) {
+	self.abilityScores = ko.observableArray([]);
+
+	if (data.abilityScores) {
+		for (i in data.abilityScores) {
+			self.abilityScores().push(new AbilityScore(data.abilityScores[i]));
+		}
+	} else {
+		self.abilityScores = ko.observableArray([ new AbilityScore({
+			name : "Strength"
+		}), new AbilityScore({
+			name : "Dexterity"
+		}), new AbilityScore({
+			name : "Constitution"
+		}), new AbilityScore({
+			name : "Intelligence"
+		}), new AbilityScore({
+			name : "Wisdom"
+		}), new AbilityScore({
+			name : "Charisma"
+		}) ]);
+	}
 
 	self.abilityMod = function(name) {
 		var abilityScores = self.abilityScores();
@@ -148,10 +134,10 @@ function setupAbilityScores(self) {
 	}
 }
 
-function setupHealth(self) {
-	self.hpTemp = ko.observable();
-	self.damage = ko.observable();
-	self.nonlethal = ko.observable();
+function setupHealth(self, data) {
+	self.hpTemp = ko.observable(data.hpTemp);
+	self.damage = ko.observable(data.damage);
+	self.nonlethal = ko.observable(data.nonlethal);
 
 	self.hpTotal = ko.computed(function() {
 		var conMod = self.abilityMod("Constitution");
@@ -177,17 +163,17 @@ function setupHealth(self) {
 	});
 }
 
-function setupOtherStatistics(self) {
-	self.acTemp = ko.observable();
-	self.touchAcTemp = ko.observable();
-	self.flatFootedAcTemp = ko.observable();
-	self.initiativeTemp = ko.observable();
-	self.fortTemp = ko.observable();
-	self.refTemp = ko.observable();
-	self.willTemp = ko.observable();
-	self.damageReduction = ko.observable();
-	self.speed = ko.observable();
-	self.spellResistance = ko.observable();
+function setupOtherStatistics(self, data) {
+	self.acTemp = ko.observable(data.acTemp);
+	self.touchAcTemp = ko.observable(data.touchAcTemp);
+	self.flatFootedAcTemp = ko.observable(data.flatFootedAcTemp);
+	self.initiativeTemp = ko.observable(data.initiativeTemp);
+	self.fortTemp = ko.observable(data.fortTemp);
+	self.refTemp = ko.observable(data.refTemp);
+	self.willTemp = ko.observable(data.willTemp);
+	self.damageReduction = ko.observable(data.damageReduction);
+	self.speed = ko.observable(data.speed);
+	self.spellResistance = ko.observable(data.spellResistance);
 
 	self.acTotal = ko.computed(function() {
 		var acTemp = parseInt(self.acTemp()) || 0;
@@ -238,9 +224,13 @@ function setupOtherStatistics(self) {
 	});
 }
 
-function setupAttacks(self) {
+function setupAttacks(self, data) {
 	self.attacks = ko.observableArray([]);
-	
+
+	for (i in data.attacks) {
+		self.attacks().push(new Attack(data.attacks[i]));
+	}
+
 	self.addAttack = function() {
 		var attack = new Attack({});
 		self.attacks.push(attack);

@@ -686,7 +686,8 @@
 			<input type="text" name="id" data-bind="value: id"></input>
 			<input type="text" name="name" data-bind="value: name"></input>
 			<textarea name="json" data-bind="value: ko.toJSON($root)" rows="20" cols="200"> </textarea>
-			<button class="btn btn-success" type="submit">Save</button>
+			<button class="btn btn-success" data-bind="click: save">Save</button>
+			
 		</form>
 		<!-- <button class="btn btn-success" data-binding="click: save">Save</button> -->
 	</div>
