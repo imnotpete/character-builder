@@ -1,5 +1,5 @@
 package com.imnotpete.rpg.model;
 
-public interface Save {
-	int getBonus(int level);
+public enum Save {
+	GOOD, POOR;
 }

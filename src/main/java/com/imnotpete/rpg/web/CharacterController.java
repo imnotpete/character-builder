@@ -1,15 +1,18 @@
 package com.imnotpete.rpg.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.imnotpete.rpg.model.DndCharacter;
 import com.imnotpete.rpg.model.repository.DndCharacterRepository;
 
-//@Controller
+@RestController
 public class CharacterController {
 
 	private DndCharacterRepository charRepo;
@@ -19,12 +22,18 @@ public class CharacterController {
 		this.charRepo = charRepo;
 	}
 
-	@GetMapping("character.html")
-	public String displayCharacter(@RequestParam("id") DndCharacter character, ModelMap model) {
-		// DndCharacter character = charRepo.findOne(id);
-		System.out.println(character.getName());
-		model.addAttribute("character", character);
+	@GetMapping("/characters")
+	public List<DndCharacter> getAllCharacters() {
+		return charRepo.findAll();
+	}
 
-		return "character";
+	@GetMapping("/characters/{id}")
+	public DndCharacter getCharacter(@PathVariable(name = "id") Long id) {
+		return charRepo.findOne(id);
+	}
+
+	@PostMapping("/characters/{id}")
+	public DndCharacter saveCharacter(@PathVariable(name = "id") Long id, @RequestBody DndCharacter dndChar) {
+		return charRepo.save(dndChar);
 	}
 }

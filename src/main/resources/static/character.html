@@ -13,40 +13,36 @@
 <!-- end jQuery -->
 
 <!--  Bootstrap -->
-<!-- <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous"> -->
-
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/journal/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-1L94saFXWAvEw88RkpRz8r28eQMvt7kG9ux3DdCqya/P3CfLNtgqzMnyaUa49Pl2"
 	crossorigin="anonymous">
-
-<link rel="stylesheet" href="css/character.css">
-
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <!-- end Bootstrap -->
 
-<!-- <link rel="stylesheet"
+<!-- Knockout -->
+<link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/knockout-sortable/1.1.0/knockout-sortable.min.js"></script>
+<!-- end Knockout -->
 
-<script src="//rubaxa.github.io/Sortable/Sortable.js"></script>
-<script src="js/character.js"></script>
-<script src="js/recalculate.js"></script>
+<script src="js/character/characterViewModel.js"></script>
+<script src="js/character/characterMainTab.js"></script>
+<script src="js/character/characterLevelsTab.js"></script>
+<script src="js/character/characterAbilitiesTab.js"></script>
 
-<style type="text/css">
-</style>
+
+<script src="js/character/characterNotesTab.js"></script>
+
+<link rel="stylesheet" href="css/character.css">
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -92,7 +88,7 @@
 			<div class="form-group">
 				<label for="characterName" class="control-label">Character
 					Name</label><input type="text" class="form-control input-lg"
-					id="characterName">
+					data-bind="value: name" id="characterName">
 			</div>
 		</div>
 
@@ -132,7 +128,8 @@
 
 							<div class="form-group col-md-4">
 								<label for="alignment">Alignment</label> <select
-									class="form-control" id="alignment">
+									class="form-control" data-bind="value: alignment"
+									id="alignment">
 									<option>Lawful Good</option>
 									<option>Neutral Good</option>
 									<option>Chaotic Good</option>
@@ -146,35 +143,35 @@
 							</div>
 							<div class="form-group col-md-6">
 								<label for="race">Race</label> <input type="text"
-									class="form-control" id="race">
+									class="form-control" data-bind="value: race" id="race">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="deity">Deity</label> <input type="text"
-									class="form-control" id="deity">
+									class="form-control" data-bind="value: deity" id="deity">
 							</div>
 							<div class="form-group col-md-2">
 								<label for="gender">Gender</label> <input type="text"
-									class="form-control" id="gender">
+									class="form-control" data-bind="value: gender" id="gender">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="eyes">Eyes</label> <input type="text"
-									class="form-control" id="eyes">
+									class="form-control" data-bind="value: eyes" id="eyes">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="hair">Hair</label> <input type="text"
-									class="form-control" id="hair">
+									class="form-control" data-bind="value: hair" id="hair">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="skin">Skin</label> <input type="text"
-									class="form-control" id="skin">
+									class="form-control" data-bind="value: skin" id="skin">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="age">Age</label> <input type="number"
-									class="form-control" id="age">
+									class="form-control" data-bind="value: age" id="age">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="size">Size</label> <select class="form-control"
-									id="size">
+									data-bind="value: size" id="size">
 									<option>Fine</option>
 									<option>Diminutive</option>
 									<option>Tiny</option>
@@ -188,13 +185,14 @@
 							</div>
 							<div class="form-group col-md-4">
 								<label for="height">Height</label> <input type="text"
-									class="form-control" id="height">
+									class="form-control" data-bind="value: height" id="height">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="weight">Weight</label>
 								<div class="input-group">
 
-									<input type="number" class="form-control" id="weight"
+									<input type="number" class="form-control"
+										data-bind="value: weight" id="weight"
 										aria-describedby="weight-addon"> <span
 										class="input-group-addon" id="weight-addon">lbs</span>
 								</div>
@@ -203,7 +201,8 @@
 								<label for="xpTotal">XP Total</label>
 								<div class="input-group">
 									<input id="xpTotal" type="text" class="form-control"
-										disabled="disabled"> <span class="input-group-btn">
+										data-bind="value: xpTotal" disabled="disabled"> <span
+										class="input-group-btn">
 										<button class="btn btn-default" type="button"
 											data-toggle="modal" data-target="#xpDialog" title="Edit XP">
 											<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -212,10 +211,10 @@
 								</div>
 							</div>
 							<div class="form-group col-md-4">
-								<label for="nextLevel">Next Level</label> <input type="text"
-									class="form-control" id="nextLevel" disabled="disabled">
+								<label for="nextLevelXp">Next Level XP</label> <input
+									type="text" class="form-control" id="nextLevelXp"
+									data-bind="value: nextLevelXp" disabled="disabled">
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -244,96 +243,20 @@
 										<th>Misc</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody data-bind="foreach: abilityScores">
 									<tr>
-										<td>Strength</td>
-										<td><input type="number" class="form-control" id="strMod"
-											disabled="disabled"></td>
-										<td><input type="number" class="form-control"
-											id="strRoll"></td>
-										<td><input type="number" class="form-control"
-											id="strRacial"></td>
-										<td><input type="number" class="form-control"
-											id="strMisc1"></td>
-										<td><input type="number" class="form-control"
-											id="strMisc2"></td>
-										<td><input type="number" class="form-control"
-											id="strMisc3"></td>
-									</tr>
-									<tr>
-										<td>Dexterity</td>
-										<td><input type="number" class="form-control" id="dexMod"
-											disabled="disabled"></td>
-										<td><input type="number" class="form-control"
-											id="dexRoll"></td>
-										<td><input type="number" class="form-control"
-											id="dexRacial"></td>
-										<td><input type="number" class="form-control"
-											id="dexMisc1"></td>
-										<td><input type="number" class="form-control"
-											id="dexMisc2"></td>
-										<td><input type="number" class="form-control"
-											id="dexMisc3"></td>
-									</tr>
-									<tr>
-										<td>Constitution</td>
-										<td><input type="number" class="form-control" id="conMod"
-											disabled="disabled"></td>
-										<td><input type="number" class="form-control"
-											id="conRoll"></td>
-										<td><input type="number" class="form-control"
-											id="conRacial"></td>
-										<td><input type="number" class="form-control"
-											id="conMisc1"></td>
-										<td><input type="number" class="form-control"
-											id="conMisc2"></td>
-										<td><input type="number" class="form-control"
-											id="conMisc3"></td>
-									</tr>
-									<tr>
-										<td>Intelligence</td>
-										<td><input type="number" class="form-control" id="intMod"
-											disabled="disabled"></td>
-										<td><input type="number" class="form-control"
-											id="intRoll"></td>
-										<td><input type="number" class="form-control"
-											id="intRacial"></td>
-										<td><input type="number" class="form-control"
-											id="intMisc1"></td>
-										<td><input type="number" class="form-control"
-											id="intMisc2"></td>
-										<td><input type="number" class="form-control"
-											id="intMisc3"></td>
-									</tr>
-									<tr>
-										<td>Wisdom</td>
-										<td><input type="number" class="form-control" id="wisMod"
-											disabled="disabled"></td>
-										<td><input type="number" class="form-control"
-											id="wisRoll"></td>
-										<td><input type="number" class="form-control"
-											id="wisRacial"></td>
-										<td><input type="number" class="form-control"
-											id="wisMisc1"></td>
-										<td><input type="number" class="form-control"
-											id="wisMisc2"></td>
-										<td><input type="number" class="form-control"
-											id="wisMisc3"></td>
-									</tr>
-									<tr>
-										<td>Charisma</td>
-										<td><input type="number" class="form-control" id="chaMod"
-											disabled="disabled"></td>
-										<td><input type="number" class="form-control"
-											id="chaRoll"></td>
-										<td><input type="number" class="form-control"
-											id="chaRacial"></td>
-										<td><input type="number" class="form-control"
-											id="chaMisc1"></td>
-										<td><input type="number" class="form-control"
-											id="chaMisc2"></td>
-										<td><input type="number" class="form-control"
-											id="chaMisc3"></td>
+										<td data-bind="text: name"></td>
+										<td data-bind="text: mod"></td>
+										<td><input data-bind="value: roll" type="number"
+											class="form-control"></td>
+										<td><input data-bind="value: racial" type="number"
+											class="form-control"></td>
+										<td><input data-bind="value: misc1" type="number"
+											class="form-control"></td>
+										<td><input data-bind="value: misc2" type="number"
+											class="form-control"></td>
+										<td><input data-bind="value: misc3" type="number"
+											class="form-control"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -356,30 +279,32 @@
 							<div class="col-md-12">
 								<div class="progress" style="text-align: vertical">
 									<div id="hpProgress" class="progress-bar" role="progressbar"
-										aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-										style="width: 60%;">60%</div>
+										data-bind="attr:{'aria-valuenow': hpPercent()}, style:{width: hpPercent()+'%'}, text: hpPercent()+'%'"
+										aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
 								</div>
 							</div>
 							<div class="form-group col-md-4">
 								<label for="hpTotal">HP Total</label> <input type="number"
-									class="form-control" disabled="disabled" id="hpTotal">
+									class="form-control" disabled="disabled"
+									data-bind="value: hpTotal" id="hpTotal">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="hpCurrent">HP Current</label> <input type="number"
-									class="form-control" disabled="disabled" id="hpCurrent">
+									class="form-control" disabled="disabled"
+									data-bind="value: hpCurrent" id="hpCurrent">
 							</div>
-
 							<div class="form-group col-md-4">
 								<label for="hpTemp">Temp HP</label> <input type="number"
-									class="form-control" id="hpTemp">
+									class="form-control" data-bind="value: hpTemp" id="hpTemp">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="damage">Damage</label> <input type="number"
-									class="form-control" id="damage">
+									class="form-control" data-bind="value: damage" id="damage">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="nonlethal">Nonlethal</label> <input type="number"
-									class="form-control" id="nonlethal">
+									class="form-control" data-bind="value: nonlethal"
+									id="nonlethal">
 							</div>
 						</div>
 					</div>
@@ -403,9 +328,10 @@
 										<small>AC</small>
 									</legend>
 									<label for="acTotal">Total</label> <input type="number"
-										class="form-control" disabled="disabled" id="acTotal">
-									<label for="acTemp">Temp</label> <input type="number"
-										class="form-control" id="acTemp">
+										class="form-control" disabled="disabled"
+										data-bind="value: acTotal" id="acTotal"> <label
+										for="acTemp">Temp</label> <input type="number"
+										class="form-control" data-bind="value: acTemp" id="acTemp">
 								</fieldset>
 							</div>
 							<div class="form-group col-md-4">
@@ -414,9 +340,11 @@
 										<small>Touch</small>
 									</legend>
 									<label for="touchAcTotal">Total</label> <input type="number"
-										class="form-control" disabled="disabled" id="touchAcTotal">
-									<label for="touchAcTemp">Temp</label> <input type="number"
-										class="form-control" id="touchAcTemp">
+										class="form-control" disabled="disabled"
+										data-bind="value: touchAcTotal" id="touchAcTotal"> <label
+										for="touchAcTemp">Temp</label> <input type="number"
+										class="form-control" data-bind="value: touchAcTemp"
+										id="touchAcTemp">
 								</fieldset>
 							</div>
 							<div class="form-group col-md-4">
@@ -426,8 +354,10 @@
 									</legend>
 									<label for="flatFootedAcTotal">Total</label> <input
 										type="number" class="form-control" disabled="disabled"
-										id="flatFootedAcTotal"> <label for="flatFootedAcTemp">Temp</label>
-									<input type="number" class="form-control" id="flatFootedAcTemp">
+										data-bind="value: flatFootedAcTotal" id="flatFootedAcTotal">
+									<label for="flatFootedAcTemp">Temp</label> <input type="number"
+										class="form-control" data-bind="value: flatFootedAcTemp"
+										id="flatFootedAcTemp">
 								</fieldset>
 							</div>
 							<div class="form-group col-md-4">
@@ -436,23 +366,27 @@
 										<small>Initiative</small>
 									</legend>
 									<label for="initiativeTotal">Total</label> <input type="number"
-										class="form-control" disabled="disabled" id="initiativeTotal">
+										class="form-control" disabled="disabled"
+										data-bind="value: initiativeTotal" id="initiativeTotal">
 									<label for="initiativeTemp">Temp</label> <input type="number"
-										class="form-control" id="initiativeTemp">
+										class="form-control" data-bind="value: initiativeTemp"
+										id="initiativeTemp">
 								</fieldset>
 							</div>
 							<div class="form-group col-md-4">
 								<label for="damageReduction" title="Damage Reduction">DR</label>
-								<input type="text" class="form-control" id="damageReduction">
+								<input type="text" class="form-control"
+									data-bind="value: damageReduction" id="damageReduction">
 							</div>
 
 							<div class="form-group col-md-4">
 								<label for="speed">Speed</label> <input type="text"
-									class="form-control" id="speed">
+									class="form-control" data-bind="value: speed" id="speed">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="spellResistance" title="Spell Resistance">SR</label>
-								<input type="text" class="form-control" id="spellResistance">
+								<input type="text" class="form-control"
+									data-bind="value: spellResistance" id="spellResistance">
 							</div>
 
 
@@ -473,23 +407,25 @@
 											<tr>
 												<td title="Fortitude">Fort</td>
 												<td><input type="number" class="form-control"
-													id="fortSave" disabled="disabled"></td>
-												<td><input type="number" class="form-control"
-													id="fortTemp"></td>
+													data-bind="value: fortSave" id="fortSave"
+													disabled="disabled"></td>
+												<td><input type="number" data-bind="value: fortTemp"
+													class="form-control" id="fortTemp"></td>
 											</tr>
 											<tr>
 												<td title="Reflex">Ref</td>
 												<td><input type="number" class="form-control"
-													id="refSave" disabled="disabled"></td>
-												<td><input type="number" class="form-control"
-													id="refTemp"></td>
+													data-bind="value: refSave" id="refSave" disabled="disabled"></td>
+												<td><input type="number" data-bind="value: refTemp"
+													class="form-control" id="refTemp"></td>
 											</tr>
 											<tr>
 												<td>Will</td>
 												<td><input type="number" class="form-control"
-													id="willSave" disabled="disabled"></td>
-												<td><input type="number" class="form-control"
-													id="willTemp"></td>
+													data-bind="value: willSave" id="willSave"
+													disabled="disabled"></td>
+												<td><input type="number" data-bind="value: willTemp"
+													class="form-control" id="willTemp"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -509,13 +445,70 @@
 									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
 								Attacks
 								<button type="button" class="btn-xs btn-success pull-right"
-									title="Add attack" id="addAttackButton">
+									title="Add attack" data-bind="click: addAttack"
+									id="addAttackButton">
 									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 								</button>
 							</h3>
 						</div>
-						<div class="panel-body collapse in list-group sortable"
-							id="attacks"></div>
+						<ul class="panel-body collapse in list-group" id="attacks"
+							data-bind="sortable: attacks">
+							<li class="list-group-item row">
+								<div class="form-group col-md-9">
+									<label for="attackName">Name</label> <input type="text"
+										class="form-control" data-bind="value: name" id="attackName">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackBonus">Bonus</label> <input type="text"
+										class="form-control" data-bind="value: attackBonus"
+										id="attackBonus">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackDamage">Damage</label> <input type="text"
+										class="form-control" data-bind="value: damage"
+										id="attackDamage">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="attackType">Type</label> <input type="text"
+										class="form-control" data-bind="value: type" id="attackType">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="range">Range</label> <input type="text"
+										class="form-control" data-bind="value: range" id="range">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="ammunition">Ammunition</label> <input type="text"
+										class="form-control" data-bind="value: ammunition"
+										id="ammunition">
+								</div>
+								<div class="form-group col-md-10">
+									<label for="attackNotes">Notes</label> <input type="text"
+										class="form-control" data-bind="value: notes" id="attackNotes">
+								</div>
+								<div class="col-md-2"
+									data-bind="visible: ! confirmingDeletion()">
+									<br />
+									<button type="button" class="btn btn-danger"
+										data-bind="click: tryDeletion" title="Delete attack">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+								<div class="col-md-2" data-bind="visible: confirmingDeletion">
+									<button type="button" class="btn btn-danger"
+										data-bind="click: $parent.removeAttack"
+										title="Confirm deletion">Confirm</button>
+									<button type="button" class="btn btn-success"
+										data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+								</div>
+							</li>
+						</ul>
+						<div class="panel-footer">
+							&nbsp;
+							<button type="button" class="btn-xs btn-success pull-right"
+								title="Add Attack" data-bind="click: addAttack">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -532,12 +525,58 @@
 									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
 								Levels
 								<button type="button" class="btn-xs btn-success pull-right"
-									title="Add level" id="addLevelButton">
+									title="Add level" data-bind="click: addLevel">
 									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 								</button>
 							</h3>
 						</div>
-						<ol class="panel-body collapse in list-group sortable" id="levels"></ol>
+						<div class="panel-body collapse in list-group"
+							data-bind="sortable: levels" id="levels">
+							<li class="list-group-item row">
+								<div class="col-md-1">
+									<br />
+									<h4 class="pull-right" data-bind="text: $index()+1"></h4>
+								</div>
+								<div class="form-group col-md-7">
+									<label for="className">Class</label> <input type="text"
+										class="form-control" data-bind="value: name" id="className">
+								</div>
+								<div class="form-group col-md-2">
+									<label for="hdRoll">HD Roll</label> <input type="number"
+										class="form-control" data-bind="value: hdRoll" id="hdRoll">
+								</div>
+								<div class=" col-md-1">
+									<br />
+									<button type="button" class="btn" data-toggle="modal"
+										data-target="#skillsDialog" title="Edit skills">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										Skills
+									</button>
+								</div>
+								<div class="col-md-1"
+									data-bind="visible: ! confirmingDeletion()">
+									<br />
+									<button type="button" class="btn btn-danger"
+										data-bind="click: tryDeletion" title="Delete Level">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+								<div class="col-md-1" data-bind="visible: confirmingDeletion">
+									<button type="button" class="btn btn-danger"
+										data-bind="click: $parent.removeLevel"
+										title="Confirm deletion">Confirm</button>
+									<button type="button" class="btn btn-success"
+										data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+								</div>
+							</li>
+						</div>
+						<div class="panel-footer">
+							&nbsp;
+							<button type="button" class="btn-xs btn-success pull-right"
+								title="Add level" data-bind="click: addLevel">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div>
 					</div>
 				</div>
 
@@ -560,10 +599,10 @@
 						</div>
 						<div class="panel-body collapse in row" id="classFeaturesPanel">
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" id="classFeatures"></textarea>
+								<textarea rows="20" class="form-control" data-bind="value: classFeatures1"></textarea>
 							</div>
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" id="classFeatures2"></textarea>
+								<textarea rows="20" class="form-control" data-bind="value: classFeatures2"></textarea>
 							</div>
 						</div>
 					</div>
@@ -583,10 +622,10 @@
 						</div>
 						<div class="panel-body collapse in row" id="raceFeaturesPanel">
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" id="raceFeatures"></textarea>
+								<textarea rows="20" class="form-control" data-bind="value: raceFeatures1"></textarea>
 							</div>
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" id="raceFeatures2"></textarea>
+								<textarea rows="20" class="form-control" data-bind="value: raceFeatures2"></textarea>
 							</div>
 						</div>
 
@@ -606,10 +645,10 @@
 						</div>
 						<div class="panel-body collapse in row" id="featsPanel">
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" id="feats"></textarea>
+								<textarea rows="20" class="form-control" data-bind="value: feats1"></textarea>
 							</div>
 							<div class="col-md-6">
-								<textarea rows="20" class="form-control" id="feats2"></textarea>
+								<textarea rows="20" class="form-control" data-bind="value: feats2"></textarea>
 							</div>
 						</div>
 
@@ -630,85 +669,12 @@
 
 			<!-- Notes tab -->
 			<div role="tabpanel" class="tab-pane" id="notesTab">
-				<textarea rows="20" class="form-control" draggable="true"></textarea>
+				<textarea rows="20" class="form-control" draggable="true" data-bind="value: notes"></textarea>
 			</div>
 		</div>
 	</div>
 
 	<!-- Hidden Template/Dialog stuff -->
-	<li class="list-group-item row" style="display: none"
-		id="attackTemplate">
-		<div class="form-group col-md-9">
-			<label for="attackName">Name</label> <input type="text"
-				class="form-control" id="attackName">
-		</div>
-		<div class="form-group col-md-3">
-			<label for="attackBonus">Bonus</label> <input type="text"
-				class="form-control" id="attackBonus">
-		</div>
-		<div class="form-group col-md-3">
-			<label for="attackDamage">Damage</label> <input type="text"
-				class="form-control" id="attackDamage">
-		</div>
-		<div class="form-group col-md-3">
-			<label for="attackType">Type</label> <input type="text"
-				class="form-control" id=""attackType"">
-		</div>
-		<div class="form-group col-md-3">
-			<label for="range">Range</label> <input type="text"
-				class="form-control" id="range">
-		</div>
-		<div class="form-group col-md-3">
-			<label for="ammunition">Ammunition</label> <input type="text"
-				class="form-control" id="ammunition">
-		</div>
-		<div class="form-group col-md-10">
-			<label for="attackNotes">Notes</label> <input type="text"
-				class="form-control" id="attackNotes">
-		</div>
-		<div class=" col-md-2">
-			<br />
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#deleteConfirmationDialog" data-deletetype="attack"
-				title="Delete attack">
-				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-			</button>
-		</div>
-	</li>
-
-	<li class="list-group-item row" style="display: none"
-		id="levelTemplate">
-		<div class="form-group col-md-8">
-			<label for="className">Class</label> <input type="text"
-				class="form-control" id="className">
-		</div>
-		<div class="form-group col-md-2">
-			<label for="hdRoll">HD Roll</label> <input type="number"
-				class="form-control" id="hdRoll">
-		</div>
-		<div class=" col-md-1">
-			<br />
-			<!-- <button type="button" class="btn" title="Edit skills">
-				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-				Skills
-			</button> -->
-
-			<button type="button" class="btn" data-toggle="modal"
-				data-target="#skillsDialog" title="Edit skills">
-				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-				Skills
-			</button>
-		</div>
-		<div class=" col-md-1">
-			<br />
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#deleteConfirmationDialog" data-deletetype="level"
-				title="Delete level">
-				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-			</button>
-		</div>
-	</li>
-
 	<div class="modal fade" id="xpDialog" tabindex="-1" role="dialog"
 		aria-labelledby="xpModalLabel">
 		<div class="modal-dialog" role="document">
@@ -724,12 +690,19 @@
 					</h4>
 				</div>
 				<div class="modal-body">
-					<p>A place to track xp earned</p>
+					<button type="button" class="btn-xs btn-success" title="Add XP"
+						data-bind="click: addXp">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+					<div class="list-group row" data-bind="foreach: xpEntries">
+						<div class="col-md-4" style="margin-top: 10px">
+							<input class="form-control" type="number"
+								data-bind="value: entry"></input>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-success" data-dismiss="modal"
-						id="xpSaveButton">Save</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Done</button>
 				</div>
 			</div>
 		</div>
@@ -761,33 +734,6 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="deleteConfirmationDialog" tabindex="-1"
-		role="dialog" aria-labelledby="deleteConfirmationLabel">
-		<div class="modal-dialog modal-sm" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="deleteConfirmationLabel">
-						<span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
-						Delete <span class="deletetype"></span>?
-					</h4>
-				</div>
-				<div class="modal-body">
-					<p>
-						This <span class="deletetype"></span> will be permanently deleted.
-						Are you sure?
-					</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal"
-						id="deleteConfirmationButton">Delete</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<textarea data-bind="value: ko.toJSON($root)" rows="20" cols="200"> </textarea>
 </body>
 </html>

@@ -10,7 +10,7 @@ function setup() {
 		Sortable.create($(this)[0], {
 			animation : 150
 		});
-	})
+	});
 
 	recalculateAll();
 }

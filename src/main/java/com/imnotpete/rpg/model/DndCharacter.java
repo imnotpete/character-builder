@@ -2,14 +2,21 @@ package com.imnotpete.rpg.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import lombok.Data;
 
-//@Entity
+@Entity
 @Data
 public class DndCharacter {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String name;
@@ -24,17 +31,13 @@ public class DndCharacter {
 	
 	private Integer age;
 	
-	private Gender gender;
+	private String gender;
 	
 	private String height;
 	
 	private Integer weight;
-//
-//	private String physicalDescription;
-//	
-//	private String backstory;
 	
-//	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<ClassLevel> levels;
 	
 	
