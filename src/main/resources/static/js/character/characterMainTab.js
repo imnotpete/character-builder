@@ -5,9 +5,9 @@ function setupMainTab(self, data) {
 
 	setupGeneral(self, data);
 	setupAbilityScores(self, data);
-	setupHealth(self, data);
 	setupOtherStatistics(self, data);
 	setupAttacks(self, data);
+	setupHealth(self, data);
 }
 
 function XpEntry(entry) {
@@ -142,8 +142,10 @@ function setupHealth(self, data) {
 	self.hpTotal = ko.computed(function() {
 		var conMod = self.abilityMod("Constitution");
 		var hpTemp = parseInt(self.hpTemp()) || 0;
+		var numLevels = self.levels().length;
+		var totalHdRolls = self.totalHdRolls();
 
-		return conMod + hpTemp;
+		return (numLevels * conMod) + hpTemp + totalHdRolls;
 	});
 
 	self.hpCurrent = ko.computed(function() {
@@ -160,6 +162,55 @@ function setupHealth(self, data) {
 
 		var hpTotal = parseInt(self.hpTotal()) || 0;
 		return Math.trunc(hpCurrent / hpTotal * 100);
+	});
+
+	self.healthBadgeInfo = ko.computed(function() {
+		var hpCurrent = self.hpCurrent();
+		var nonlethal = parseInt(self.nonlethal()) || 0;
+
+		var condition = "Alive";
+		var conditionClasses = "label label-success";
+
+		if (hpCurrent > 0) {
+			if (hpCurrent == nonlethal) {
+				condition = "Staggered";
+				conditionClasses = "label label-warning";
+			} else if (hpCurrent < nonlethal) {
+				condition = "Unconscious";
+				conditionClasses = "label label-warning";
+			}
+		} else if (hpCurrent == 0) {
+			condition = "Disabled";
+			conditionClasses = "label label-warning";
+		} else if (hpCurrent <= -10) {
+			condition = "Dead";
+			conditionClasses = "label label-danger";
+		} else if (hpCurrent < 0) {
+			condition = "Dying";
+			conditionClasses = "label label-danger";
+		}
+		
+		return {condition : condition, conditionClasses : conditionClasses};
+	});
+	
+	self.healthBadgeText = ko.computed(function() {
+		return self.healthBadgeInfo().condition;
+	});
+
+	self.healthBadgeClasses = ko.computed(function() {
+		return self.healthBadgeInfo().conditionClasses;
+	});
+
+	self.healthBarClasses = ko.computed(function() {
+		var hpPercent = self.hpPercent();
+
+		if (hpPercent >= 50) {
+			return "progress-bar progress-bar-success";
+		} else if (hpPercent >= 25) {
+			return "progress-bar progress-bar-warning";
+		} else {
+			return "progress-bar progress-bar-danger";
+		}
 	});
 }
 

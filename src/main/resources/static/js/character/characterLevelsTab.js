@@ -8,6 +8,17 @@ function setupLevelsTab(self, data) {
 	for (i in data.levels) {
 		self.levels().push(new Level(data.levels[i]))
 	}
+	
+	self.totalHdRolls = ko.computed(function () {
+		var total = 0;
+		
+		for (i in self.levels()) {
+			var hdRoll = parseInt(self.levels()[i].hdRoll()) || 0;
+			total += hdRoll;
+		}
+		
+		return total;
+	});
 
 	self.addLevel = function() {
 		var level = new Level({});
@@ -24,6 +35,7 @@ function Level(data) {
 	self.name = ko.observable(data.name);
 	self.hdRoll = ko.observable(data.hdRoll);
 	// self.skills = ko.observableArray(data.skills);
+	
 	self.confirmingDeletion = ko
 			.observable(data.confirmingDeletion ? data.confirmingDeletion
 					: false);
