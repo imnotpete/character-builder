@@ -9,6 +9,10 @@ function setupLevelsTab(self, data) {
 		self.levels().push(new Level(data.levels[i]))
 	}
 	
+	self.classLevel = ko.computed(function () {
+		return self.levels().length;
+	})
+	
 	self.totalHdRolls = ko.computed(function () {
 		var total = 0;
 		
@@ -22,12 +26,21 @@ function setupLevelsTab(self, data) {
 
 	self.addLevel = function() {
 		var level = new Level({});
-		self.levels.push(level);
+		self.levels().push(level);
 	};
 
 	self.removeLevel = function(level) {
-		self.levels.remove(level)
+		self.levels().remove(level)
 	};
+}
+
+function Class(data) {
+	var self = this;
+	self.name = ko.observable(data.name);
+	self.baseAttackBonus = ko.observable(data.baseAttackBonus);
+	self.baseFortSave = ko.observable(data.baseFortSave);
+	self.baseRefSave = ko.observable(data.baseRefSave);
+	self.baseWillSave = ko.observable(data.baseWillSave);
 }
 
 function Level(data) {

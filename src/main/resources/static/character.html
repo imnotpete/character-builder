@@ -38,6 +38,7 @@
 <script src="js/character/characterMainTab.js"></script>
 <script src="js/character/characterLevelsTab.js"></script>
 <script src="js/character/characterAbilitiesTab.js"></script>
+<script src="js/character/characterSpellsTab.js"></script>
 <script src="js/character/characterNotesTab.js"></script>
 
 <link rel="stylesheet" href="css/character.css">
@@ -149,6 +150,10 @@
 							<div class="form-group col-md-2">
 								<label for="gender">Gender</label> <input type="text"
 									class="form-control" data-bind="value: gender" id="gender">
+							</div>
+							<div class="form-group col-md-2">
+								<label for="gender">Class Level</label> <input type="text"
+									class="form-control" data-bind="value: classLevel" id="classLevel">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="eyes">Eyes</label> <input type="text"
@@ -662,15 +667,74 @@
 			</div>
 
 			<!-- Spells tab -->
-			<div role="tabpanel" class="tab-pane" id="spellsTab">Track
-				spells per day per class, as well as provide spellbook for spells
-				known/prepared</div>
+			<div role="tabpanel" class="tab-pane" id="spellsTab">
+
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#spells"
+									aria-expanded="false" aria-controls="spells"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Spells
+								<button type="button" class="btn-xs btn-success pull-right"
+									title="Add spell" data-bind="click: addSpell">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button>
+							</h3>
+						</div>
+						<div class="panel-body collapse in list-group"
+							data-bind="sortable: spells" id="spells">
+							<li class="list-group-item row">
+								<div class="form-group col-md-8">
+									<label for="className">Class</label> <input type="text"
+										class="form-control" data-bind="value: name" id="className">
+								</div>
+								<div class="form-group col-md-2">
+									<label for="hdRoll">HD Roll</label> <input type="number"
+										class="form-control" data-bind="value: hdRoll" id="hdRoll">
+								</div>
+								<div class=" col-md-1">
+									<br />
+									<button type="button" class="btn" data-toggle="modal"
+										data-target="#skillsDialog" title="Edit skills">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										Skills
+									</button>
+								</div>
+								<div class="col-md-1"
+									data-bind="visible: ! confirmingDeletion()">
+									<br />
+									<button type="button" class="btn btn-danger"
+										data-bind="click: tryDeletion" title="Delete Level">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+								<div class="col-md-1" data-bind="visible: confirmingDeletion">
+									<button type="button" class="btn btn-danger"
+										data-bind="click: $parent.removeLevel"
+										title="Confirm deletion">Confirm</button>
+									<button type="button" class="btn btn-success"
+										data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+								</div>
+							</li>
+						</div>
+						<div class="panel-footer">
+							&nbsp;
+							<button type="button" class="btn-xs btn-success pull-right"
+								title="Add level" data-bind="click: addLevel">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
 
 			<!-- inventory tab -->
 			<div role="tabpanel" class="tab-pane" id="inventoryTab">All
-				character inventory. Track location, and whether an item or
-				location counts toward weight carried (IE, items in a bag of holding
-				don't)</div>
+				character inventory. Track location, and whether an item or location
+				counts toward weight carried (IE, items in a bag of holding don't)</div>
 
 			<!-- Notes tab -->
 			<div role="tabpanel" class="tab-pane" id="notesTab">
@@ -680,12 +744,16 @@
 		</div>
 	</div>
 
-	<div id="footer" class="span12 text-center" style="padding-bottom: 50px">
-		<button class="btn btn-success" data-bind="click: save">Save</button>
+	<div id="footer" class="span12 text-center"
+		style="padding-bottom: 50px">
+		<button class="btn btn-success" data-bind="click: save">
+			<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+			Save
+		</button>
 		<button type="button" class="btn btn-danger" data-toggle="modal"
 			data-target="#deleteConfirmationDialog">
 			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-			Delete Character
+			Delete
 		</button>
 	</div>
 
@@ -765,8 +833,8 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						<span data-bind="text: name" class="characterNameDelete"></span> will be permanently deleted.
-						Are you sure? This cannot be undone!
+						<span data-bind="text: name" class="characterNameDelete"></span>
+						will be permanently deleted. Are you sure? This cannot be undone!
 					</p>
 				</div>
 				<div class="modal-footer">

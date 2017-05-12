@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.imnotpete.rpg.model.DndCharacter;
 import com.imnotpete.rpg.model.DndCharacterSummary;
 
-public interface DndCharacterRepository extends JpaRepository<DndCharacter, Long>{
+public interface DndCharacterRepository extends JpaRepository<DndCharacter, Long> {
 	List<DndCharacterSummary> findByIdIsNotNull();
 }
