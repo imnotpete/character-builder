@@ -26,11 +26,11 @@ function setupLevelsTab(self, data) {
 
 	self.addLevel = function() {
 		var level = new Level({});
-		self.levels().push(level);
+		self.levels.push(level);
 	};
 
 	self.removeLevel = function(level) {
-		self.levels().remove(level)
+		self.levels.remove(level)
 	};
 }
 
