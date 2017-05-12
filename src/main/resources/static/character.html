@@ -153,7 +153,8 @@
 							</div>
 							<div class="form-group col-md-2">
 								<label for="gender">Class Level</label> <input type="text"
-									class="form-control" data-bind="value: classLevel" id="classLevel">
+									class="form-control" data-bind="value: classLevel"
+									id="classLevel">
 							</div>
 							<div class="form-group col-md-6">
 								<label for="eyes">Eyes</label> <input type="text"
@@ -532,6 +533,12 @@
 									title="Add level" data-bind="click: addLevel">
 									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 								</button>
+								<button type="button" class="btn-xs pull-right"
+									data-toggle="modal" data-target="#classDialog"
+									title="Edit classes">
+									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									Classes
+								</button>
 							</h3>
 						</div>
 						<div class="panel-body collapse in list-group"
@@ -791,6 +798,67 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="classDialog" tabindex="-1" role="dialog"
+		aria-labelledby="classModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="classModalLabel">
+						<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+						Available Classes
+					</h4>
+
+					<button type="button" class="btn-xs btn-success pull-right"
+						title="Add class" data-bind="click: addClass"
+						id="addAttackButton">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="modal-body list-group" data-bind="sortable: classes">
+					<li class="list-group-item row">
+						<div class="form-group col-md-7">
+							<label for="className">Class</label> <input type="text"
+								class="form-control" data-bind="value: name">
+						</div>
+						<div class="form-group col-md-2">
+							<label for="hdRoll">Attack Bonus</label> <input type="number"
+								class="form-control" data-bind="value: hdRoll" id="hdRoll">
+						</div>
+						<div class=" col-md-12" data-bind="foreach: skills">
+							<input type="checkbox" data-bind="$data"></input>
+						</div>
+						<div class="col-md-1" data-bind="visible: ! confirmingDeletion()">
+							<br />
+							<button type="button" class="btn btn-danger"
+								data-bind="click: tryDeletion" title="Delete Level">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</div>
+						<div class="col-md-1" data-bind="visible: confirmingDeletion">
+							<button type="button" class="btn btn-danger"
+								data-bind="click: $parent.removeLevel" title="Confirm deletion">Confirm</button>
+							<button type="button" class="btn btn-success"
+								data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+						</div>
+					</li>
+
+
+					<p>List of all class, with class/cross-class marked, input for
+						POINTS this level, and running total for each skill</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal"
+						id="classSaveButton">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="modal fade" id="skillsDialog" tabindex="-1" role="dialog"
 		aria-labelledby="skillsModalLabel">
 		<div class="modal-dialog" role="document">
@@ -806,7 +874,8 @@
 					</h4>
 				</div>
 				<div class="modal-body">
-					<p>This will have Skills in it</p>
+					<p>List of all skills, with class/cross-class marked, input for
+						POINTS this level, and running total for each skill</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
