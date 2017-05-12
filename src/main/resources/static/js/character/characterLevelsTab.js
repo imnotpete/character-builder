@@ -16,14 +16,13 @@ function setupLevelsTab(self, data) {
 			"Use Rope" ];
 
 	self.classes = ko.observableArray([]);
-	console.log(JSON.stringify(data.classes))
+
 	for (i in data.classes) {
-		self.classes().push(new Class(data.classes[i]));
+		self.classes().push(new Class(data.classes[i], self.availableSkills));
 	}
-	console.log(JSON.stringify(self.classes()))
 	
 	self.levels = ko.observableArray([]);
-
+	
 	for (i in data.levels) {
 		self.levels().push(new Level(data.levels[i]))
 	}
@@ -53,7 +52,7 @@ function setupLevelsTab(self, data) {
 	};
 
 	self.addClass = function() {
-		var charClass = new Class({});
+		var charClass = new Class({}, self.availableSkills);
 		self.classes.push(charClass);
 	};
 
@@ -62,26 +61,31 @@ function setupLevelsTab(self, data) {
 	};
 }
 
-function Class(data) {
+function Class(data, defaultSkills) {
+	if (!data) {
+		data = {}
+	}
+	
 	var self = this;
-	self.name = ko.observable(data.name);
+	self.className = ko.observable(data.className);
+	self.confirmingDeletion = ko.observable(false);
+	
 	self.baseAttackBonus = ko.observable(data.baseAttackBonus);
 	self.baseFortSave = ko.observable(data.baseFortSave);
 	self.baseRefSave = ko.observable(data.baseRefSave);
 	self.baseWillSave = ko.observable(data.baseWillSave);
 	self.skills = ko.observableArray([]);
-	self.confirmingDeletion = ko.observable(false);
 
 	for (i in data.skills) {
-		self.skills().push(data.skills[i]);
+		self.skills().push(new Skill(data.skills[i]));
 	}
 	
-//	if (self.skills().length < 1) {
-//		for (i in self.parent.availableSkills) {
-//			self.skills().push({name : self.parent.availableSkills[i]});
-//		}
-//	}
-
+	if (self.skills().length < 1) {
+		for (i in defaultSkills) {
+			self.skills().push(new Skill({name:defaultSkills[i], classSkill:false}));
+		}
+	}
+	
 	self.tryDeletion = function() {
 		self.confirmingDeletion(true);
 	};
@@ -93,7 +97,7 @@ function Class(data) {
 
 function Level(data) {
 	var self = this;
-	self.name = ko.observable(data.name);
+	self.charClass = ko.observable(data.charClass);
 	self.hdRoll = ko.observable(data.hdRoll);
 	// self.skills = ko.observableArray(data.skills);
 
@@ -112,6 +116,6 @@ function Level(data) {
 
 function Skill(data) {
 	var self = this;
-	self.name = data.name;
-	self.classSkill = data.classkill;
+	self.name = ko.observable(data.name);
+	self.classSkill = ko.observable(data.classSkill);
 }

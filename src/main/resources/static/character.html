@@ -549,8 +549,10 @@
 									<h4 class="pull-right" data-bind="text: $index()+1"></h4>
 								</div>
 								<div class="form-group col-md-7">
-									<label for="className">Class</label> <input type="text"
-										class="form-control" data-bind="value: name" id="className">
+									<textarea data-bind="text: JSON.stringify(charClass())"></textarea>
+									<label for="charClass">Class</label> <select
+										class="form-control" id="charClass"
+										data-bind="options: $root.classes, value: charClass, optionsText: 'className', optionsValue: 'className', optionsCaption: 'Choose...'"></select>
 								</div>
 								<div class="form-group col-md-2">
 									<label for="hdRoll">HD Roll</label> <input type="number"
@@ -800,7 +802,7 @@
 
 	<div class="modal fade" id="classDialog" tabindex="-1" role="dialog"
 		aria-labelledby="classModalLabel">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -813,8 +815,7 @@
 					</h4>
 
 					<button type="button" class="btn-xs btn-success pull-right"
-						title="Add class" data-bind="click: addClass"
-						id="addAttackButton">
+						title="Add class" data-bind="click: addClass" id="addAttackButton">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
 				</div>
@@ -822,14 +823,30 @@
 					<li class="list-group-item row">
 						<div class="form-group col-md-7">
 							<label for="className">Class</label> <input type="text"
-								class="form-control" data-bind="value: name">
+								class="form-control" data-bind="value: className" id="className">
 						</div>
 						<div class="form-group col-md-2">
-							<label for="hdRoll">Attack Bonus</label> <input type="number"
-								class="form-control" data-bind="value: hdRoll" id="hdRoll">
+							<label for="attackBonus">Attack Bonus</label> <select
+								id="attackBonus"
+								data-bind="options: $root.availableBaseAttackBonuses, value:baseAttackBonus"></select>
 						</div>
-						<div class=" col-md-12" data-bind="foreach: skills">
-							<input type="checkbox" data-bind="$data"></input>
+						<div class="form-group col-md-2">
+							<label for="fortSave">Fort Save</label> <select id="fortSave"
+								data-bind="options: $root.availableBaseSaves, value: baseFortSave"></select>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="refSave">Reflex Save</label> <select id="refSave"
+								data-bind="options: $root.availableBaseSaves, value: baseRefSave"></select>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="willSave">Will Save</label> <select id="willSave"
+								data-bind="options: $root.availableBaseSaves, value: baseWillSave"></select>
+						</div>
+						<div class="form-group col-md-12" data-bind="foreach: skills">
+							<div style="white-space: nowrap; display: inline">
+								<input type="checkbox" data-bind="checked: classSkill"><span
+									data-bind="text: name"></span></input>&nbsp;
+							</div>
 						</div>
 						<div class="col-md-1" data-bind="visible: ! confirmingDeletion()">
 							<br />
@@ -840,15 +857,11 @@
 						</div>
 						<div class="col-md-1" data-bind="visible: confirmingDeletion">
 							<button type="button" class="btn btn-danger"
-								data-bind="click: $parent.removeLevel" title="Confirm deletion">Confirm</button>
+								data-bind="click: $root.removeClass" title="Confirm deletion">Confirm</button>
 							<button type="button" class="btn btn-success"
 								data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
 						</div>
 					</li>
-
-
-					<p>List of all class, with class/cross-class marked, input for
-						POINTS this level, and running total for each skill</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
