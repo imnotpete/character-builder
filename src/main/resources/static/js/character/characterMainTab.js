@@ -123,6 +123,7 @@ function Attack(parent, data) {
 	self.range = ko.observable(data.range);
 	self.ammunition = ko.observable(data.ammunition);
 	self.notes = ko.observable(data.notes);
+	self.critical = ko.observable(data.critical);
 	self.confirmingDeletion = ko.observable(false);
 	self.size = ko.observable(data.size);
 
