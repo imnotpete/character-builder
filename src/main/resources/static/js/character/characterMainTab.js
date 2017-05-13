@@ -15,28 +15,6 @@ function XpEntry(entry) {
 	self.entry = ko.observable(entry);
 }
 
-function Attack(data) {
-	var self = this;
-	self.name = ko.observable(data.name);
-	self.alignment = ko.observable(data.alignment);
-	self.attackBonus = ko.observable(data.attackBonus);
-	self.damage = ko.observable(data.damage);
-	self.type = ko.observable(data.type);
-	self.range = ko.observable(data.range);
-	self.ammunition = ko.observable(data.ammunition);
-	self.notes = ko.observable(data.notes);
-	self.confirmingDeletion = ko.observable(false);
-	self.size = ko.observable(data.size);
-
-	self.tryDeletion = function() {
-		self.confirmingDeletion(true);
-	};
-
-	self.cancelDeletion = function() {
-		self.confirmingDeletion(false);
-	};
-}
-
 function AbilityScore(data) {
 	var self = this;
 	self.name = ko.observable(data.name);
@@ -89,7 +67,7 @@ function setupGeneral(self, data) {
 	});
 
 	self.nextLevelXp = ko.computed(function() {
-		var nextLevel = self.levels().length+1;
+		var nextLevel = self.levels().length + 1;
 
 		return getXpForLevel(nextLevel);
 	});
@@ -132,6 +110,45 @@ function setupAbilityScores(self, data) {
 			}
 		}
 	}
+}
+
+function Attack(parent, data) {
+	var self = this;
+	self.name = ko.observable(data.name);
+	self.alignment = ko.observable(data.alignment);
+//	self.attackBonus = ko.observable(data.attackBonus);
+	self.tempAttackBonus = ko.observable(data.tempAttackBonus);
+	self.damage = ko.observable(data.damage);
+	self.type = ko.observable(data.type);
+	self.range = ko.observable(data.range);
+	self.ammunition = ko.observable(data.ammunition);
+	self.notes = ko.observable(data.notes);
+	self.confirmingDeletion = ko.observable(false);
+	self.size = ko.observable(data.size);
+
+	self.attackBonus = ko.computed(function() {
+		var tempAttackBonus = parseInt(self.tempAttackBonus()) || 0;
+		var strMod = parent.abilityMod("Strength");
+		var baseAttackBonus = parent.totalBaseAttackBonus();
+		var totalAttackMod = baseAttackBonus + strMod + tempAttackBonus;
+		
+		var numAttacks = Math.max(1, Math.ceil(baseAttackBonus / 5));
+		var attackText = "";
+		
+		for (var i=0; i<numAttacks; i++) {
+			attackText += (totalAttackMod - (i*5))+ "/";
+		}
+		
+		return attackText.substring(0, attackText.length-1);
+	});
+	
+	self.tryDeletion = function() {
+		self.confirmingDeletion(true);
+	};
+
+	self.cancelDeletion = function() {
+		self.confirmingDeletion(false);
+	};
 }
 
 function setupHealth(self, data) {
@@ -189,10 +206,13 @@ function setupHealth(self, data) {
 			condition = "Dying";
 			conditionClasses = "label label-danger";
 		}
-		
-		return {condition : condition, conditionClasses : conditionClasses};
+
+		return {
+			condition : condition,
+			conditionClasses : conditionClasses
+		};
 	});
-	
+
 	self.healthBadgeText = ko.computed(function() {
 		return self.healthBadgeInfo().condition;
 	});
@@ -230,20 +250,20 @@ function setupOtherStatistics(self, data) {
 		var acTemp = parseInt(self.acTemp()) || 0;
 		var dexMod = self.abilityMod("Dexterity");
 
-		return acTemp + dexMod;
+		return 10 + acTemp + dexMod;
 	});
 
 	self.touchAcTotal = ko.computed(function() {
 		var touchAcTemp = parseInt(self.touchAcTemp()) || 0;
 		var dexMod = self.abilityMod("Dexterity");
 
-		return touchAcTemp + dexMod;
+		return 10 + touchAcTemp + dexMod;
 	});
 
 	self.flatFootedAcTotal = ko.computed(function() {
 		var flatFootedAcTemp = parseInt(self.flatFootedAcTemp()) || 0;
 
-		return flatFootedAcTemp;
+		return 10 + flatFootedAcTemp;
 	});
 
 	self.initiativeTotal = ko.computed(function() {
@@ -252,38 +272,111 @@ function setupOtherStatistics(self, data) {
 
 		return initTemp + dexMod;
 	});
+	
+	self.baseSave = function(save) {
+		var total = 0;
+		var classTally = {};
+
+		for (i in self.levels()) {
+			var className = self.levels()[i].className();
+			var thisClass = classTally[className];
+			classTally[className] = thisClass ? thisClass + 1 : 1;
+		}
+
+		for (className in classTally) {
+			var charClass = self.classMap()[className];
+			if (!charClass) break;
+			var saveLevel = "";
+			
+			switch (save) {
+			case "Fort":
+				saveLevel = charClass.baseFortSave();
+				break;
+			case "Reflex":
+				saveLevel = charClass.baseRefSave();
+				break;
+			case "Will":
+				saveLevel = charClass.baseWillSave();
+				break;
+			}
+			
+			total += getSaveBonus(classTally[className], saveLevel)
+			console.log(save + " new save total " + total);
+		}
+		
+		return total;
+	};
+
+	self.totalBaseFortSave = ko.computed(function() {
+		return self.baseSave("Fort");
+	});
+
+	self.totalBaseRefSave = ko.computed(function() {
+		return self.baseSave("Reflex");
+	});
+
+	self.totalBaseWillSave = ko.computed(function() {
+		return self.baseSave("Will");
+	});
 
 	self.fortSave = ko.computed(function() {
+		var fortBase = self.totalBaseFortSave();
 		var fortTemp = parseInt(self.fortTemp()) || 0;
 		var conMod = self.abilityMod("Constitution");
-
-		return fortTemp + conMod;
+		
+		return fortBase + fortTemp + conMod;
 	});
 
 	self.refSave = ko.computed(function() {
+		var refBase = self.totalBaseRefSave();
 		var refTemp = parseInt(self.refTemp()) || 0;
 		var dexMod = self.abilityMod("Dexterity");
 
-		return refTemp + dexMod;
+		return refBase + refTemp + dexMod;
 	});
 
 	self.willSave = ko.computed(function() {
+		var willBase = self.totalBaseWillSave();
 		var willTemp = parseInt(self.willTemp()) || 0;
 		var wisMod = self.abilityMod("Wisdom");
 
-		return willTemp + wisMod;
+		return willBase + willTemp + wisMod;
 	});
 }
 
 function setupAttacks(self, data) {
+	
+	self.tempBab = ko.observable(data.tempBab);
+	
+	self.totalBaseAttackBonus = ko.computed(function() {
+		var total = 0;
+		var classTally = {};
+		var tempBab = parseInt(self.tempBab()) || 0;
+
+		for (i in self.levels()) {
+			var className = self.levels()[i].className();
+			var thisClass = classTally[className];
+			classTally[className] = thisClass ? thisClass + 1 : 1;
+		}
+
+		for (className in classTally) {
+			var charClass = self.classMap()[className];
+			if (!charClass) break;
+			var bab = charClass.baseAttackBonus();
+			total += getBaseAttackBonus(classTally[className], bab)
+		}
+
+		return total + tempBab;
+	});
+	
 	self.attacks = ko.observableArray([]);
 
 	for (i in data.attacks) {
-		self.attacks().push(new Attack(data.attacks[i]));
+		self.attacks().push(new Attack(self, data.attacks[i]));
 	}
 
 	self.addAttack = function() {
-		var attack = new Attack({});
+		var attack = new Attack(self, {});
 		self.attacks.push(attack);
 	};
 
@@ -300,4 +393,34 @@ function getXpForLevel(level) {
 	}
 
 	return total;
+}
+
+function getBaseAttackBonus(classLevel, bonusLevel) {
+	var avgAttacks = [0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10, 11, 12, 12, 13, 14, 15];
+
+	switch (bonusLevel) {
+	case "Good":
+		return classLevel;
+		break;
+	case "Average":
+		return avgAttacks[classLevel - 1];
+		break;
+	case "Poor":
+		return classLevel / 2;
+		break;
+	}
+}
+
+function getSaveBonus(classLevel, bonusLevel) {
+	var result = 0;
+	switch (bonusLevel) {
+	case "Good":
+		result = (classLevel / 2) + 2;
+		break;
+	case "Poor":
+		result = classLevel / 3;
+		break;
+	}
+	
+	return Math.floor(result);
 }

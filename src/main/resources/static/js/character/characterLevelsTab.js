@@ -41,6 +41,17 @@ function setupLevelsTab(self, data) {
 
 		return total;
 	});
+	
+	self.classMap = ko.computed(function() {
+		var map = {};
+		
+		for (i in self.classes()) {
+			var thisClass = self.classes()[i];
+			map[thisClass.className()] = thisClass;
+		}
+		
+		return map;
+	});
 
 	self.addLevel = function() {
 		var level = new Level({});
@@ -97,7 +108,7 @@ function Class(data, defaultSkills) {
 
 function Level(data) {
 	var self = this;
-	self.charClass = ko.observable(data.charClass);
+	self.className = ko.observable(data.className);
 	self.hdRoll = ko.observable(data.hdRoll);
 	// self.skills = ko.observableArray(data.skills);
 

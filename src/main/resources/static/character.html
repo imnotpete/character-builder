@@ -154,7 +154,7 @@
 							<div class="form-group col-md-2">
 								<label for="gender">Class Level</label> <input type="text"
 									class="form-control" data-bind="value: classLevel"
-									id="classLevel">
+									id="classLevel" readonly>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="eyes">Eyes</label> <input type="text"
@@ -204,7 +204,7 @@
 								<label for="xpTotal">XP Total</label>
 								<div class="input-group">
 									<input id="xpTotal" type="text" class="form-control"
-										data-bind="value: xpTotal" disabled="disabled"> <span
+										data-bind="value: xpTotal" readonly="readonly"> <span
 										class="input-group-btn">
 										<button class="btn btn-default" type="button"
 											data-toggle="modal" data-target="#xpDialog" title="Edit XP">
@@ -216,7 +216,7 @@
 							<div class="form-group col-md-4">
 								<label for="nextLevelXp">Next Level XP</label> <input
 									type="text" class="form-control" id="nextLevelXp"
-									data-bind="value: nextLevelXp" disabled="disabled">
+									data-bind="value: nextLevelXp" readonly="readonly">
 							</div>
 						</div>
 					</div>
@@ -290,12 +290,12 @@
 							</div>
 							<div class="form-group col-md-4">
 								<label for="hpTotal">HP Total</label> <input type="number"
-									class="form-control" disabled="disabled"
+									class="form-control" readonly="readonly"
 									data-bind="value: hpTotal" id="hpTotal">
 							</div>
 							<div class="form-group col-md-4">
 								<label for="hpCurrent">HP Current</label> <input type="number"
-									class="form-control" disabled="disabled"
+									class="form-control" readonly="readonly"
 									data-bind="value: hpCurrent" id="hpCurrent">
 							</div>
 							<div class="form-group col-md-4">
@@ -333,7 +333,7 @@
 										<small>AC</small>
 									</legend>
 									<label for="acTotal">Total</label> <input type="number"
-										class="form-control" disabled="disabled"
+										class="form-control" readonly="readonly"
 										data-bind="value: acTotal" id="acTotal"> <label
 										for="acTemp">Temp</label> <input type="number"
 										class="form-control" data-bind="value: acTemp" id="acTemp">
@@ -345,7 +345,7 @@
 										<small>Touch</small>
 									</legend>
 									<label for="touchAcTotal">Total</label> <input type="number"
-										class="form-control" disabled="disabled"
+										class="form-control" readonly="readonly"
 										data-bind="value: touchAcTotal" id="touchAcTotal"> <label
 										for="touchAcTemp">Temp</label> <input type="number"
 										class="form-control" data-bind="value: touchAcTemp"
@@ -358,7 +358,7 @@
 										<small>Flat-footed</small>
 									</legend>
 									<label for="flatFootedAcTotal">Total</label> <input
-										type="number" class="form-control" disabled="disabled"
+										type="number" class="form-control" readonly="readonly"
 										data-bind="value: flatFootedAcTotal" id="flatFootedAcTotal">
 									<label for="flatFootedAcTemp">Temp</label> <input type="number"
 										class="form-control" data-bind="value: flatFootedAcTemp"
@@ -371,7 +371,7 @@
 										<small>Initiative</small>
 									</legend>
 									<label for="initiativeTotal">Total</label> <input type="number"
-										class="form-control" disabled="disabled"
+										class="form-control" readonly="readonly"
 										data-bind="value: initiativeTotal" id="initiativeTotal">
 									<label for="initiativeTemp">Temp</label> <input type="number"
 										class="form-control" data-bind="value: initiativeTemp"
@@ -413,14 +413,14 @@
 												<td title="Fortitude">Fort</td>
 												<td><input type="number" class="form-control"
 													data-bind="value: fortSave" id="fortSave"
-													disabled="disabled"></td>
+													readonly="readonly"></td>
 												<td><input type="number" data-bind="value: fortTemp"
 													class="form-control" id="fortTemp"></td>
 											</tr>
 											<tr>
 												<td title="Reflex">Ref</td>
 												<td><input type="number" class="form-control"
-													data-bind="value: refSave" id="refSave" disabled="disabled"></td>
+													data-bind="value: refSave" id="refSave" readonly="readonly"></td>
 												<td><input type="number" data-bind="value: refTemp"
 													class="form-control" id="refTemp"></td>
 											</tr>
@@ -428,7 +428,7 @@
 												<td>Will</td>
 												<td><input type="number" class="form-control"
 													data-bind="value: willSave" id="willSave"
-													disabled="disabled"></td>
+													readonly="readonly"></td>
 												<td><input type="number" data-bind="value: willTemp"
 													class="form-control" id="willTemp"></td>
 											</tr>
@@ -456,57 +456,77 @@
 								</button>
 							</h3>
 						</div>
-						<ul class="panel-body collapse in list-group" id="attacks"
-							data-bind="sortable: attacks">
-							<li class="list-group-item row">
-								<div class="form-group col-md-9">
-									<label for="attackName">Name</label> <input type="text"
-										class="form-control" data-bind="value: name" id="attackName">
+						<div class="panel-body collapse in " id="attacks">
+
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label for="bab">Base Attack Bonus</label> <input type="text"
+										class="form-control" data-bind="value: totalBaseAttackBonus"
+										id="bab" readonly="readonly"></input>
 								</div>
-								<div class="form-group col-md-3">
-									<label for="attackBonus">Bonus</label> <input type="text"
-										class="form-control" data-bind="value: attackBonus"
-										id="attackBonus">
+								<div class="form-group col-md-6">
+									<label for="tempBab">Temp BAB</label> <input type="number"
+										class="form-control" data-bind="value: tempBab"
+										id="tempBab"></input>
 								</div>
-								<div class="form-group col-md-3">
-									<label for="attackDamage">Damage</label> <input type="text"
-										class="form-control" data-bind="value: damage"
-										id="attackDamage">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="attackType">Type</label> <input type="text"
-										class="form-control" data-bind="value: type" id="attackType">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="range">Range</label> <input type="text"
-										class="form-control" data-bind="value: range" id="range">
-								</div>
-								<div class="form-group col-md-3">
-									<label for="ammunition">Ammunition</label> <input type="text"
-										class="form-control" data-bind="value: ammunition"
-										id="ammunition">
-								</div>
-								<div class="form-group col-md-10">
-									<label for="attackNotes">Notes</label> <input type="text"
-										class="form-control" data-bind="value: notes" id="attackNotes">
-								</div>
-								<div class="col-md-2"
-									data-bind="visible: ! confirmingDeletion()">
-									<br />
-									<button type="button" class="btn btn-danger"
-										data-bind="click: tryDeletion" title="Delete attack">
-										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-									</button>
-								</div>
-								<div class="col-md-2" data-bind="visible: confirmingDeletion">
-									<button type="button" class="btn btn-danger"
-										data-bind="click: $parent.removeAttack"
-										title="Confirm deletion">Confirm</button>
-									<button type="button" class="btn btn-success"
-										data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
-								</div>
-							</li>
-						</ul>
+							</div>
+							<div class="list-group" data-bind="sortable: attacks">
+								<li class="list-group-item row">
+									<div class="form-group col-md-6">
+										<label for="attackName">Name</label> <input type="text"
+											class="form-control" data-bind="value: name" id="attackName">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="attackBonus">Bonus</label> <input type="text"
+											class="form-control" data-bind="value: attackBonus"
+											id="attackBonus" readonly>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="tempAttackBonus">Temp BAB</label> <input type="number"
+											class="form-control" data-bind="value: tempAttackBonus"
+											id="tempAttackBonus">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="attackDamage">Damage</label> <input type="text"
+											class="form-control" data-bind="value: damage"
+											id="attackDamage">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="attackType">Type</label> <input type="text"
+											class="form-control" data-bind="value: type" id="attackType">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="range">Range</label> <input type="text"
+											class="form-control" data-bind="value: range" id="range">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="ammunition">Ammunition</label> <input type="text"
+											class="form-control" data-bind="value: ammunition"
+											id="ammunition">
+									</div>
+									<div class="form-group col-md-10">
+										<label for="attackNotes">Notes</label> <input type="text"
+											class="form-control" data-bind="value: notes"
+											id="attackNotes">
+									</div>
+									<div class="col-md-2"
+										data-bind="visible: ! confirmingDeletion()">
+										<br />
+										<button type="button" class="btn btn-danger"
+											data-bind="click: tryDeletion" title="Delete attack">
+											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										</button>
+									</div>
+									<div class="col-md-2" data-bind="visible: confirmingDeletion">
+										<button type="button" class="btn btn-danger"
+											data-bind="click: $parent.removeAttack"
+											title="Confirm deletion">Confirm</button>
+										<button type="button" class="btn btn-success"
+											data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+									</div>
+								</li>
+							</div>
+						</div>
 						<div class="panel-footer">
 							&nbsp;
 							<button type="button" class="btn-xs btn-success pull-right"
@@ -528,7 +548,7 @@
 								<a role="button" data-toggle="collapse" href="#levels"
 									aria-expanded="false" aria-controls="levels"><span
 									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-								Levels
+								Levels &mdash; <span data-bind="text: levels().length"></span>
 								<button type="button" class="btn-xs btn-success pull-right"
 									title="Add level" data-bind="click: addLevel">
 									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -549,10 +569,9 @@
 									<h4 class="pull-right" data-bind="text: $index()+1"></h4>
 								</div>
 								<div class="form-group col-md-7">
-									<textarea data-bind="text: JSON.stringify(charClass())"></textarea>
 									<label for="charClass">Class</label> <select
 										class="form-control" id="charClass"
-										data-bind="options: $root.classes, value: charClass, optionsText: 'className', optionsValue: 'className', optionsCaption: 'Choose...'"></select>
+										data-bind="options: $root.classes, value: className, optionsText: 'className', optionsValue: 'className', optionsCaption: 'Choose...'"></select>
 								</div>
 								<div class="form-group col-md-2">
 									<label for="hdRoll">HD Roll</label> <input type="number"
@@ -815,7 +834,7 @@
 					</h4>
 
 					<button type="button" class="btn-xs btn-success pull-right"
-						title="Add class" data-bind="click: addClass" id="addAttackButton">
+						title="Add class" data-bind="click: addClass">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
 				</div>
@@ -865,8 +884,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-success" data-dismiss="modal"
-						id="classSaveButton">Save</button>
+					<!-- <button type="button" class="btn btn-success" data-dismiss="modal"
+						id="classSaveButton">Save</button> -->
 				</div>
 			</div>
 		</div>
