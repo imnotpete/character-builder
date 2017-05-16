@@ -1,9 +1,9 @@
 # characterbuilder
 D&amp;D 3.5 character builder
 
-Current status: Very very early. No security. In-memory database only -- any character data entered will be lost if/when the process ends.
+Current status: Very very early. No security. H2 embedded database.
 
-Depends on Project Lombok -- make sure your IDE is set up right.
+Depends on [https://projectlombok.org/](Project Lombok) -- make sure your IDE is set up right.
 
 ## Building
 `mvn clean install` in main directory
