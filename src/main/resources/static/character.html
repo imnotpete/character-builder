@@ -11,6 +11,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
+	
+<script src="js/toaster/jquery.toaster.js"></script>
 <!-- end jQuery -->
 
 <!--  Bootstrap -->
@@ -467,8 +469,7 @@
 								</div>
 								<div class="form-group col-md-6">
 									<label for="tempBab">Temp BAB</label> <input type="number"
-										class="form-control" data-bind="value: tempBab"
-										id="tempBab"></input>
+										class="form-control" data-bind="value: tempBab" id="tempBab"></input>
 								</div>
 							</div>
 							<div class="list-group" data-bind="sortable: attacks">
@@ -483,9 +484,9 @@
 											id="attackBonus" readonly>
 									</div>
 									<div class="form-group col-md-3">
-										<label for="tempAttackBonus">Temp BAB</label> <input type="number"
-											class="form-control" data-bind="value: tempAttackBonus"
-											id="tempAttackBonus">
+										<label for="tempAttackBonus">Temp BAB</label> <input
+											type="number" class="form-control"
+											data-bind="value: tempAttackBonus" id="tempAttackBonus">
 									</div>
 									<div class="form-group col-md-3">
 										<label for="attackDamage">Damage</label> <input type="text"
@@ -867,10 +868,13 @@
 							<label for="willSave">Will Save</label> <select id="willSave"
 								data-bind="options: $root.availableBaseSaves, value: baseWillSave"></select>
 						</div>
-						<div class="form-group col-md-12" data-bind="foreach: skills">
-							<div style="white-space: nowrap; display: inline">
-								<input type="checkbox" data-bind="checked: classSkill"><span
-									data-bind="text: name"></span></input>&nbsp;
+						<div class="form-group col-md-12">
+							<label for="classSkills">Class Skills</label>
+							<div data-bind="foreach: skills" id="classSkills">
+								<div style="white-space: nowrap; display: inline">
+									<input type="checkbox" data-bind="checked: classSkill"><span
+										data-bind="text: name"></span></input>&nbsp;
+								</div>
 							</div>
 						</div>
 						<div class="col-md-1" data-bind="visible: ! confirmingDeletion()">
@@ -912,8 +916,29 @@
 					</h4>
 				</div>
 				<div class="modal-body">
-					<p>List of all skills, with class/cross-class marked, input for
-						POINTS this level, and running total for each skill</p>
+					<div class="input-group has-success">
+						<div class="input-group-addon">Appraise</div>
+						<input type="number" class="form-control" id="skillRanks"
+							placeholder="Ranks">
+						<div class="input-group-addon">12</div>
+					</div>
+					<div class="input-group">
+						<div class="input-group-addon">Diplomacy</div>
+						<input type="number" class="form-control" id="skillRanks"
+							placeholder="Ranks">
+						<div class="input-group-addon">12</div>
+					</div>
+
+					<!-- <div data-bind="foreach: skills" id="classSkills">
+						<div style="white-space: nowrap; display: inline">
+							<input type="checkbox" data-bind="checked: classSkill"><span
+								data-bind="text: name"></span></input>&nbsp;
+						</div>
+					</div> -->
+
+
+					<!-- <p>List of all skills, with class/cross-class marked, input for
+						POINTS this level, and running total for each skill</p> -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -20,9 +20,9 @@ function setupLevelsTab(self, data) {
 	for (i in data.classes) {
 		self.classes().push(new Class(data.classes[i], self.availableSkills));
 	}
-	
+
 	self.levels = ko.observableArray([]);
-	
+
 	for (i in data.levels) {
 		self.levels().push(new Level(data.levels[i]))
 	}
@@ -41,15 +41,15 @@ function setupLevelsTab(self, data) {
 
 		return total;
 	});
-	
+
 	self.classMap = ko.computed(function() {
 		var map = {};
-		
+
 		for (i in self.classes()) {
 			var thisClass = self.classes()[i];
 			map[thisClass.className()] = thisClass;
 		}
-		
+
 		return map;
 	});
 
@@ -76,11 +76,11 @@ function Class(data, defaultSkills) {
 	if (!data) {
 		data = {}
 	}
-	
+
 	var self = this;
 	self.className = ko.observable(data.className);
 	self.confirmingDeletion = ko.observable(false);
-	
+
 	self.baseAttackBonus = ko.observable(data.baseAttackBonus);
 	self.baseFortSave = ko.observable(data.baseFortSave);
 	self.baseRefSave = ko.observable(data.baseRefSave);
@@ -90,13 +90,16 @@ function Class(data, defaultSkills) {
 	for (i in data.skills) {
 		self.skills().push(new Skill(data.skills[i]));
 	}
-	
+
 	if (self.skills().length < 1) {
 		for (i in defaultSkills) {
-			self.skills().push(new Skill({name:defaultSkills[i], classSkill:false}));
+			self.skills().push(new Skill({
+				name : defaultSkills[i],
+				classSkill : false
+			}));
 		}
 	}
-	
+
 	self.tryDeletion = function() {
 		self.confirmingDeletion(true);
 	};
@@ -110,7 +113,7 @@ function Level(data) {
 	var self = this;
 	self.className = ko.observable(data.className);
 	self.hdRoll = ko.observable(data.hdRoll);
-	// self.skills = ko.observableArray(data.skills);
+//	self.skills = ko.observableArray(data.skills);
 
 	self.confirmingDeletion = ko
 			.observable(data.confirmingDeletion ? data.confirmingDeletion

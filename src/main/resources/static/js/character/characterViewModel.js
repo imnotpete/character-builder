@@ -21,6 +21,15 @@ function CharacterViewModel(data) {
 	}
 
 	self.save = function() {
+		var name = $('#characterName').val();
+		if (!name || name === '') {
+			$('#characterName').parent().addClass('has-error');
+			$.toaster({priority : 'danger', title : 'Error', message : 'Your character needs a name!'});
+			return;
+		} else {
+			$('#characterName').parent().removeClass('has-error');
+		}
+		
 		$.ajax("characters", {
 			data : {
 				id : self.id,
@@ -31,11 +40,30 @@ function CharacterViewModel(data) {
 			success : function(result) {
 				var id = getUrlParameter("id");
 				if (id) {
-					console.log("success");
+					$.toaster({
+						priority : 'success',
+						title : 'Success',
+						message : 'Character saved'
+					});
 				} else {
-					console.log("redirecting");
-					window.location.href = "character.html?id=" + result;
+					$.toaster({
+						priority : 'success',
+						title : 'Success',
+						message : 'Redirecting...'
+					});
+					
+					setTimeout(function() {
+						window.location.href = "character.html?id=" + result;
+					}, 1500);
 				}
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				$.toaster({
+					priority : 'danger',
+					title : 'Error ' + jqXHR.status,
+					message : jqXHR.responseJSON.message
+				});
 			}
 		});
 	};
@@ -44,10 +72,23 @@ function CharacterViewModel(data) {
 		$.ajax("characters/" + self.id(), {
 			type : "DELETE",
 			success : function(result) {
-				window.location.href = "index.html";
+				$.toaster({
+					priority : 'success',
+					title : 'Success',
+					message : 'Redirecting...'
+				});
+
+				setTimeout(function() {
+					window.location.href = "index.html";
+				}, 1500);
 			},
-			error : function() {
-				alert("Error! not deleted");
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				$.toaster({
+					priority : 'danger',
+					title : 'Error ' + jqXHR.status,
+					message : jqXHR.responseJSON.message
+				});
 			}
 		});
 	};
@@ -57,7 +98,7 @@ function setupViewModel(data) {
 	if (!data) {
 		data = {};
 	}
-	
+
 	ko.applyBindings(new CharacterViewModel(data));
 }
 
@@ -75,6 +116,9 @@ function getUrlParameter(param) {
 };
 
 $(document).ready(function() {
+	// make error toast messages stay onscreen longer
+	$.toaster({settings : {timeout : {danger : 10000}}});
+	
 	var id = getUrlParameter("id");
 
 	if (id) {
