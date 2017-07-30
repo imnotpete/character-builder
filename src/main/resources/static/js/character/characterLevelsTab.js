@@ -249,12 +249,12 @@ function setupLevelsTab(self, data) {
 	}
 
 	for (i in data.classes) {
-		self.classes().push(new Class(data.classes[i], self.availableSkills()));
+		self.classes().push(new Class(data.classes[i], self));
 	}
 
 	for (i in data.levels) {
 		self.levels().push(
-				new Level(data.levels[i], self.availableSkills(), self))
+				new Level(data.levels[i], self))
 	}
 
 	self.classLevel = ko.computed(function() {
@@ -284,7 +284,7 @@ function setupLevelsTab(self, data) {
 	});
 
 	self.addLevel = function() {
-		var level = new Level({}, self.availableSkills(), self);
+		var level = new Level({}, self);
 		self.levels.push(level);
 	};
 
@@ -294,7 +294,7 @@ function setupLevelsTab(self, data) {
 	};
 
 	self.addClass = function() {
-		var charClass = new Class({}, self.availableSkills());
+		var charClass = new Class({}, self);
 		self.classes.push(charClass);
 	};
 
@@ -307,7 +307,7 @@ function setupLevelsTab(self, data) {
 	}
 }
 
-function Class(data, availableSkills) {
+function Class(data, parent) {
 	if (!data) {
 		data = {}
 	}
@@ -327,9 +327,9 @@ function Class(data, availableSkills) {
 	}
 
 	if (self.skills().length < 1) {
-		for (i in availableSkills()) {
+		for (i in parent.availableSkills()) {
 			self.skills().push(new ClassSkill({
-				name : availableSkills()[i].name,
+				name : parent.availableSkills()[i].name,
 				classSkill : false
 			}));
 		}
@@ -353,7 +353,7 @@ function Class(data, availableSkills) {
 	};
 }
 
-function Level(data, availableSkills, parent) {
+function Level(data, parent) {
 	var self = this;
 	self.className = ko.observable(data.className);
 	self.hdRoll = ko.observable(data.hdRoll);
@@ -383,9 +383,9 @@ function Level(data, availableSkills, parent) {
 	}
 
 	if (self.skillPoints().length < 1) {
-		for (i in availableSkills) {
+		for (i in parent.availableSkills()) {
 			self.skillPoints().push(new SkillPoint({
-				name : availableSkills()[i].name,
+				name : parent.availableSkills()[i].name,
 				points : 0
 			}, self));
 		}
