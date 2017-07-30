@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
-	
+
 <script src="js/toaster/jquery.toaster.js"></script>
 <!-- end jQuery -->
 
@@ -252,7 +252,7 @@
 								<tbody data-bind="foreach: abilityScores">
 									<tr>
 										<td data-bind="text: name"></td>
-										<td data-bind="text: mod" class="abilityMod"></td>
+										<td data-bind="text: mod" class="tableMod"></td>
 										<td><input data-bind="value: roll" type="number"
 											class="form-control"></td>
 										<td><input data-bind="value: racial" type="number"
@@ -548,7 +548,7 @@
 			<!-- Levels tab -->
 			<div role="tabpanel" class="tab-pane" id="levelsTab">
 
-				<div class="col-md-12">
+				<div class="col-md-8">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -570,12 +570,12 @@
 						</div>
 						<div class="panel-body collapse in list-group"
 							data-bind="sortable: levels" id="levels">
-							<li class="list-group-item row">
+							<li class="list-group-item row classLevel">
 								<div class="col-md-1">
 									<br />
 									<h4 class="pull-right" data-bind="text: $index()+1"></h4>
 								</div>
-								<div class="form-group col-md-7">
+								<div class="form-group col-md-6">
 									<label for="charClass">Class</label> <select
 										class="form-control" id="charClass"
 										data-bind="options: $root.classes, value: className, optionsText: 'className', optionsValue: 'className', optionsCaption: 'Choose...'"></select>
@@ -584,10 +584,10 @@
 									<label for="hdRoll">HD Roll</label> <input type="number"
 										class="form-control" data-bind="value: hdRoll" id="hdRoll">
 								</div>
-								<div class=" col-md-1">
+								<div class=" col-md-2">
 									<br />
-									<button type="button" class="btn" data-toggle="modal"
-										data-target="#skillsDialog" title="Edit skills">
+									<button type="button" class="btn"
+										data-bind="click: toggleEditingSkills" title="Edit skills">
 										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 										Skills
 									</button>
@@ -599,6 +599,18 @@
 										data-bind="click: tryDeletion" title="Delete Level">
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 									</button>
+								</div>
+								<div class="col-md-12 row"
+									data-bind="visible: editingSkills(), foreach: skillPoints">
+									<div class="col-md-4">
+										<div class="input-group"
+											data-bind="css: {'has-success': isClassSkill()}">
+											<div style="width: 11em; text-align: right"
+												class="input-group-addon" data-bind="text: name"></div>
+											<input type="number" class="form-control"
+												placeholder="Points" data-bind="value: points">
+										</div>
+									</div>
 								</div>
 								<div class="col-md-1" data-bind="visible: confirmingDeletion">
 									<button type="button" class="btn btn-danger"
@@ -619,6 +631,62 @@
 					</div>
 				</div>
 
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#skills"
+									aria-expanded="false" aria-controls="skills"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Skills
+							</h3>
+						</div>
+						<div class="panel-body collapse in list-group"
+							 id="skills">
+							
+							<table class="table-condensed">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Mod</th>
+										<th>Ranks</th>
+										<th>Ability</th>
+										<th>Misc</th>
+									</tr>
+								</thead>
+								<tbody data-bind="foreach: availableSkills">
+									<tr>
+							<!-- 			<td><span data-bind="text: name"></span> (<span data-bind="text: ability"></span>)</td>
+										<td title="mod/roll" class="tableMod">14</td>
+										<td title="ranks" data-bind="text: $parent.totalSkillRanks(name)">10</td>
+										<td title="ability mod" data-bind="text: $parent.abilityMod(ability)">12</td>
+										<td title="misc"><input type="number" data-bind="value:"
+											class="form-control"></td> -->
+											
+											<td><span data-bind="text: name"></span> (<span data-bind="text: ability"></span>)</td>
+										<td title="mod/roll" data-bind="text: $parent.skillMod(name)" class="tableMod">14</td>
+										<td title="ranks" data-bind="text: $parent.totalSkillRanks(name)">10</td>
+										<td title="ability mod" data-bind="text: $parent.abilityMod(ability)">12</td>
+										<td title="misc"><input type="number" 
+											class="form-control"></td>
+									</tr>
+								</tbody>
+							</table>
+							
+							<!-- <div class="input-group">
+								<label data-bind="text: $data" for="points"></label>
+								<input type="number" class="form-control" id="points">
+							</div> -->
+						</div>
+						<div class="panel-footer">
+							&nbsp;
+						<!-- 	<button type="button" class="btn-xs btn-success pull-right"
+								title="Add level" data-bind="click: addLevel">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button> -->
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<!-- Abilities tab -->
@@ -712,15 +780,15 @@
 									aria-expanded="false" aria-controls="spells"><span
 									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
 								Spells
-								<button type="button" class="btn-xs btn-success pull-right"
+							<!-- 	<button type="button" class="btn-xs btn-success pull-right"
 									title="Add spell" data-bind="click: addSpell">
 									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-								</button>
+								</button> -->
 							</h3>
 						</div>
 						<div class="panel-body collapse in list-group"
 							data-bind="sortable: spells" id="spells">
-							<li class="list-group-item row">
+							<!-- <li class="list-group-item row">
 								<div class="form-group col-md-8">
 									<label for="className">Class</label> <input type="text"
 										class="form-control" data-bind="value: name" id="className">
@@ -752,14 +820,14 @@
 									<button type="button" class="btn btn-success"
 										data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
 								</div>
-							</li>
+							</li> -->
 						</div>
 						<div class="panel-footer">
 							&nbsp;
-							<button type="button" class="btn-xs btn-success pull-right"
+							<!-- <button type="button" class="btn-xs btn-success pull-right"
 								title="Add level" data-bind="click: addLevel">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							</button>
+							</button> -->
 						</div>
 					</div>
 				</div>
@@ -901,53 +969,6 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="skillsDialog" tabindex="-1" role="dialog"
-		aria-labelledby="skillsModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="skillsModalLabel">
-						<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-						Skills
-					</h4>
-				</div>
-				<div class="modal-body">
-					<div class="input-group has-success">
-						<div class="input-group-addon">Appraise</div>
-						<input type="number" class="form-control" id="skillRanks"
-							placeholder="Ranks">
-						<div class="input-group-addon">12</div>
-					</div>
-					<div class="input-group">
-						<div class="input-group-addon">Diplomacy</div>
-						<input type="number" class="form-control" id="skillRanks"
-							placeholder="Ranks">
-						<div class="input-group-addon">12</div>
-					</div>
-
-					<!-- <div data-bind="foreach: skills" id="classSkills">
-						<div style="white-space: nowrap; display: inline">
-							<input type="checkbox" data-bind="checked: classSkill"><span
-								data-bind="text: name"></span></input>&nbsp;
-						</div>
-					</div> -->
-
-
-					<!-- <p>List of all skills, with class/cross-class marked, input for
-						POINTS this level, and running total for each skill</p> -->
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-success" data-dismiss="modal"
-						id="skillsSaveButton">Save</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div class="modal fade" id="deleteConfirmationDialog" tabindex="-1"
 		role="dialog" aria-labelledby="deleteConfirmationLabel">

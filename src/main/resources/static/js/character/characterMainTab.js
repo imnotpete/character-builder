@@ -302,7 +302,6 @@ function setupOtherStatistics(self, data) {
 			}
 			
 			total += getSaveBonus(classTally[className], saveLevel)
-			console.log(save + " new save total " + total);
 		}
 		
 		return total;

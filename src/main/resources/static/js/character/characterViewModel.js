@@ -12,7 +12,7 @@ function CharacterViewModel(data) {
 	setupLevelsTab(self, json);
 	setupMainTab(self, json);
 	setupAbilitiesTab(self, json);
-	setupSpellsTab(self, json);
+//	setupSpellsTab(self, json);
 	// Inventory tab
 	setupNotesTab(self, json);
 
