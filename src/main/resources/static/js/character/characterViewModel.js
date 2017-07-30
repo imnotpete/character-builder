@@ -122,8 +122,12 @@ $(document).ready(function() {
 	var id = getUrlParameter("id");
 
 	if (id) {
-		$.getJSON("characters/" + id, setupViewModel);
+		var characterJsonUrl = "characters/" + id;
+		
+		$('#exportLink').prop('href', characterJsonUrl);
+		$.getJSON(characterJsonUrl, setupViewModel);
 	} else {
+		$('exportLink').hide();
 		setupViewModel({});
 	}
 });
