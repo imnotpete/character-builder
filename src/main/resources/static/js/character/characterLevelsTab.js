@@ -456,7 +456,7 @@ function Level(data, parent) {
 	self.addSkill = function(skill) {
 		console.log("adding skill to level");
 		self.skillPoints().push(new SkillPoint({
-			name : skill.name(),
+			name : skill.name,
 			points : 0
 		}, self));
 		
@@ -466,13 +466,13 @@ function Level(data, parent) {
 
 function ClassSkill(data) {
 	var self = this;
-	self.name = ko.observable(data.name);
+	self.name = ko.computed(function() {return data.name});
 	self.classSkill = ko.observable(data.classSkill);
 }
 
 function SkillPoint(data, parent) {
 	var self = this;
-	self.name = ko.observable(data.name);
+	self.name = ko.computed(function() {return data.name});
 	self.points = ko.observable(data.points);
 
 	self.isClassSkill = ko.computed(function() {
