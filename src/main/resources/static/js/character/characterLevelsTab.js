@@ -365,7 +365,18 @@ function Class(data, parent) {
 	self.skills = ko.observableArray([]);
 
 	for (i in data.skills) {
-		self.skills().push(new ClassSkill(data.skills[i]));
+		var skill = data.skills[i];
+		
+		for (j in parent.availableSkills()) {
+			var availableSkill = parent.availableSkills()[j];
+			
+			if (skill.name === availableSkill.name()) {
+				skill.name = availableSkill.name;
+				break;
+			}
+		}
+		
+		self.skills().push(new ClassSkill(skill));
 	}
 
 	if (self.skills().length < 1) {
@@ -425,10 +436,25 @@ function Level(data, parent) {
 		}
 	};
 
-	for (i in data.skillPoints) {
-		self.skillPoints().push(new SkillPoint(data.skillPoints[i], self));
-	}
+//	for (i in data.skillPoints) {
+//		self.skillPoints().push(new SkillPoint(data.skillPoints[i], self));
+//	}
 
+	for (i in data.skillPoints) {
+		var skillPoint = data.skillPoints[i];
+		
+		for (j in parent.availableSkills()) {
+			var availableSkill = parent.availableSkills()[j];
+			
+			if (skillPoint.name === availableSkill.name()) {
+				skillPoint.name = availableSkill.name;
+				break;
+			}
+		}
+		
+		self.skillPoints().push(new SkillPoint(skillPoint, self));
+	}
+	
 	if (self.skillPoints().length < 1) {
 		for (i in parent.availableSkills()) {
 			self.skillPoints().push(new SkillPoint({
