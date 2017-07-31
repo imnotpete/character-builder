@@ -190,17 +190,19 @@ function setupLevelsTab(self, data) {
 		data = {}
 	}
 
+	self.selectedSkillBackup;
+	self.selectedSkill = ko.observable();
 	self.availableBaseAttackBonuses = [ "Good", "Average", "Poor" ];
 	self.availableBaseSaves = [ "Good", "Poor" ];
 	self.availableSkills = ko.observableArray([]);
-	
+
 	for (i in data.availableSkills) {
-		self.availableSkills().push(data.availableSkills[i]);
+		self.availableSkills().push(new Skill(data.availableSkills[i]));
 	}
-	
+
 	if (self.availableSkills().length < 1) {
 		for (i in defaultSkills) {
-			self.availableSkills().push(defaultSkills[i]);
+			self.availableSkills().push(new Skill(defaultSkills[i]));
 		}
 	}
 
@@ -228,22 +230,25 @@ function setupLevelsTab(self, data) {
 
 	self.skillMod = function(skillName) {
 		var totalRanks = Math.floor(self.totalSkillRanks(skillName));
+		//console.log("totalRanks: " + totalRanks);
 
 		var linkedAbility = null;
 		for (i in self.availableSkills()) {
 			var skill = self.availableSkills()[i];
-
-			if (skill.name === skillName) {
-				linkedAbility = skill.ability;
+			//console.log("skillName and skill.name " + skillName + " " + skill.name());
+			if (skill.name() === skillName) {
+				linkedAbility = skill.ability();
 				break;
 			}
 		}
-		
+		//console.log("linkedAbility: " + linkedAbility);
+
 		var abilityMod = 0;
-		
+
 		if (linkedAbility != "None") {
 			abilityMod = self.abilityMod(linkedAbility);
 		}
+		//console.log("abilityMod: " + abilityMod);
 
 		return totalRanks + abilityMod;
 	}
@@ -253,8 +258,7 @@ function setupLevelsTab(self, data) {
 	}
 
 	for (i in data.levels) {
-		self.levels().push(
-				new Level(data.levels[i], self))
+		self.levels().push(new Level(data.levels[i], self))
 	}
 
 	self.classLevel = ko.computed(function() {
@@ -289,7 +293,7 @@ function setupLevelsTab(self, data) {
 	};
 
 	self.removeLevel = function(level) {
-		console.log(level);
+		//console.log(level);
 		self.levels.remove(level)
 	};
 
@@ -301,9 +305,47 @@ function setupLevelsTab(self, data) {
 	self.removeClass = function(charClass) {
 		self.classes.remove(charClass)
 	};
-	
-	self.resetSkills = function() {
+
+	self.addSkill = function() {
+		var skill = new Skill({
+			name : "New Skill",
+			ability : "None",
+			acp : false,
+			trainedOnly : false
+		});
 		
+		self.availableSkills.push(skill);
+		
+		for (i in self.classes()) {
+			var charClass = self.classes()[i];
+			charClass.addSkill(skill);
+		}
+		
+		for (i in self.levels()) {
+			var level = self.levels()[i];
+			level.addSkill(skill);
+		}
+	}
+	
+	self.setSelectedSkill = function(selectedSkill) {
+		self.selectedSkill(selectedSkill);
+		self.selectedSkillBackup = selectedSkill;
+	}
+	
+	self.saveEditSkill = function() {
+		self.availableSkills.valueHasMutated();
+	}
+	
+	self.cancelEditSkill = function() {
+		//console.log("Edit cancel");
+	}
+	
+	self.deleteSkill = function(skillToDelete) {
+		//console.log("Delete skill");
+	}
+
+	self.resetSkills = function() {
+
 	}
 }
 
@@ -351,6 +393,11 @@ function Class(data, parent) {
 			}
 		}
 	};
+	
+	self.addSkill = function(skill) {
+		self.skills.push(new ClassSkill(skill));
+		self.skills.valueHasMutated();
+	}
 }
 
 function Level(data, parent) {
@@ -405,6 +452,16 @@ function Level(data, parent) {
 	self.toggleEditingSkills = function() {
 		self.editingSkills(!self.editingSkills());
 	};
+	
+	self.addSkill = function(skill) {
+		console.log("adding skill to level");
+		self.skillPoints().push(new SkillPoint({
+			name : skill.name(),
+			points : 0
+		}, self));
+		
+		self.skillPoints.valueHasMutated();
+	}
 }
 
 function ClassSkill(data) {
@@ -425,4 +482,13 @@ function SkillPoint(data, parent) {
 	self.totalRanks = ko.computed(function() {
 		return parent.totalSkillRanks(self.name());
 	});
+}
+
+function Skill(data) {
+	var self = this;
+	
+	self.name = ko.observable(data.name);
+	self.ability = ko.observable(data.ability);
+	self.acp = ko.observable(data.acp);
+	self.trainedOnly = ko.observable(data.trainedOnly);
 }
