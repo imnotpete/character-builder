@@ -331,6 +331,7 @@ function setupLevelsTab(self, data) {
 	
 	self.setSelectedSkill = function(selectedSkill) {
 		self.selectedSkill(selectedSkill);
+		self.selectedSkillBackup = ko.toJSON(selectedSkill);
 		self.selectedSkillBackup = selectedSkill;
 	}
 	
@@ -339,7 +340,6 @@ function setupLevelsTab(self, data) {
 	}
 	
 	self.cancelEditSkill = function() {
-		//console.log("Edit cancel");
 	}
 	
 	self.deleteSkill = function(skillToDelete) {
