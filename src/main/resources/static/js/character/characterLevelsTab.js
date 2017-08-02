@@ -212,7 +212,7 @@ function setupLevelsTab(self, data) {
 	self.isClassSkill = function(className, skillName) {
 		for (i in self.classes()) {
 			var thisClass = self.classes()[i];
-			console.log("class.className(): " + thisClass.className());
+			//console.log("class.className(): " + thisClass.className());
 			if (thisClass.className() === className) {
 				return thisClass.isClassSkill(skillName);
 			}
@@ -401,8 +401,8 @@ function Class(data, parent) {
 	self.isClassSkill = function(skillName) {
 		for (i in self.skills()) {
 			var thisSkill = self.skills()[i];
-			console.log("thisSkill.name(): " + thisSkill.name());
-				console.log("classSkill()? " + thisSkill.classSkill());
+			//console.log("thisSkill.name(): " + thisSkill.name());
+			//	console.log("classSkill()? " + thisSkill.classSkill());
 			if (thisSkill.name() === skillName) {
 				return thisSkill.classSkill();
 			}
@@ -422,7 +422,7 @@ function Level(data, parent) {
 	self.skillPoints = ko.observableArray([]);
 
 	self.isClassSkill = function(skillName) {
-		console.log("className: " + self.className());
+		//console.log("className: " + self.className());
 		return parent.isClassSkill(self.className(), skillName);
 	};
 
@@ -487,7 +487,7 @@ function Level(data, parent) {
 	};
 	
 	self.addSkill = function(skill) {
-		console.log("adding skill to level");
+		//console.log("adding skill to level");
 		self.skillPoints().push(new SkillPoint({
 			name : skill.name,
 			points : 0
@@ -509,7 +509,7 @@ function SkillPoint(data, parent) {
 	self.points = ko.observable(data.points);
 
 	self.isClassSkill = ko.computed(function() {
-		console.log("classskill name: " + self.name());
+		//console.log("classskill name: " + self.name());
 		return parent.isClassSkill(self.name());
 	});
 
