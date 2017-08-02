@@ -212,6 +212,7 @@ function setupLevelsTab(self, data) {
 	self.isClassSkill = function(className, skillName) {
 		for (i in self.classes()) {
 			var thisClass = self.classes()[i];
+			console.log("class.className(): " + thisClass.className());
 			if (thisClass.className() === className) {
 				return thisClass.isClassSkill(skillName);
 			}
@@ -229,6 +230,7 @@ function setupLevelsTab(self, data) {
 	};
 
 	self.skillMod = function(skillName) {
+		//console.log("skillName: " + skillName);
 		var totalRanks = Math.floor(self.totalSkillRanks(skillName));
 		//console.log("totalRanks: " + totalRanks);
 
@@ -399,6 +401,8 @@ function Class(data, parent) {
 	self.isClassSkill = function(skillName) {
 		for (i in self.skills()) {
 			var thisSkill = self.skills()[i];
+			console.log("thisSkill.name(): " + thisSkill.name());
+				console.log("classSkill()? " + thisSkill.classSkill());
 			if (thisSkill.name() === skillName) {
 				return thisSkill.classSkill();
 			}
@@ -418,6 +422,7 @@ function Level(data, parent) {
 	self.skillPoints = ko.observableArray([]);
 
 	self.isClassSkill = function(skillName) {
+		console.log("className: " + self.className());
 		return parent.isClassSkill(self.className(), skillName);
 	};
 
@@ -428,9 +433,11 @@ function Level(data, parent) {
 	self.totalLevelSkillRanks = function(skillName) {
 		for (i in self.skillPoints()) {
 			var skillPoint = self.skillPoints()[i];
+			//console.log("skillPoint.name(): " + skillPoint.name());
 			if (skillPoint.name() === skillName) {
 				// divide points by 2 if it's cross-class
 				var points = skillPoint.points();
+			//	console.log("points: " + points);
 				return points / (skillPoint.isClassSkill() ? 1 : 2);
 			}
 		}
@@ -492,16 +499,17 @@ function Level(data, parent) {
 
 function ClassSkill(data) {
 	var self = this;
-	self.name = ko.computed(function() {return data.name});
+	self.name = ko.computed(function() {return data.name()});
 	self.classSkill = ko.observable(data.classSkill);
 }
 
 function SkillPoint(data, parent) {
 	var self = this;
-	self.name = ko.computed(function() {return data.name});
+	self.name = ko.computed(function() {return data.name()});
 	self.points = ko.observable(data.points);
 
 	self.isClassSkill = ko.computed(function() {
+		console.log("classskill name: " + self.name());
 		return parent.isClassSkill(self.name());
 	});
 
