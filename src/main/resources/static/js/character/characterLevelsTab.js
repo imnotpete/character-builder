@@ -343,7 +343,18 @@ function setupLevelsTab(self, data) {
 	}
 	
 	self.deleteSkill = function(skillToDelete) {
-		//console.log("Delete skill");
+		var skill = self.selectedSkill();
+		self.availableSkills.remove(self.selectedSkill());
+		
+		for (i in self.classes()) {
+			var charClass = self.classes()[i];
+			charClass.deleteSkill(skill);
+		}
+		
+		for (i in self.levels()) {
+			var level = self.levels()[i];
+			level.deleteSkill(skill);
+		}
 	}
 
 	self.resetSkills = function() {
@@ -411,6 +422,18 @@ function Class(data, parent) {
 	
 	self.addSkill = function(skill) {
 		self.skills.push(new ClassSkill(skill));
+		self.skills.valueHasMutated();
+	}
+
+	self.deleteSkill = function(skill) {
+		for (i in self.skills()) {
+			var classSkill = self.skills()[i];
+			//console.log("classSkill.name(): " + classSkill.name());
+			if (classSkill.name() === skill.name()) {
+				self.skills.remove(classSkill);
+			}		
+		}
+
 		self.skills.valueHasMutated();
 	}
 }
@@ -493,6 +516,18 @@ function Level(data, parent) {
 			points : 0
 		}, self));
 		
+		self.skillPoints.valueHasMutated();
+	}
+
+	self.deleteSkill = function(skill) {
+		for (i in self.skillPoints()) {
+			var levelSkill = self.skillPoints()[i];
+			//console.log("levelSkill.name(): " + classSkill.name());
+			if (levelSkill.name() === skill.name()) {
+				self.skillPoints.remove(levelSkill);
+			}		
+		}
+
 		self.skillPoints.valueHasMutated();
 	}
 }
