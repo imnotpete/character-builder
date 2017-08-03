@@ -548,7 +548,7 @@
 			<!-- Levels tab -->
 			<div role="tabpanel" class="tab-pane" id="levelsTab">
 
-				<div class="col-md-8">
+				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -600,15 +600,30 @@
 										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 									</button>
 								</div>
-								<div class="col-md-12 row"
-									data-bind="visible: editingSkills(), foreach: skillPoints">
-									<div class="col-md-4">
-										<div class="input-group"
-											data-bind="css: {'has-success': isClassSkill()}">
-											<div style="width: 11em; text-align: right"
-												class="input-group-addon" data-bind="text: name()"></div>
-											<input type="number" class="form-control"
-												placeholder="Points" data-bind="value: points">
+								<div class="col-md-12" data-bind="visible: editingSkills()">
+									<div class="form-inline text-center"
+										style="padding-bottom: 10px">
+										<div class="form-group">
+											<label for="skillTricks"">Skill Trick</label> <input
+												id="skillTricks" type="checkbox" class="form-control "
+												placeholder="Tricks" data-bind="checked: skillTrick">
+										</div>
+										<div class="form-group">
+											<label for="totalSkillPointsSpent">Points Spent</label>
+											<p id="totalSkillPointsSpent" class="form-control-static"
+												data-bind="text: levelSkillPointsSpent"></p>
+										</div>
+									</div>
+									<div class="row" style="padding-bottom: 5px"
+										data-bind="foreach: skillPoints">
+										<div class="col-md-4">
+											<div class="input-group"
+												data-bind="css: {'has-success': isClassSkill()}">
+												<div style="width: 11em; text-align: right"
+													class="input-group-addon" data-bind="text: name()"></div>
+												<input type="number" class="form-control"
+													placeholder="Points" data-bind="value: points">
+											</div>
 										</div>
 									</div>
 								</div>
@@ -631,7 +646,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -646,11 +661,17 @@
 							</h3>
 						</div>
 						<div class="panel-body collapse in list-group" id="skills">
-
+							<div class="form-inline text-center" style="padding-bottom: 10px">
+								<div class="form-group">
+									<label for="totalSkillTricks"">Skill Tricks</label>
+									<p id="totalSkillTricks" class="form-control-static"
+										data-bind="text: totalSkillTricks"></p>
+								</div>
+							</div>
 							<table class="table-condensed">
 								<thead>
 									<tr>
-										<th></th>
+										<th class="text-muted">* Trained Only</th>
 										<th>Mod</th>
 										<th>Ranks</th>
 										<th>Ability</th>
@@ -659,14 +680,15 @@
 								</thead>
 								<tbody
 									data-bind="foreach: availableSkills.sort(function (left, right) {return left.name() == right.name() ? 0 : (left.name() < right.name() ? -1 : 1)})">
-									<tr>
+									<tr data-bind="css: {'text-danger': trainedOnly() && $parent.totalSkillRanks(name())<1}">
 										<td><button class="btn btn-link" data-toggle="modal"
-												data-target="#skillEditDialog" data-bind="click: $root.setSelectedSkill">
+												data-target="#skillEditDialog"
+												data-bind="click: $root.setSelectedSkill">
 												<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-											</button> <span data-bind="text: name()"></span> (<span
-											data-bind="text: ability"></span>)</td>
-										<td title="mod/roll" data-bind="text: $parent.skillMod(name())"
-											class="tableMod">14</td>
+											</button> <span data-bind="text: name()"></span><span data-bind="visible: trainedOnly">*</span> (<span
+											data-bind="text: ability().substring(0, 3)"></span>)</td>
+										<td title="mod/roll"
+											data-bind="text: $parent.skillMod(name())" class="tableMod">14</td>
 										<td title="ranks"
 											data-bind="text: $parent.totalSkillRanks(name())">10</td>
 										<td title="ability mod"
@@ -684,10 +706,10 @@
 						</div>
 						<div class="panel-footer">
 							&nbsp;
-							<!-- 	<button type="button" class="btn-xs btn-success pull-right"
-								title="Add level" data-bind="click: addLevel">
+							<button type="button" class="btn-xs btn-success pull-right"
+								title="Add Skill" data-bind="click: addSkill">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							</button> -->
+							</button>
 						</div>
 					</div>
 				</div>
@@ -1023,9 +1045,9 @@
 				<div class="modal-body">
 					<form data-bind="with: selectedSkill">
 						<label for="editSkillName">Skill</label> <input
-							class="form-control" data-bind="value: name"
-							id="editSkillName"></input> <label for="editSkillAbility">Ability</label>
-						<select class="form-control" data-bind="value: ability"
+							class="form-control" data-bind="value: name" id="editSkillName"></input>
+						<label for="editSkillAbility">Ability</label> <select
+							class="form-control" data-bind="value: ability"
 							id="editSkillAbility">
 							<option>None</option>
 							<option>Strength</option>
@@ -1046,7 +1068,8 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal" data-bind="click:saveEditSkill">Done</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal"
+						data-bind="click:saveEditSkill">Done</button>
 					<!--<button type="button" class="btn btn-default" data-dismiss="modal" data-bind="click:cancelEditSkill">Cancel</button>-->
 					<button type="button" class="btn btn-danger" data-dismiss="modal"
 						data-bind="click: deleteSkill">Delete</button>

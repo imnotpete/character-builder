@@ -263,6 +263,20 @@ function setupLevelsTab(self, data) {
 		self.levels().push(new Level(data.levels[i], self))
 	}
 
+	self.totalSkillTricks = ko.computed(function() {
+		var totalSkillTricks = 0;
+		
+		for (i in self.levels()) {
+			var level = self.levels()[i];
+			
+			if (level.skillTrick()) {
+				totalSkillTricks++;
+			}
+		}
+		
+		return totalSkillTricks;
+	});
+	
 	self.classLevel = ko.computed(function() {
 		return self.levels().length;
 	});
@@ -443,7 +457,8 @@ function Level(data, parent) {
 	self.className = ko.observable(data.className);
 	self.hdRoll = ko.observable(data.hdRoll);
 	self.skillPoints = ko.observableArray([]);
-
+	self.skillTrick = ko.observable(data.skillTrick);
+	
 	self.isClassSkill = function(skillName) {
 		//console.log("className: " + self.className());
 		return parent.isClassSkill(self.className(), skillName);
@@ -508,6 +523,20 @@ function Level(data, parent) {
 	self.toggleEditingSkills = function() {
 		self.editingSkills(!self.editingSkills());
 	};
+	
+	self.levelSkillPointsSpent = ko.computed(function() {
+		var totalPointsSpent = 0;
+		
+		for (i in self.skillPoints()) {
+			totalPointsSpent += parseInt(self.skillPoints()[i].points()) || 0;
+		}
+		
+		if (self.skillTrick()) {
+			totalPointsSpent += 2;
+		}
+		
+		return totalPointsSpent;
+	})
 	
 	self.addSkill = function(skill) {
 		//console.log("adding skill to level");
