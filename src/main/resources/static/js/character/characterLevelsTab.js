@@ -208,6 +208,7 @@ function setupLevelsTab(self, data) {
 
 	self.classes = ko.observableArray([]);
 	self.levels = ko.observableArray([]);
+	
 
 	self.isClassSkill = function(className, skillName) {
 		for (i in self.classes()) {
@@ -374,6 +375,32 @@ function setupLevelsTab(self, data) {
 	self.resetSkills = function() {
 
 	}
+	
+	self.classBreakdown = ko.computed(function() {
+		var levelsPerClass = {};
+		for (i in self.levels()) {
+			var className = self.levels()[i].className();
+			
+			if (null == levelsPerClass[className]) {
+				levelsPerClass[className] = 1;
+			} else {
+				levelsPerClass[className] = levelsPerClass[className] + 1;
+			}
+		}
+		
+		var breakdown = "";
+		for (className in levelsPerClass) {
+			var classTotal = "/" + className + " " + levelsPerClass[className];
+			breakdown += classTotal;
+		}
+		
+		if (breakdown.length > 0) {
+			// Strip leading slash
+			breakdown = breakdown.substring(1, breakdown.length);
+		}
+		
+		return breakdown;
+	});
 }
 
 function Class(data, parent) {
