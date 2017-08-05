@@ -97,6 +97,8 @@ function CharacterViewModel(data) {
 function setupViewModel(data) {
 	if (!data) {
 		data = {};
+	} else {
+		document.title = data.name + " :: Character Builder";
 	}
 
 	ko.applyBindings(new CharacterViewModel(data));
