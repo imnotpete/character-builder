@@ -335,44 +335,7 @@
 							</h3>
 						</div>
 						<div class="panel-body collapse in row" id="otherStats">
-							<div class="form-group col-md-4">
-								<fieldset>
-									<legend title="Armor Class">
-										<small>AC</small>
-									</legend>
-									<label for="acTotal">Total</label> <input type="number"
-										class="form-control" readonly="readonly"
-										data-bind="value: acTotal" id="acTotal"> <label
-										for="acTemp">Temp</label> <input type="number"
-										class="form-control" data-bind="value: acTemp" id="acTemp">
-								</fieldset>
-							</div>
-							<div class="form-group col-md-4">
-								<fieldset>
-									<legend>
-										<small>Touch</small>
-									</legend>
-									<label for="touchAcTotal">Total</label> <input type="number"
-										class="form-control" readonly="readonly"
-										data-bind="value: touchAcTotal" id="touchAcTotal"> <label
-										for="touchAcTemp">Temp</label> <input type="number"
-										class="form-control" data-bind="value: touchAcTemp"
-										id="touchAcTemp">
-								</fieldset>
-							</div>
-							<div class="form-group col-md-4">
-								<fieldset>
-									<legend>
-										<small>Flat-footed</small>
-									</legend>
-									<label for="flatFootedAcTotal">Total</label> <input
-										type="number" class="form-control" readonly="readonly"
-										data-bind="value: flatFootedAcTotal" id="flatFootedAcTotal">
-									<label for="flatFootedAcTemp">Temp</label> <input type="number"
-										class="form-control" data-bind="value: flatFootedAcTemp"
-										id="flatFootedAcTemp">
-								</fieldset>
-							</div>
+							
 							<div class="form-group col-md-4">
 								<fieldset>
 									<legend>
@@ -547,6 +510,151 @@
 											title="Confirm deletion">Confirm</button>
 										<button type="button" class="btn btn-success"
 											data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+									</div>
+								</li>
+							</div>
+						</div>
+						<div class="panel-footer">
+							&nbsp;
+							<button type="button" class="btn-xs btn-success pull-right"
+								title="Add Attack" data-bind="click: addAttack">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Defense -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#defense"
+									aria-expanded="false" aria-controls="defense"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Defense
+								<!-- <button type="button" class="btn-xs btn-success pull-right"
+									title="Add attack" data-bind="click: addAttack"
+									id="addAttackButton">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button> -->
+							</h3>
+						</div>
+						<div class="panel-body collapse in " id="defense">
+							<div class="row">
+								<div class="form-group col-md-4">
+								<fieldset>
+									<legend title="Armor Class">
+										<small>Armor Class</small>
+									</legend>
+									<label for="acTotal">Total</label> <input type="number"
+										class="form-control" readonly="readonly"
+										data-bind="value: acTotal" id="acTotal"> <label
+										for="acTemp">Temp</label> <input type="number"
+										class="form-control" data-bind="value: acTemp" id="acTemp">
+								</fieldset>
+							</div>
+							<div class="form-group col-md-4">
+								<fieldset>
+									<legend>
+										<small>Touch AC</small>
+									</legend>
+									<label for="touchAcTotal">Total</label> <input type="number"
+										class="form-control" readonly="readonly"
+										data-bind="value: touchAcTotal" id="touchAcTotal"> <label
+										for="touchAcTemp">Temp</label> <input type="number"
+										class="form-control" data-bind="value: touchAcTemp"
+										id="touchAcTemp">
+								</fieldset>
+							</div>
+							<div class="form-group col-md-4">
+								<fieldset>
+									<legend>
+										<small>Flat-footed AC</small>
+									</legend>
+									<label for="flatFootedAcTotal">Total</label> <input
+										type="number" class="form-control" readonly="readonly"
+										data-bind="value: flatFootedAcTotal" id="flatFootedAcTotal">
+									<label for="flatFootedAcTemp">Temp</label> <input type="number"
+										class="form-control" data-bind="value: flatFootedAcTemp"
+										id="flatFootedAcTemp">
+								</fieldset>
+							</div>
+							</div>
+							<div class="list-group">
+								<!-- Armor -->
+								<li class="list-group-item row">
+									<div class="form-group col-md-6">
+										<label for="armorName">Armor</label> <input type="text"
+											class="form-control" data-bind="value: armor().name" id="armorName">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="acBonus">AC Bonus</label>
+										<input type="number" class="form-control" data-bind="value: armor().acBonus"
+											id="acBonus">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="maxDex">Max Dex</label> <input
+											type="number" class="form-control"
+											data-bind="value: armor().maxDex" id="maxDex">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="acp">ACP</label> <input
+											type="number" class="form-control"
+											data-bind="value: armor().acp" id="acp">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="spellFailurePercent">Spell Failure %</label> <input
+											type="number" class="form-control"
+											data-bind="value: armor().spellFailurePercent" id="spellFailurePercent">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="speed">Speed</label> <input
+											type="number" class="form-control"
+											data-bind="value: armor().speed" id="speed">
+									</div>
+									<div class="form-group col-md-7">
+										<label for="defenseNotes">Notes</label> <input type="text"
+											class="form-control" data-bind="value: armor().notes"
+											id="notes">
+									</div>
+								</li>
+								
+								<!-- Shield -->
+								<li class="list-group-item row">
+									<div class="form-group col-md-6">
+										<label for="armorName">Shield</label> <input type="text"
+											class="form-control" data-bind="value: shield().name" id="armorName">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="acBonus">AC Bonus</label>
+										<input type="number" class="form-control" data-bind="value: shield().acBonus"
+											id="acBonus">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="maxDex">Max Dex</label> <input
+											type="number" class="form-control"
+											data-bind="value: shield().maxDex" id="maxDex">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="acp">ACP</label> <input
+											type="number" class="form-control"
+											data-bind="value: shield().acp" id="acp">
+									</div>
+									<div class="form-group col-md-3">
+										<label for="spellFailurePercent">Spell Failure %</label> <input
+											type="number" class="form-control"
+											data-bind="value: shield().spellFailurePercent" id="spellFailurePercent">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="speed">Speed</label> <input
+											type="number" class="form-control"
+											data-bind="value: shield().speed" id="speed">
+									</div>
+									<div class="form-group col-md-7">
+										<label for="defenseNotes">Notes</label> <input type="text"
+											class="form-control" data-bind="value: shield().notes"
+											id="notes">
 									</div>
 								</li>
 							</div>

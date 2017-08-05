@@ -7,6 +7,7 @@ function setupMainTab(self, data) {
 	setupAbilityScores(self, data);
 	setupOtherStatistics(self, data);
 	setupAttacks(self, data);
+	setupDefense(self, data);
 	setupHealth(self, data);
 }
 
@@ -152,6 +153,21 @@ function Attack(parent, data) {
 	};
 }
 
+function Defense(data) {
+	var self = this;
+	
+	if (!data) {
+		data = {}
+	}
+	
+	self.name = ko.observable(data.name);
+	self.acBonus = ko.observable(data.acBonus);
+	self.maxDex = ko.observable(data.maxDex);
+	self.acp = ko.observable(data.acp);
+	self.spellFailurePercent = ko.observable(data.spellFailurePercent);
+	self.speed = ko.observable(data.speed);
+}
+
 function setupHealth(self, data) {
 	self.hpTemp = ko.observable(data.hpTemp);
 	self.damage = ko.observable(data.damage);
@@ -236,9 +252,6 @@ function setupHealth(self, data) {
 }
 
 function setupOtherStatistics(self, data) {
-	self.acTemp = ko.observable(data.acTemp);
-	self.touchAcTemp = ko.observable(data.touchAcTemp);
-	self.flatFootedAcTemp = ko.observable(data.flatFootedAcTemp);
 	self.initiativeTemp = ko.observable(data.initiativeTemp);
 	self.fortTemp = ko.observable(data.fortTemp);
 	self.refTemp = ko.observable(data.refTemp);
@@ -246,26 +259,6 @@ function setupOtherStatistics(self, data) {
 	self.damageReduction = ko.observable(data.damageReduction);
 	self.speed = ko.observable(data.speed);
 	self.spellResistance = ko.observable(data.spellResistance);
-
-	self.acTotal = ko.computed(function() {
-		var acTemp = parseInt(self.acTemp()) || 0;
-		var dexMod = self.abilityMod("Dexterity");
-
-		return 10 + acTemp + dexMod;
-	});
-
-	self.touchAcTotal = ko.computed(function() {
-		var touchAcTemp = parseInt(self.touchAcTemp()) || 0;
-		var dexMod = self.abilityMod("Dexterity");
-
-		return 10 + touchAcTemp + dexMod;
-	});
-
-	self.flatFootedAcTotal = ko.computed(function() {
-		var flatFootedAcTemp = parseInt(self.flatFootedAcTemp()) || 0;
-
-		return 10 + flatFootedAcTemp;
-	});
 
 	self.initiativeTotal = ko.computed(function() {
 		var initTemp = parseInt(self.initiativeTemp()) || 0;
@@ -383,6 +376,55 @@ function setupAttacks(self, data) {
 	self.removeAttack = function(attack) {
 		self.attacks.remove(attack)
 	};
+}
+
+function setupDefense(self, data) {
+	self.acTemp = ko.observable(data.acTemp);
+	self.touchAcTemp = ko.observable(data.touchAcTemp);
+	self.flatFootedAcTemp = ko.observable(data.flatFootedAcTemp);
+	
+	self.armor = ko.observable(new Defense(data.armor));
+	self.shield = ko.observable(new Defense(self.shield));
+	
+	self.touchAcBonus = ko.computed(function() {
+		var touchAcTemp = parseInt(self.touchAcTemp()) || 0;
+		var dexMod = self.abilityMod("Dexterity");
+		
+		var armorMaxDex = parseInt(self.armor().maxDex());
+		var shieldMaxDex = parseInt(self.shield().maxDex());
+		
+		if (null != armorMaxDex && !isNaN(armorMaxDex)) {
+			dexMod = Math.min(dexMod, armorMaxDex);
+		}
+		
+		if (null != shieldMaxDex && !isNaN(shieldMaxDex)) {
+			dexMod = Math.min(dexMod, shieldMaxDex);
+		}
+		
+		return touchAcTemp + dexMod;
+	});
+	
+	self.flatFootedAcBonus = ko.computed(function() {
+		var flatFootedAcTemp = parseInt(self.flatFootedAcTemp()) || 0;
+		var armorAc = parseInt(self.armor().acBonus()) || 0;
+		var shieldAc = parseInt(self.shield().acBonus()) || 0;
+		
+		return flatFootedAcTemp + armorAc + shieldAc;
+	});
+
+	self.acTotal = ko.computed(function() {
+		var acTemp = parseInt(self.acTemp()) || 0;
+
+		return 10 + acTemp + self.touchAcBonus() + self.flatFootedAcBonus();
+	});
+	
+	self.touchAcTotal = ko.computed(function() {
+		return 10 + self.touchAcBonus();
+	});
+
+	self.flatFootedAcTotal = ko.computed(function() {
+		return 10 + self.flatFootedAcBonus();
+	});
 }
 
 function getXpForLevel(level) {
