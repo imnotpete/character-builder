@@ -257,6 +257,7 @@ function setupOtherStatistics(self, data) {
 	self.refTemp = ko.observable(data.refTemp);
 	self.willTemp = ko.observable(data.willTemp);
 	self.damageReduction = ko.observable(data.damageReduction);
+	self.energyResistance = ko.observable(data.energyResistance);
 	self.speed = ko.observable(data.speed);
 	self.spellResistance = ko.observable(data.spellResistance);
 
@@ -391,7 +392,14 @@ function setupDefense(self, data) {
 		var shieldAcp = parseInt(self.shield().acp()) || 0;
 		
 		return armorAcp + shieldAcp;
-	})
+	});
+	
+	self.totalSpellFailurePercent = ko.computed(function() {
+		var armorPercent = parseInt(self.armor().spellFailurePercent()) || 0;
+		var shieldPercent = parseInt(self.shield().spellFailurePercent()) || 0;
+		
+		return armorPercent + shieldPercent;
+	});
 	
 	self.touchAcBonus = ko.computed(function() {
 		var touchAcTemp = parseInt(self.touchAcTemp()) || 0;
