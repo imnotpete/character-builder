@@ -787,17 +787,22 @@
 							</h3>
 						</div>
 						<div class="panel-body collapse in list-group" id="skills">
-							<div class="form-inline text-center" style="padding-bottom: 10px">
-								<div class="form-group">
-									<label for="totalSkillTricks"">Skill Tricks</label>
+							<div class="form-inline text-center row" style="padding-bottom: 10px">
+								<div class="form-group col-md-6">
+									<label for="totalSkillTricks"">Skill Tricks:</label>
 									<p id="totalSkillTricks" class="form-control-static"
 										data-bind="text: totalSkillTricks"></p>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="totalAcp"">Armor Check Penalty:</label>
+									<p id="totalAcp" class="form-control-static"
+										data-bind="text: totalAcp"></p>
 								</div>
 							</div>
 							<table class="table-condensed">
 								<thead>
 									<tr>
-										<th class="text-muted">* Trained Only</th>
+										<th class="text-muted">* Trained Only, &dagger;ACP (applied)</th>
 										<th>Mod</th>
 										<th>Ranks</th>
 										<th>Ability</th>
@@ -813,7 +818,7 @@
 												data-bind="click: $root.setSelectedSkill">
 												<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 											</button> <span data-bind="text: name()"></span><span
-											data-bind="visible: trainedOnly">*</span> (<span
+											data-bind="visible: trainedOnly">*</span><span data-bind="visible: acp" style="font-weight: bold">&dagger;</span> (<span
 											data-bind="text: ability().substring(0, 3)"></span>)</td>
 										<td title="mod/roll"
 											data-bind="text: $parent.skillMod(name())" class="tableMod">14</td>

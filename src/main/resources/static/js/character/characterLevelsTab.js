@@ -235,14 +235,12 @@ function setupLevelsTab(self, data) {
 		var totalRanks = Math.floor(self.totalSkillRanks(skillName));
 		//console.log("totalRanks: " + totalRanks);
 
-		var linkedAbility = null;
-		var miscMod = 0;
+		var skill;
 		for (i in self.availableSkills()) {
-			var skill = self.availableSkills()[i];
-			//console.log("skillName and skill.name " + skillName + " " + skill.name());
-			if (skill.name() === skillName) {
-				linkedAbility = skill.ability();
-				miscMod = parseInt(skill.misc()) | 0;
+			var iterSkill = self.availableSkills()[i];
+			//console.log("skillName and iterSkill.name " + skillName + " " + iterSkill.name());
+			if (iterSkill.name() === skillName) {
+				skill = iterSkill;
 				break;
 			}
 		}
@@ -250,12 +248,16 @@ function setupLevelsTab(self, data) {
 
 		var abilityMod = 0;
 
-		if (linkedAbility != "None") {
-			abilityMod = self.abilityMod(linkedAbility);
+		if (skill.ability() != "None") {
+			abilityMod = self.abilityMod(skill.ability());
 		}
 		//console.log("abilityMod: " + abilityMod);
 
-		return totalRanks + abilityMod + miscMod;
+		var acp = self.totalAcp();
+
+		var miscMod = parseInt(skill.misc()) || 0;
+		
+		return totalRanks + abilityMod + miscMod - acp;
 	}
 
 	for (i in data.classes) {

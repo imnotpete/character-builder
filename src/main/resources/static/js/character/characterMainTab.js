@@ -384,7 +384,14 @@ function setupDefense(self, data) {
 	self.flatFootedAcTemp = ko.observable(data.flatFootedAcTemp);
 	
 	self.armor = ko.observable(new Defense(data.armor));
-	self.shield = ko.observable(new Defense(self.shield));
+	self.shield = ko.observable(new Defense(data.shield));
+	
+	self.totalAcp = ko.computed(function() {
+		var armorAcp = parseInt(self.armor().acp()) || 0;
+		var shieldAcp = parseInt(self.shield().acp()) || 0;
+		
+		return armorAcp + shieldAcp;
+	})
 	
 	self.touchAcBonus = ko.computed(function() {
 		var touchAcTemp = parseInt(self.touchAcTemp()) || 0;
