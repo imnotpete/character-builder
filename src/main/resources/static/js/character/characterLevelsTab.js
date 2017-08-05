@@ -236,11 +236,13 @@ function setupLevelsTab(self, data) {
 		//console.log("totalRanks: " + totalRanks);
 
 		var linkedAbility = null;
+		var miscMod = 0;
 		for (i in self.availableSkills()) {
 			var skill = self.availableSkills()[i];
 			//console.log("skillName and skill.name " + skillName + " " + skill.name());
 			if (skill.name() === skillName) {
 				linkedAbility = skill.ability();
+				miscMod = parseInt(skill.misc()) | 0;
 				break;
 			}
 		}
@@ -253,7 +255,7 @@ function setupLevelsTab(self, data) {
 		}
 		//console.log("abilityMod: " + abilityMod);
 
-		return totalRanks + abilityMod;
+		return totalRanks + abilityMod + miscMod;
 	}
 
 	for (i in data.classes) {
@@ -616,4 +618,5 @@ function Skill(data) {
 	self.ability = ko.observable(data.ability);
 	self.acp = ko.observable(data.acp);
 	self.trainedOnly = ko.observable(data.trainedOnly);
+	self.misc = ko.observable(data.misc);
 }

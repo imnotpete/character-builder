@@ -560,7 +560,7 @@
 								<a role="button" data-toggle="collapse" href="#levels"
 									aria-expanded="false" aria-controls="levels"><span
 									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-								Levels &mdash; <span data-bind="text: levels().length"></span> &mdash; <span data-bind="text: classBreakdown"></span>
+								<span data-bind="text: levels().length"></span> Levels &mdash; <span data-bind="text: classBreakdown"></span>
 								<button type="button" class="btn-xs btn-success pull-right"
 									title="Add level" data-bind="click: addLevel">
 									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -701,7 +701,7 @@
 										<td title="ability mod"
 											data-bind="text: $parent.abilityMod(ability())">12</td>
 										<td title="misc"><input type="number"
-											class="form-control"></td>
+											class="form-control" data-bind="value: misc"></td>
 									</tr>
 								</tbody>
 							</table>
