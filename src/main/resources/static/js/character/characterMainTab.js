@@ -116,7 +116,6 @@ function Attack(parent, data) {
 	var self = this;
 	self.name = ko.observable(data.name);
 	self.alignment = ko.observable(data.alignment);
-//	self.attackBonus = ko.observable(data.attackBonus);
 	self.tempAttackBonus = ko.observable(data.tempAttackBonus);
 	self.damage = ko.observable(data.damage);
 	self.type = ko.observable(data.type);
@@ -126,10 +125,11 @@ function Attack(parent, data) {
 	self.critical = ko.observable(data.critical);
 	self.confirmingDeletion = ko.observable(false);
 	self.size = ko.observable(data.size);
+	self.ability = ko.observable(data.ability);
 
 	self.attackBonus = ko.computed(function() {
 		var tempAttackBonus = parseInt(self.tempAttackBonus()) || 0;
-		var strMod = parent.abilityMod("Strength");
+		var strMod = parseInt(parent.abilityMod(self.ability())) || 0;
 		var baseAttackBonus = parent.totalBaseAttackBonus();
 		var totalAttackMod = baseAttackBonus + strMod + tempAttackBonus;
 		

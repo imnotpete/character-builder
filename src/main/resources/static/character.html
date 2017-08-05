@@ -483,15 +483,27 @@
 										<label for="attackName">Name</label> <input type="text"
 											class="form-control" data-bind="value: name" id="attackName">
 									</div>
-									<div class="form-group col-md-3">
-										<label for="attackBonus">Bonus</label> <input type="text"
-											class="form-control" data-bind="value: attackBonus"
-											id="attackBonus" readonly>
+									<div class="form-group col-md-2">
+										<label for="attackBonus">Bonus</label>
+										<p class="form-control-static" data-bind="text: attackBonus"
+											id="attackBonus"></p>
 									</div>
-									<div class="form-group col-md-3">
+									<div class="form-group col-md-2">
 										<label for="tempAttackBonus">Temp BAB</label> <input
 											type="number" class="form-control"
 											data-bind="value: tempAttackBonus" id="tempAttackBonus">
+									</div>
+									<div class="form-group col-md-2">
+										<label for="attackAbility">Ability</label> <select class="form-control"
+											data-bind="value: ability" id="attackAbility">
+											<option></option>
+											<option>Strength</option>
+											<option>Dexterity</option>
+											<option>Constitution</option>
+											<option>Intelligence</option>
+											<option>Wisdom</option>
+											<option>Charisma</option>
+										</select>
 									</div>
 									<div class="form-group col-md-3">
 										<label for="attackDamage">Damage</label> <input type="text"
@@ -559,8 +571,9 @@
 							<h3 class="panel-title">
 								<a role="button" data-toggle="collapse" href="#levels"
 									aria-expanded="false" aria-controls="levels"><span
-									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-								<span data-bind="text: levels().length"></span> Levels &mdash; <span data-bind="text: classBreakdown"></span>
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a> <span
+									data-bind="text: levels().length"></span> Levels &mdash; <span
+									data-bind="text: classBreakdown"></span>
 								<button type="button" class="btn-xs btn-success pull-right"
 									title="Add level" data-bind="click: addLevel">
 									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
