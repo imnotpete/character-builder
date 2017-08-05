@@ -39,6 +39,7 @@ public class CharacterController {
 
 	@PostMapping("/characters")
 	public Long saveCharacter(DndCharacter dndChar) {
+		System.out.println(dndChar);
 		dndChar = charRepo.save(dndChar);
 		return dndChar.getId();
 	}

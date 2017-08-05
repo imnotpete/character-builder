@@ -11,6 +11,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
+	
+<script src="js/toaster/jquery.toaster.js"></script>
 <!-- end jQuery -->
 
 <!--  Bootstrap -->
@@ -75,11 +77,20 @@
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
-	
+
 	<div class="container">
-	<a href="character.html" class="pull-right">New Character</a>
+		<a href="character.html" class="pull-right">New Character</a>
 		<div class="col-md-12 list-group" data-bind="foreach: characters">
-			<a data-bind="text: name, attr: {'href' : 'character.html?id=' + id()}" class="list-group-item"></a>
+			<a
+				data-bind="text: name, attr: {'href' : 'character.html?id=' + id()}"
+				class="list-group-item"></a>
+		</div>
+		<a href="#" class="pull-right"
+			onclick="$('#characterImportDiv').toggle()">Import Character</a>
+		<div id="characterImportDiv" style="display: none">
+			<textarea rows="20" class="form-control"
+				draggable="true" id="characterJson"></textarea>
+				<button class="btn btn-success" onclick="importCharacter()">Import</button>
 		</div>
 	</div>
 </body>

@@ -23,4 +23,9 @@ public class DndCharacter {
 	
 	@Column(length = 512000)
 	private String json;
+	
+	@Override
+	public String toString() {
+		return String.format("id [%s], name [%s], json length [%s]", id, name, (null == json ? "null" : json.length()));
+	}
 }
