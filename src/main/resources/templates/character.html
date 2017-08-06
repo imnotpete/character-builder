@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"/>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="_csrf" th:content="${_csrf.token}"/>
-<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 <title>Character Builder</title>
 
 <!-- jQuery -->
@@ -17,14 +17,14 @@
 <script src="js/toaster/jquery.toaster.js"></script>
 <!-- end jQuery -->
 
-<link rel="icon" href="/favicon.ico"/>
+<link rel="icon" href="/favicon.ico" />
 
 <!--  Bootstrap -->
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/journal/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-1L94saFXWAvEw88RkpRz8r28eQMvt7kG9ux3DdCqya/P3CfLNtgqzMnyaUa49Pl2"
-	crossorigin="anonymous"/>
+	crossorigin="anonymous" />
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -33,7 +33,7 @@
 
 <!-- Knockout -->
 <link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
@@ -48,7 +48,7 @@
 <script src="js/character/characterSpellsTab.js"></script>
 <script src="js/character/characterNotesTab.js"></script>
 
-<link rel="stylesheet" href="css/character.css"/>
+<link rel="stylesheet" href="css/character.css" />
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -73,15 +73,15 @@
 					<!-- <li><a href=".">My Characters</a></li> -->
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false"><span id="username">not logged in</span> <span class="caret"></span></a>
+						aria-expanded="false"><span id="username">not logged in</span>
+							<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="/logout">Logout</a></li>
-							<!-- 
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="#"><span class="glyphicon glyphicon-user"
-									aria-hidden="true"></span> Profile</a></li> -->
+							<form id="f" action="logout" method="POST">
+								<input type="hidden" th:name="${_csrf.parameterName}"
+									th:value="${_csrf.token}" />
+							</form>
+							<li><a href="#" onclick="$('#f').submit()"><span
+									class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -95,7 +95,7 @@
 			<div class="form-group">
 				<label for="characterName" class="control-label">Character
 					Name</label><input type="text" class="form-control input-lg"
-					data-bind="value: name" id="characterName"/>
+					data-bind="value: name" id="characterName" />
 			</div>
 		</div>
 
@@ -154,36 +154,36 @@
 							</div>
 							<div class="form-group col-md-6">
 								<label for="race">Race</label> <input type="text"
-									class="form-control" data-bind="value: race" id="race"/>
+									class="form-control" data-bind="value: race" id="race" />
 							</div>
 							<div class="form-group col-md-6">
 								<label for="deity">Deity</label> <input type="text"
-									class="form-control" data-bind="value: deity" id="deity"/>
+									class="form-control" data-bind="value: deity" id="deity" />
 							</div>
 							<div class="form-group col-md-2">
 								<label for="gender">Gender</label> <input type="text"
-									class="form-control" data-bind="value: gender" id="gender"/>
+									class="form-control" data-bind="value: gender" id="gender" />
 							</div>
 							<div class="form-group col-md-3">
 								<label for="gender">Class Level</label> <input type="text"
 									class="form-control" data-bind="value: classLevel"
-									id="classLevel" readonly="readonly"/>
+									id="classLevel" readonly="readonly" />
 							</div>
 							<div class="form-group col-md-6">
 								<label for="eyes">Eyes</label> <input type="text"
-									class="form-control" data-bind="value: eyes" id="eyes"/>
+									class="form-control" data-bind="value: eyes" id="eyes" />
 							</div>
 							<div class="form-group col-md-6">
 								<label for="hair">Hair</label> <input type="text"
-									class="form-control" data-bind="value: hair" id="hair"/>
+									class="form-control" data-bind="value: hair" id="hair" />
 							</div>
 							<div class="form-group col-md-6">
 								<label for="skin">Skin</label> <input type="text"
-									class="form-control" data-bind="value: skin" id="skin"/>
+									class="form-control" data-bind="value: skin" id="skin" />
 							</div>
 							<div class="form-group col-md-4">
 								<label for="age">Age</label> <input type="number"
-									class="form-control" data-bind="value: age" id="age"/>
+									class="form-control" data-bind="value: age" id="age" />
 							</div>
 							<div class="form-group col-md-4">
 								<label for="size">Size</label> <select class="form-control"
@@ -201,7 +201,7 @@
 							</div>
 							<div class="form-group col-md-4">
 								<label for="height">Height</label> <input type="text"
-									class="form-control" data-bind="value: height" id="height"/>
+									class="form-control" data-bind="value: height" id="height" />
 							</div>
 							<div class="form-group col-md-4">
 								<label for="weight">Weight</label>
@@ -209,7 +209,7 @@
 
 									<input type="number" class="form-control"
 										data-bind="value: weight" id="weight"
-										aria-describedby="weight-addon"/> <span
+										aria-describedby="weight-addon" /> <span
 										class="input-group-addon" id="weight-addon">lbs</span>
 								</div>
 							</div>
@@ -217,7 +217,7 @@
 								<label for="xpTotal">XP Total</label>
 								<div class="input-group">
 									<input id="xpTotal" type="text" class="form-control"
-										data-bind="value: xpTotal" readonly="readonly"/> <span
+										data-bind="value: xpTotal" readonly="readonly" /> <span
 										class="input-group-btn">
 										<button class="btn btn-default" type="button"
 											data-toggle="modal" data-target="#xpDialog" title="Edit XP">
@@ -229,7 +229,7 @@
 							<div class="form-group col-md-4">
 								<label for="nextLevelXp">Next Level XP</label> <input
 									type="text" class="form-control" id="nextLevelXp"
-									data-bind="value: nextLevelXp" readonly="readonly"/>
+									data-bind="value: nextLevelXp" readonly="readonly" />
 							</div>
 						</div>
 					</div>
@@ -264,15 +264,15 @@
 										<td data-bind="text: name"></td>
 										<td data-bind="text: mod" class="tableMod"></td>
 										<td><input data-bind="value: roll" type="number"
-											class="form-control"/></td>
+											class="form-control" /></td>
 										<td><input data-bind="value: racial" type="number"
-											class="form-control"/></td>
+											class="form-control" /></td>
 										<td><input data-bind="value: misc1" type="number"
-											class="form-control"/></td>
+											class="form-control" /></td>
 										<td><input data-bind="value: misc2" type="number"
-											class="form-control"/></td>
+											class="form-control" /></td>
 										<td><input data-bind="value: misc3" type="number"
-											class="form-control"/></td>
+											class="form-control" /></td>
 									</tr>
 								</tbody>
 							</table>
@@ -304,25 +304,25 @@
 							<div class="form-group col-md-4">
 								<label for="hpTotal">HP Total</label> <input type="number"
 									class="form-control" readonly="readonly"
-									data-bind="value: hpTotal" id="hpTotal"/>
+									data-bind="value: hpTotal" id="hpTotal" />
 							</div>
 							<div class="form-group col-md-4">
 								<label for="hpCurrent">HP Current</label> <input type="number"
 									class="form-control" readonly="readonly"
-									data-bind="value: hpCurrent" id="hpCurrent"/>
+									data-bind="value: hpCurrent" id="hpCurrent" />
 							</div>
 							<div class="form-group col-md-4">
 								<label for="hpTemp">Temp HP</label> <input type="number"
-									class="form-control" data-bind="value: hpTemp" id="hpTemp"/>
+									class="form-control" data-bind="value: hpTemp" id="hpTemp" />
 							</div>
 							<div class="form-group col-md-6">
 								<label for="damage">Damage</label> <input type="number"
-									class="form-control" data-bind="value: damage" id="damage"/>
+									class="form-control" data-bind="value: damage" id="damage" />
 							</div>
 							<div class="form-group col-md-6">
 								<label for="nonlethal">Nonlethal</label> <input type="number"
 									class="form-control" data-bind="value: nonlethal"
-									id="nonlethal"/>
+									id="nonlethal" />
 							</div>
 						</div>
 					</div>
@@ -348,31 +348,31 @@
 									</legend>
 									<label for="initiativeTotal">Total</label> <input type="number"
 										class="form-control" readonly="readonly"
-										data-bind="value: initiativeTotal" id="initiativeTotal"/>
-									<label for="initiativeTemp">Temp</label> <input type="number"
+										data-bind="value: initiativeTotal" id="initiativeTotal" /> <label
+										for="initiativeTemp">Temp</label> <input type="number"
 										class="form-control" data-bind="value: initiativeTemp"
-										id="initiativeTemp"/>
+										id="initiativeTemp" />
 								</fieldset>
 							</div>
 							<div class="form-group col-md-4">
 								<label for="damageReduction" title="Damage Reduction">DR</label>
 								<input type="text" class="form-control"
-									data-bind="value: damageReduction" id="damageReduction"/>
+									data-bind="value: damageReduction" id="damageReduction" />
 							</div>
 							<div class="form-group col-md-4">
 								<label for="energyResistance">Energy Resistance</label> <input
 									type="text" class="form-control"
-									data-bind="value: energyResistance" id="energyResistance"/>
+									data-bind="value: energyResistance" id="energyResistance" />
 							</div>
 
 							<div class="form-group col-md-3">
 								<label for="speed">Speed</label> <input type="text"
-									class="form-control" data-bind="value: speed" id="speed"/>
+									class="form-control" data-bind="value: speed" id="speed" />
 							</div>
 							<div class="form-group col-md-3">
 								<label for="spellResistance" title="Spell Resistance">SR</label>
 								<input type="text" class="form-control"
-									data-bind="value: spellResistance" id="spellResistance"/>
+									data-bind="value: spellResistance" id="spellResistance" />
 							</div>
 
 							<div class="form-group col-md-3">
@@ -380,7 +380,7 @@
 									title="Total Spell Failure Percent">Spell Failure %</label> <input
 									type="text" class="form-control"
 									data-bind="value: totalSpellFailurePercent"
-									id="totalSpellFailurePercent"/>
+									id="totalSpellFailurePercent" />
 							</div>
 
 							<div class="form-group col-md-4">
@@ -403,21 +403,21 @@
 												<td><p class="form-control-static"
 														data-bind="text: fortSave" id="fortSave"></p></td>
 												<td><input type="number" data-bind="value: fortTemp"
-													class="form-control" id="fortTemp"/></td>
+													class="form-control" id="fortTemp" /></td>
 											</tr>
 											<tr>
 												<td title="Reflex">Ref</td>
 												<td><p class="form-control-static"
 														data-bind="text: refSave" id="refSave"></p></td>
 												<td><input type="number" data-bind="value: refTemp"
-													class="form-control" id="refTemp"/></td>
+													class="form-control" id="refTemp" /></td>
 											</tr>
 											<tr>
 												<td>Will</td>
 												<td><p class="form-control-static"
 														data-bind="text: willSave" id="willSave"></p></td>
 												<td><input type="number" data-bind="value: willTemp"
-													class="form-control" id="willTemp"/></td>
+													class="form-control" id="willTemp" /></td>
 											</tr>
 										</tbody>
 									</table>
@@ -451,29 +451,29 @@
 									<fieldset>
 										<label for="acTotal">Armor Class</label> <input type="number"
 											class="form-control" readonly="readonly"
-											data-bind="value: acTotal" id="acTotal"/> <label
+											data-bind="value: acTotal" id="acTotal" /> <label
 											for="acTemp">Temp</label> <input type="number"
-											class="form-control" data-bind="value: acTemp" id="acTemp"/>
+											class="form-control" data-bind="value: acTemp" id="acTemp" />
 									</fieldset>
 								</div>
 								<div class="form-group col-md-4">
 									<fieldset>
 										<label for="touchAcTotal">Touch</label> <input type="number"
 											class="form-control" readonly="readonly"
-											data-bind="value: touchAcTotal" id="touchAcTotal"/> <label
+											data-bind="value: touchAcTotal" id="touchAcTotal" /> <label
 											for="touchAcTemp">Temp</label> <input type="number"
 											class="form-control" data-bind="value: touchAcTemp"
-											id="touchAcTemp"/>
+											id="touchAcTemp" />
 									</fieldset>
 								</div>
 								<div class="form-group col-md-4">
 									<fieldset>
 										<label for="flatFootedAcTotal">Flat-Footed</label> <input
 											type="number" class="form-control" readonly="readonly"
-											data-bind="value: flatFootedAcTotal" id="flatFootedAcTotal"/>
+											data-bind="value: flatFootedAcTotal" id="flatFootedAcTotal" />
 										<label for="flatFootedAcTemp">Temp</label> <input
 											type="number" class="form-control"
-											data-bind="value: flatFootedAcTemp" id="flatFootedAcTemp"/>
+											data-bind="value: flatFootedAcTemp" id="flatFootedAcTemp" />
 									</fieldset>
 								</div>
 							</div>
@@ -483,37 +483,37 @@
 									<div class="form-group col-md-6">
 										<label for="armorName">Armor</label> <input type="text"
 											class="form-control" data-bind="value: armor().name"
-											id="armorName"/>
+											id="armorName" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="acBonus">AC Bonus</label> <input type="number"
 											class="form-control" data-bind="value: armor().acBonus"
-											id="acBonus"/>
+											id="acBonus" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="maxDex">Max Dex</label> <input type="number"
 											class="form-control" data-bind="value: armor().maxDex"
-											id="maxDex"/>
+											id="maxDex" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="acp">ACP</label> <input type="number"
-											class="form-control" data-bind="value: armor().acp" id="acp"/>
+											class="form-control" data-bind="value: armor().acp" id="acp" />
 									</div>
 									<div class="form-group col-md-3">
 										<label for="spellFailurePercent">Spell Failure %</label> <input
 											type="number" class="form-control"
 											data-bind="value: armor().spellFailurePercent"
-											id="spellFailurePercent"/>
+											id="spellFailurePercent" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="speed">Speed</label> <input type="number"
 											class="form-control" data-bind="value: armor().speed"
-											id="speed"/>
+											id="speed" />
 									</div>
 									<div class="form-group col-md-7">
 										<label for="defenseNotes">Notes</label> <input type="text"
 											class="form-control" data-bind="value: armor().notes"
-											id="notes"/>
+											id="notes" />
 									</div>
 								</li>
 
@@ -522,37 +522,37 @@
 									<div class="form-group col-md-6">
 										<label for="armorName">Shield</label> <input type="text"
 											class="form-control" data-bind="value: shield().name"
-											id="armorName"/>
+											id="armorName" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="acBonus">AC Bonus</label> <input type="number"
 											class="form-control" data-bind="value: shield().acBonus"
-											id="acBonus"/>
+											id="acBonus" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="maxDex">Max Dex</label> <input type="number"
 											class="form-control" data-bind="value: shield().maxDex"
-											id="maxDex"/>
+											id="maxDex" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="acp">ACP</label> <input type="number"
-											class="form-control" data-bind="value: shield().acp" id="acp"/>
+											class="form-control" data-bind="value: shield().acp" id="acp" />
 									</div>
 									<div class="form-group col-md-3">
 										<label for="spellFailurePercent">Spell Failure %</label> <input
 											type="number" class="form-control"
 											data-bind="value: shield().spellFailurePercent"
-											id="spellFailurePercent"/>
+											id="spellFailurePercent" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="speed">Speed</label> <input type="number"
 											class="form-control" data-bind="value: shield().speed"
-											id="speed"/>
+											id="speed" />
 									</div>
 									<div class="form-group col-md-7">
 										<label for="defenseNotes">Notes</label> <input type="text"
 											class="form-control" data-bind="value: shield().notes"
-											id="notes"/>
+											id="notes" />
 									</div>
 								</li>
 							</div>
@@ -600,7 +600,7 @@
 								<li class="list-group-item row">
 									<div class="form-group col-md-6">
 										<label for="attackName">Name</label> <input type="text"
-											class="form-control" data-bind="value: name" id="attackName"/>
+											class="form-control" data-bind="value: name" id="attackName" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="attackBonus">Bonus</label>
@@ -610,7 +610,7 @@
 									<div class="form-group col-md-2">
 										<label for="tempAttackBonus">Temp BAB</label> <input
 											type="number" class="form-control"
-											data-bind="value: tempAttackBonus" id="tempAttackBonus"/>
+											data-bind="value: tempAttackBonus" id="tempAttackBonus" />
 									</div>
 									<div class="form-group col-md-2">
 										<label for="attackAbility">Ability</label> <select
@@ -628,30 +628,30 @@
 									<div class="form-group col-md-3">
 										<label for="attackDamage">Damage</label> <input type="text"
 											class="form-control" data-bind="value: damage"
-											id="attackDamage"/>
+											id="attackDamage" />
 									</div>
 									<div class="form-group col-md-3">
 										<label for="attackType">Type</label> <input type="text"
-											class="form-control" data-bind="value: type" id="attackType"/>
+											class="form-control" data-bind="value: type" id="attackType" />
 									</div>
 									<div class="form-group col-md-3">
 										<label for="range">Range</label> <input type="text"
-											class="form-control" data-bind="value: range" id="range"/>
+											class="form-control" data-bind="value: range" id="range" />
 									</div>
 									<div class="form-group col-md-3">
 										<label for="ammunition">Ammunition</label> <input type="text"
 											class="form-control" data-bind="value: ammunition"
-											id="ammunition"/>
+											id="ammunition" />
 									</div>
 									<div class="form-group col-md-7">
 										<label for="attackNotes">Notes</label> <input type="text"
 											class="form-control" data-bind="value: notes"
-											id="attackNotes"/>
+											id="attackNotes" />
 									</div>
 									<div class="form-group col-md-3">
 										<label for="critical">Critical</label> <input type="text"
 											class="form-control" data-bind="value: critical"
-											id="critical"/>
+											id="critical" />
 									</div>
 									<div class="col-md-2"
 										data-bind="visible: ! confirmingDeletion()">
@@ -720,7 +720,7 @@
 								</div>
 								<div class="form-group col-md-2">
 									<label for="hdRoll">HD Roll</label> <input type="number"
-										class="form-control" data-bind="value: hdRoll" id="hdRoll"/>
+										class="form-control" data-bind="value: hdRoll" id="hdRoll" />
 								</div>
 								<div class=" col-md-2">
 									<br />
@@ -744,7 +744,7 @@
 										<div class="form-group">
 											<label for="skillTricks">Skill Trick</label> <input
 												id="skillTricks" type="checkbox" class="form-control "
-												placeholder="Tricks" data-bind="checked: skillTrick"/>
+												placeholder="Tricks" data-bind="checked: skillTrick" />
 										</div>
 										<div class="form-group">
 											<label for="totalSkillPointsSpent">Points Spent</label>
@@ -760,7 +760,7 @@
 												<div style="width: 11em; text-align: right"
 													class="input-group-addon" data-bind="text: name()"></div>
 												<input type="number" class="form-control"
-													placeholder="Points" data-bind="value: points"/>
+													placeholder="Points" data-bind="value: points" />
 											</div>
 										</div>
 									</div>
@@ -823,10 +823,8 @@
 										<th>Misc</th>
 									</tr>
 								</thead>
-								<tbody
-									data-bind="foreach: availableSkills.sort(skillSort)">
-									<tr
-										data-bind="css: {'text-danger': untrained}">
+								<tbody data-bind="foreach: availableSkills.sort(skillSort)">
+									<tr data-bind="css: {'text-danger': untrained}">
 										<td><button class="btn btn-link" data-toggle="modal"
 												data-target="#skillEditDialog"
 												data-bind="click: $root.setSelectedSkill">
@@ -842,7 +840,7 @@
 										<td title="ability mod"
 											data-bind="text: $parent.abilityMod(ability())">12</td>
 										<td title="misc"><input type="number"
-											class="form-control" data-bind="value: misc"/></td>
+											class="form-control" data-bind="value: misc" /></td>
 									</tr>
 								</tbody>
 							</table>
@@ -1095,7 +1093,7 @@
 					<li class="list-group-item row">
 						<div class="form-group col-md-7">
 							<label for="className">Class</label> <input type="text"
-								class="form-control" data-bind="value: className" id="className"/>
+								class="form-control" data-bind="value: className" id="className" />
 						</div>
 						<div class="form-group col-md-2">
 							<label for="attackBonus">Attack Bonus</label> <select

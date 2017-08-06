@@ -44,31 +44,29 @@ public class CharacterController {
 
 	@PostMapping
 	public Long saveCharacter(DndCharacter dndChar, Authentication auth) {
-		validateOwnership(dndChar, auth);
-
+		String owner = validateOwnership(dndChar.getId(), auth);
+		
+		if (null == dndChar.getOwner()) {
+			dndChar.setOwner(owner);
+		}
+		
 		dndChar = charRepo.save(dndChar);
 		return dndChar.getId();
 	}
 
-	private void validateOwnership(DndCharacter dndChar, Authentication auth) {
-		if (null == dndChar.getId()) {
-			// new character -- make sure we set the owner
-			dndChar.setOwner(auth.getName());
-		} else {
-			// existing character -- make sure current user is the owner
-			String owner = charRepo.findOwnerById(dndChar.getId());
-			if (!auth.getName().equals(owner)) {
-				throw new AccessDeniedException("You don't own this character!");
-			}
-			
-			if (null == dndChar.getOwner()) {
-				dndChar.setOwner(owner);
-			}
+	private String validateOwnership(Long charId, Authentication auth) {
+		String owner = charRepo.findOwnerById(charId);
+
+		if (!auth.getName().equals(owner)) {
+			throw new AccessDeniedException("You don't own this character!");
 		}
+
+		return owner;
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteCharacter(@PathVariable("id") Long id) {
+	public void deleteCharacter(@PathVariable("id") Long id, Authentication auth) {
+		validateOwnership(id, auth);
 		charRepo.delete(id);
 	}
 }
