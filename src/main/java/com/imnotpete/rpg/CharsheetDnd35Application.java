@@ -16,7 +16,8 @@ public class CharsheetDnd35Application extends WebMvcConfigurerAdapter {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		super.addViewControllers(registry);
 		registry.addViewController("/").setViewName("forward:/index.html");
-		registry.addViewController("/character.html").setViewName("character");
-		registry.addViewController("/index.html").setViewName("index");
+		registry.addViewController("/character.html");
+		registry.addViewController("/index.html");
+		registry.addViewController("/login.html");
 	}
 }
