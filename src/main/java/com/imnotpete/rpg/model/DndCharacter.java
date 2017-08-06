@@ -17,6 +17,9 @@ public class DndCharacter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+//	@NotEmpty
+	private String owner;
 	
 	@NotEmpty
 	private String name;

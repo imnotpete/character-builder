@@ -196,15 +196,6 @@ function setupLevelsTab(self, data) {
 	self.availableBaseSaves = [ "Good", "Poor" ];
 	self.availableSkills = ko.observableArray([]);
 
-	for (i in data.availableSkills) {
-		self.availableSkills().push(new Skill(data.availableSkills[i]));
-	}
-
-	if (self.availableSkills().length < 1) {
-		for (i in defaultSkills) {
-			self.availableSkills().push(new Skill(defaultSkills[i]));
-		}
-	}
 
 	self.classes = ko.observableArray([]);
 	self.levels = ko.observableArray([]);
@@ -213,7 +204,6 @@ function setupLevelsTab(self, data) {
 	self.isClassSkill = function(className, skillName) {
 		for (i in self.classes()) {
 			var thisClass = self.classes()[i];
-			//console.log("class.className(): " + thisClass.className());
 			if (thisClass.className() === className) {
 				return thisClass.isClassSkill(skillName);
 			}
@@ -230,28 +220,33 @@ function setupLevelsTab(self, data) {
 		return totalRanks;
 	};
 
+	if (self.availableSkills().length < 1) {
+		for (i in defaultSkills) {
+			self.availableSkills().push(new Skill(defaultSkills[i], self));
+		}
+	}
+	
+	for (i in data.availableSkills) {
+		self.availableSkills().push(new Skill(data.availableSkills[i], self));
+	}
+
 	self.skillMod = function(skillName) {
-		//console.log("skillName: " + skillName);
 		var totalRanks = Math.floor(self.totalSkillRanks(skillName));
-		//console.log("totalRanks: " + totalRanks);
 
 		var skill;
 		for (i in self.availableSkills()) {
 			var iterSkill = self.availableSkills()[i];
-			//console.log("skillName and iterSkill.name " + skillName + " " + iterSkill.name());
 			if (iterSkill.name() === skillName) {
 				skill = iterSkill;
 				break;
 			}
 		}
-		//console.log("linkedAbility: " + linkedAbility);
 
 		var abilityMod = 0;
 
 		if (skill.ability() != "None") {
 			abilityMod = self.abilityMod(skill.ability());
 		}
-		//console.log("abilityMod: " + abilityMod);
 
 		var acp = self.totalAcp();
 
@@ -314,7 +309,6 @@ function setupLevelsTab(self, data) {
 	};
 
 	self.removeLevel = function(level) {
-		//console.log(level);
 		self.levels.remove(level)
 	};
 
@@ -333,7 +327,7 @@ function setupLevelsTab(self, data) {
 			ability : "None",
 			acp : false,
 			trainedOnly : false
-		});
+		}, self);
 		
 		self.availableSkills.push(skill);
 		
@@ -457,8 +451,6 @@ function Class(data, parent) {
 	self.isClassSkill = function(skillName) {
 		for (i in self.skills()) {
 			var thisSkill = self.skills()[i];
-			//console.log("thisSkill.name(): " + thisSkill.name());
-			//	console.log("classSkill()? " + thisSkill.classSkill());
 			if (thisSkill.name() === skillName) {
 				return thisSkill.classSkill();
 			}
@@ -473,7 +465,6 @@ function Class(data, parent) {
 	self.deleteSkill = function(skill) {
 		for (i in self.skills()) {
 			var classSkill = self.skills()[i];
-			//console.log("classSkill.name(): " + classSkill.name());
 			if (classSkill.name() === skill.name()) {
 				self.skills.remove(classSkill);
 			}		
@@ -491,7 +482,6 @@ function Level(data, parent) {
 	self.skillTrick = ko.observable(data.skillTrick);
 	
 	self.isClassSkill = function(skillName) {
-		//console.log("className: " + self.className());
 		return parent.isClassSkill(self.className(), skillName);
 	};
 
@@ -502,19 +492,13 @@ function Level(data, parent) {
 	self.totalLevelSkillRanks = function(skillName) {
 		for (i in self.skillPoints()) {
 			var skillPoint = self.skillPoints()[i];
-			//console.log("skillPoint.name(): " + skillPoint.name());
 			if (skillPoint.name() === skillName) {
 				// divide points by 2 if it's cross-class
 				var points = skillPoint.points();
-			//	console.log("points: " + points);
 				return points / (skillPoint.isClassSkill() ? 1 : 2);
 			}
 		}
 	};
-
-//	for (i in data.skillPoints) {
-//		self.skillPoints().push(new SkillPoint(data.skillPoints[i], self));
-//	}
 
 	for (i in data.skillPoints) {
 		var skillPoint = data.skillPoints[i];
@@ -570,7 +554,6 @@ function Level(data, parent) {
 	})
 	
 	self.addSkill = function(skill) {
-		//console.log("adding skill to level");
 		self.skillPoints().push(new SkillPoint({
 			name : skill.name,
 			points : 0
@@ -582,7 +565,6 @@ function Level(data, parent) {
 	self.deleteSkill = function(skill) {
 		for (i in self.skillPoints()) {
 			var levelSkill = self.skillPoints()[i];
-			//console.log("levelSkill.name(): " + classSkill.name());
 			if (levelSkill.name() === skill.name()) {
 				self.skillPoints.remove(levelSkill);
 			}		
@@ -604,7 +586,6 @@ function SkillPoint(data, parent) {
 	self.points = ko.observable(data.points);
 
 	self.isClassSkill = ko.computed(function() {
-		//console.log("classskill name: " + self.name());
 		return parent.isClassSkill(self.name());
 	});
 
@@ -613,7 +594,7 @@ function SkillPoint(data, parent) {
 	});
 }
 
-function Skill(data) {
+function Skill(data, parent) {
 	var self = this;
 	
 	self.name = ko.observable(data.name);
@@ -621,4 +602,9 @@ function Skill(data) {
 	self.acp = ko.observable(data.acp);
 	self.trainedOnly = ko.observable(data.trainedOnly);
 	self.misc = ko.observable(data.misc);
+	
+	self.untrained = ko.computed(function() {
+		console.log("parent " + JSON.stringify (parent));
+		return self.trainedOnly() && parent.totalSkillRanks(self.name())<1
+	});
 }

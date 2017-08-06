@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"/>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<title>Character Builder</title>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+
+<script src="js/toaster/jquery.toaster.js"></script>
+<!-- end jQuery -->
+
+<!--  Bootstrap -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/journal/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1L94saFXWAvEw88RkpRz8r28eQMvt7kG9ux3DdCqya/P3CfLNtgqzMnyaUa49Pl2"
+	crossorigin="anonymous"/>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+<!-- end Bootstrap -->
+
+<!-- Knockout -->
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/knockout-sortable/1.1.0/knockout-sortable.min.js"></script>
+<!-- end Knockout -->
+
+<script src="js/character/characterViewModel.js"></script>
+<script src="js/character/characterMainTab.js"></script>
+<script src="js/character/characterLevelsTab.js"></script>
+<script src="js/character/characterAbilitiesTab.js"></script>
+<script src="js/character/characterSpellsTab.js"></script>
+<script src="js/character/characterNotesTab.js"></script>
+
+<link rel="stylesheet" href="css/character.css"/>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href=".">Character Builder</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+
+				<ul class="nav navbar-nav navbar-right">
+					<!-- <li><a href=".">My Characters</a></li> -->
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false"><span id="username">not logged in</span> <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="/logout">Logout</a></li>
+							<!-- 
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#"><span class="glyphicon glyphicon-user"
+									aria-hidden="true"></span> Profile</a></li> -->
+						</ul></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<div class="container-fluid">
+		<div class="">
+			<div class="form-group">
+				<label for="characterName" class="control-label">Character
+					Name</label><input type="text" class="form-control input-lg"
+					data-bind="value: name" id="characterName"/>
+			</div>
+		</div>
+
+		<ul class="nav nav-pills" role="tablist">
+			<li role="presentation" class="active"><a href="#mainTab"
+				aria-controls="mainTab" role="tab" data-toggle="tab">Main</a></li>
+			<li role="presentation"><a href="#levelsTab"
+				aria-controls="levelsTab" role="tab" data-toggle="tab">Levels</a></li>
+			<li role="presentation"><a href="#abilitiesTab"
+				aria-controls="abilitiesTab" role="tab" data-toggle="tab">Abilities</a></li>
+			<li role="presentation"><a href="#spellsTab"
+				aria-controls="spellsTab" role="tab" data-toggle="tab">Spells</a></li>
+			<li role="presentation"><a href="#inventoryTab"
+				aria-controls="inventoryTab" role="tab" data-toggle="tab">Inventory</a></li>
+			<li role="presentation"><a href="#notesTab"
+				aria-controls="notesTab" role="tab" data-toggle="tab">Notes</a></li>
+		</ul>
+		<br />
+		<div class="tab-content">
+
+			<!-- Main tab -->
+			<div role="tabpanel" class="tab-pane active" id="mainTab">
+
+				<!-- General Information -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#generalInfo"
+									aria-expanded="false" aria-controls="generalInfo"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								General Information
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="generalInfo">
+
+							<div class="form-group col-md-12">
+								<label for="classBreakdown">Classes</label>
+								<p id="classBreakdown" class="form-control-static lead"
+									data-bind="text: classBreakdown"></p>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="alignment">Alignment</label> <select
+									class="form-control" data-bind="value: alignment"
+									id="alignment">
+									<option>Lawful Good</option>
+									<option>Neutral Good</option>
+									<option>Chaotic Good</option>
+									<option>Lawful Neutral</option>
+									<option>True Neutral</option>
+									<option>Chaotic Neutral</option>
+									<option>Lawful Evil</option>
+									<option>Neutral Evil</option>
+									<option>Chaotic Evil</option>
+								</select>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="race">Race</label> <input type="text"
+									class="form-control" data-bind="value: race" id="race"/>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="deity">Deity</label> <input type="text"
+									class="form-control" data-bind="value: deity" id="deity"/>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="gender">Gender</label> <input type="text"
+									class="form-control" data-bind="value: gender" id="gender"/>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="gender">Class Level</label> <input type="text"
+									class="form-control" data-bind="value: classLevel"
+									id="classLevel" readonly="readonly"/>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="eyes">Eyes</label> <input type="text"
+									class="form-control" data-bind="value: eyes" id="eyes"/>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="hair">Hair</label> <input type="text"
+									class="form-control" data-bind="value: hair" id="hair"/>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="skin">Skin</label> <input type="text"
+									class="form-control" data-bind="value: skin" id="skin"/>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="age">Age</label> <input type="number"
+									class="form-control" data-bind="value: age" id="age"/>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="size">Size</label> <select class="form-control"
+									data-bind="value: size" id="size">
+									<option>Fine</option>
+									<option>Diminutive</option>
+									<option>Tiny</option>
+									<option>Small</option>
+									<option selected="selected">Medium</option>
+									<option>Large</option>
+									<option>Huge</option>
+									<option>Gargantuan</option>
+									<option>Colossal</option>
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="height">Height</label> <input type="text"
+									class="form-control" data-bind="value: height" id="height"/>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="weight">Weight</label>
+								<div class="input-group">
+
+									<input type="number" class="form-control"
+										data-bind="value: weight" id="weight"
+										aria-describedby="weight-addon"/> <span
+										class="input-group-addon" id="weight-addon">lbs</span>
+								</div>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="xpTotal">XP Total</label>
+								<div class="input-group">
+									<input id="xpTotal" type="text" class="form-control"
+										data-bind="value: xpTotal" readonly="readonly"/> <span
+										class="input-group-btn">
+										<button class="btn btn-default" type="button"
+											data-toggle="modal" data-target="#xpDialog" title="Edit XP">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+										</button>
+									</span>
+								</div>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="nextLevelXp">Next Level XP</label> <input
+									type="text" class="form-control" id="nextLevelXp"
+									data-bind="value: nextLevelXp" readonly="readonly"/>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Ability Scores -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#abilityScores"
+									aria-expanded="false" aria-controls="abilityScores"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Ability Scores
+							</h3>
+						</div>
+						<div class="panel-body collapse in" id="abilityScores">
+							<table class="table-condensed">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Mod</th>
+										<th>Roll</th>
+										<th>Racial</th>
+										<th>Misc</th>
+										<th>Misc</th>
+										<th>Misc</th>
+									</tr>
+								</thead>
+								<tbody data-bind="foreach: abilityScores">
+									<tr>
+										<td data-bind="text: name"></td>
+										<td data-bind="text: mod" class="tableMod"></td>
+										<td><input data-bind="value: roll" type="number"
+											class="form-control"/></td>
+										<td><input data-bind="value: racial" type="number"
+											class="form-control"/></td>
+										<td><input data-bind="value: misc1" type="number"
+											class="form-control"/></td>
+										<td><input data-bind="value: misc2" type="number"
+											class="form-control"/></td>
+										<td><input data-bind="value: misc3" type="number"
+											class="form-control"/></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<!-- Status -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#health"
+									aria-expanded="false" aria-controls="health"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Health <span id="condition"
+									data-bind="attr : {'class' : healthBadgeClasses}, text: healthBadgeText"
+									class="label label-success">Alive</span>
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="health">
+							<div class="col-md-12">
+								<div class="progress" style="text-align: vertical">
+									<div id="hpProgress" role="progressbar"
+										data-bind="attr:{'aria-valuenow': hpPercent(), 'class' : healthBarClasses}, style:{width: hpPercent()+'%'}, text: hpPercent()+'%'"
+										aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
+								</div>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="hpTotal">HP Total</label> <input type="number"
+									class="form-control" readonly="readonly"
+									data-bind="value: hpTotal" id="hpTotal"/>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="hpCurrent">HP Current</label> <input type="number"
+									class="form-control" readonly="readonly"
+									data-bind="value: hpCurrent" id="hpCurrent"/>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="hpTemp">Temp HP</label> <input type="number"
+									class="form-control" data-bind="value: hpTemp" id="hpTemp"/>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="damage">Damage</label> <input type="number"
+									class="form-control" data-bind="value: damage" id="damage"/>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="nonlethal">Nonlethal</label> <input type="number"
+									class="form-control" data-bind="value: nonlethal"
+									id="nonlethal"/>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Other Statistics -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#otherStats"
+									aria-expanded="false" aria-controls="otherStats"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Other Statistics
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="otherStats">
+
+							<div class="form-group col-md-3">
+								<fieldset>
+									<legend>
+										<small>Initiative</small>
+									</legend>
+									<label for="initiativeTotal">Total</label> <input type="number"
+										class="form-control" readonly="readonly"
+										data-bind="value: initiativeTotal" id="initiativeTotal"/>
+									<label for="initiativeTemp">Temp</label> <input type="number"
+										class="form-control" data-bind="value: initiativeTemp"
+										id="initiativeTemp"/>
+								</fieldset>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="damageReduction" title="Damage Reduction">DR</label>
+								<input type="text" class="form-control"
+									data-bind="value: damageReduction" id="damageReduction"/>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="energyResistance">Energy Resistance</label> <input
+									type="text" class="form-control"
+									data-bind="value: energyResistance" id="energyResistance"/>
+							</div>
+
+							<div class="form-group col-md-3">
+								<label for="speed">Speed</label> <input type="text"
+									class="form-control" data-bind="value: speed" id="speed"/>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="spellResistance" title="Spell Resistance">SR</label>
+								<input type="text" class="form-control"
+									data-bind="value: spellResistance" id="spellResistance"/>
+							</div>
+
+							<div class="form-group col-md-3">
+								<label for="totalSpellFailurePercent"
+									title="Total Spell Failure Percent">Spell Failure %</label> <input
+									type="text" class="form-control"
+									data-bind="value: totalSpellFailurePercent"
+									id="totalSpellFailurePercent"/>
+							</div>
+
+							<div class="form-group col-md-4">
+								<fieldset>
+									<!-- 
+									<legend>
+										<small>Saves</small>
+									</legend> -->
+									<table class="table-condensed">
+										<thead>
+											<tr>
+												<th>Save</th>
+												<th>Total</th>
+												<th>Temp</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td title="Fortitude">Fort</td>
+												<td><p class="form-control-static"
+														data-bind="text: fortSave" id="fortSave"></p></td>
+												<td><input type="number" data-bind="value: fortTemp"
+													class="form-control" id="fortTemp"/></td>
+											</tr>
+											<tr>
+												<td title="Reflex">Ref</td>
+												<td><p class="form-control-static"
+														data-bind="text: refSave" id="refSave"></p></td>
+												<td><input type="number" data-bind="value: refTemp"
+													class="form-control" id="refTemp"/></td>
+											</tr>
+											<tr>
+												<td>Will</td>
+												<td><p class="form-control-static"
+														data-bind="text: willSave" id="willSave"></p></td>
+												<td><input type="number" data-bind="value: willTemp"
+													class="form-control" id="willTemp"/></td>
+											</tr>
+										</tbody>
+									</table>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<!-- Defense -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#defense"
+									aria-expanded="false" aria-controls="defense"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Defense
+								<!-- <button type="button" class="btn-xs btn-success pull-right"
+									title="Add attack" data-bind="click: addAttack"
+									id="addAttackButton">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button> -->
+							</h3>
+						</div>
+						<div class="panel-body collapse in " id="defense">
+							<div class="row ">
+								<div class="form-group col-md-4">
+									<fieldset>
+										<label for="acTotal">Armor Class</label> <input type="number"
+											class="form-control" readonly="readonly"
+											data-bind="value: acTotal" id="acTotal"/> <label
+											for="acTemp">Temp</label> <input type="number"
+											class="form-control" data-bind="value: acTemp" id="acTemp"/>
+									</fieldset>
+								</div>
+								<div class="form-group col-md-4">
+									<fieldset>
+										<label for="touchAcTotal">Touch</label> <input type="number"
+											class="form-control" readonly="readonly"
+											data-bind="value: touchAcTotal" id="touchAcTotal"/> <label
+											for="touchAcTemp">Temp</label> <input type="number"
+											class="form-control" data-bind="value: touchAcTemp"
+											id="touchAcTemp"/>
+									</fieldset>
+								</div>
+								<div class="form-group col-md-4">
+									<fieldset>
+										<label for="flatFootedAcTotal">Flat-Footed</label> <input
+											type="number" class="form-control" readonly="readonly"
+											data-bind="value: flatFootedAcTotal" id="flatFootedAcTotal"/>
+										<label for="flatFootedAcTemp">Temp</label> <input
+											type="number" class="form-control"
+											data-bind="value: flatFootedAcTemp" id="flatFootedAcTemp"/>
+									</fieldset>
+								</div>
+							</div>
+							<div class="list-group">
+								<!-- Armor -->
+								<li class="list-group-item row">
+									<div class="form-group col-md-6">
+										<label for="armorName">Armor</label> <input type="text"
+											class="form-control" data-bind="value: armor().name"
+											id="armorName"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="acBonus">AC Bonus</label> <input type="number"
+											class="form-control" data-bind="value: armor().acBonus"
+											id="acBonus"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="maxDex">Max Dex</label> <input type="number"
+											class="form-control" data-bind="value: armor().maxDex"
+											id="maxDex"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="acp">ACP</label> <input type="number"
+											class="form-control" data-bind="value: armor().acp" id="acp"/>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="spellFailurePercent">Spell Failure %</label> <input
+											type="number" class="form-control"
+											data-bind="value: armor().spellFailurePercent"
+											id="spellFailurePercent"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="speed">Speed</label> <input type="number"
+											class="form-control" data-bind="value: armor().speed"
+											id="speed"/>
+									</div>
+									<div class="form-group col-md-7">
+										<label for="defenseNotes">Notes</label> <input type="text"
+											class="form-control" data-bind="value: armor().notes"
+											id="notes"/>
+									</div>
+								</li>
+
+								<!-- Shield -->
+								<li class="list-group-item row">
+									<div class="form-group col-md-6">
+										<label for="armorName">Shield</label> <input type="text"
+											class="form-control" data-bind="value: shield().name"
+											id="armorName"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="acBonus">AC Bonus</label> <input type="number"
+											class="form-control" data-bind="value: shield().acBonus"
+											id="acBonus"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="maxDex">Max Dex</label> <input type="number"
+											class="form-control" data-bind="value: shield().maxDex"
+											id="maxDex"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="acp">ACP</label> <input type="number"
+											class="form-control" data-bind="value: shield().acp" id="acp"/>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="spellFailurePercent">Spell Failure %</label> <input
+											type="number" class="form-control"
+											data-bind="value: shield().spellFailurePercent"
+											id="spellFailurePercent"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="speed">Speed</label> <input type="number"
+											class="form-control" data-bind="value: shield().speed"
+											id="speed"/>
+									</div>
+									<div class="form-group col-md-7">
+										<label for="defenseNotes">Notes</label> <input type="text"
+											class="form-control" data-bind="value: shield().notes"
+											id="notes"/>
+									</div>
+								</li>
+							</div>
+						</div>
+						<!-- <div class="panel-footer">
+							&nbsp;
+							<button type="button" class="btn-xs btn-success pull-right"
+								title="Add Attack" data-bind="click: addAttack">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div> -->
+					</div>
+				</div>
+
+				<!-- Attacks -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#attacks"
+									aria-expanded="false" aria-controls="attacks"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Attacks
+								<button type="button" class="btn-xs btn-success pull-right"
+									title="Add attack" data-bind="click: addAttack"
+									id="addAttackButton">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button>
+							</h3>
+						</div>
+						<div class="panel-body collapse in " id="attacks">
+
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label for="bab">Base Attack Bonus</label> <input type="text"
+										class="form-control" data-bind="value: totalBaseAttackBonus"
+										id="bab" readonly="readonly"></input>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="tempBab">Temp BAB</label> <input type="number"
+										class="form-control" data-bind="value: tempBab" id="tempBab"></input>
+								</div>
+							</div>
+							<div class="list-group" data-bind="sortable: attacks">
+								<li class="list-group-item row">
+									<div class="form-group col-md-6">
+										<label for="attackName">Name</label> <input type="text"
+											class="form-control" data-bind="value: name" id="attackName"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="attackBonus">Bonus</label>
+										<p class="form-control-static" data-bind="text: attackBonus"
+											id="attackBonus"></p>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="tempAttackBonus">Temp BAB</label> <input
+											type="number" class="form-control"
+											data-bind="value: tempAttackBonus" id="tempAttackBonus"/>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="attackAbility">Ability</label> <select
+											class="form-control" data-bind="value: ability"
+											id="attackAbility">
+											<option></option>
+											<option>Strength</option>
+											<option>Dexterity</option>
+											<option>Constitution</option>
+											<option>Intelligence</option>
+											<option>Wisdom</option>
+											<option>Charisma</option>
+										</select>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="attackDamage">Damage</label> <input type="text"
+											class="form-control" data-bind="value: damage"
+											id="attackDamage"/>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="attackType">Type</label> <input type="text"
+											class="form-control" data-bind="value: type" id="attackType"/>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="range">Range</label> <input type="text"
+											class="form-control" data-bind="value: range" id="range"/>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="ammunition">Ammunition</label> <input type="text"
+											class="form-control" data-bind="value: ammunition"
+											id="ammunition"/>
+									</div>
+									<div class="form-group col-md-7">
+										<label for="attackNotes">Notes</label> <input type="text"
+											class="form-control" data-bind="value: notes"
+											id="attackNotes"/>
+									</div>
+									<div class="form-group col-md-3">
+										<label for="critical">Critical</label> <input type="text"
+											class="form-control" data-bind="value: critical"
+											id="critical"/>
+									</div>
+									<div class="col-md-2"
+										data-bind="visible: ! confirmingDeletion()">
+										<br />
+										<button type="button" class="btn btn-danger"
+											data-bind="click: tryDeletion" title="Delete attack">
+											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										</button>
+									</div>
+									<div class="col-md-2" data-bind="visible: confirmingDeletion">
+										<button type="button" class="btn btn-danger"
+											data-bind="click: $parent.removeAttack"
+											title="Confirm deletion">Confirm</button>
+										<button type="button" class="btn btn-success"
+											data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+									</div>
+								</li>
+							</div>
+						</div>
+						<div class="panel-footer">
+							&nbsp;
+							<button type="button" class="btn-xs btn-success pull-right"
+								title="Add Attack" data-bind="click: addAttack">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Levels tab -->
+			<div role="tabpanel" class="tab-pane" id="levelsTab">
+
+				<div class="col-md-7">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#levels"
+									aria-expanded="false" aria-controls="levels"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a> <span
+									data-bind="text: levels().length"></span> Levels &mdash; <span
+									data-bind="text: classBreakdown"></span>
+								<button type="button" class="btn-xs btn-success pull-right"
+									title="Add level" data-bind="click: addLevel">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn-xs pull-right"
+									data-toggle="modal" data-target="#classDialog"
+									title="Edit classes">
+									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									Classes
+								</button>
+							</h3>
+						</div>
+						<div class="panel-body collapse in list-group"
+							data-bind="sortable: levels" id="levels">
+							<li class="list-group-item row classLevel">
+								<div class="col-md-1">
+									<br />
+									<h4 class="pull-right" data-bind="text: $index()+1"></h4>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="charClass">Class</label> <select
+										class="form-control" id="charClass"
+										data-bind="options: $root.classes, value: className, optionsText: 'className', optionsValue: 'className', optionsCaption: 'Choose...'"></select>
+								</div>
+								<div class="form-group col-md-2">
+									<label for="hdRoll">HD Roll</label> <input type="number"
+										class="form-control" data-bind="value: hdRoll" id="hdRoll"/>
+								</div>
+								<div class=" col-md-2">
+									<br />
+									<button type="button" class="btn"
+										data-bind="click: toggleEditingSkills" title="Edit skills">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										Skills
+									</button>
+								</div>
+								<div class="col-md-1"
+									data-bind="visible: ! confirmingDeletion()">
+									<br />
+									<button type="button" class="btn btn-danger"
+										data-bind="click: tryDeletion" title="Delete Level">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+								<div class="col-md-12" data-bind="visible: editingSkills()">
+									<div class="form-inline text-center"
+										style="padding-bottom: 10px">
+										<div class="form-group">
+											<label for="skillTricks">Skill Trick</label> <input
+												id="skillTricks" type="checkbox" class="form-control "
+												placeholder="Tricks" data-bind="checked: skillTrick"/>
+										</div>
+										<div class="form-group">
+											<label for="totalSkillPointsSpent">Points Spent</label>
+											<p id="totalSkillPointsSpent" class="form-control-static"
+												data-bind="text: levelSkillPointsSpent"></p>
+										</div>
+									</div>
+									<div class="row" style="padding-bottom: 5px"
+										data-bind="foreach: skillPoints">
+										<div class="col-md-4">
+											<div class="input-group"
+												data-bind="css: {'has-success': isClassSkill()}">
+												<div style="width: 11em; text-align: right"
+													class="input-group-addon" data-bind="text: name()"></div>
+												<input type="number" class="form-control"
+													placeholder="Points" data-bind="value: points"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-1" data-bind="visible: confirmingDeletion">
+									<button type="button" class="btn btn-danger"
+										data-bind="click: $parent.removeLevel"
+										title="Confirm deletion">Confirm</button>
+									<button type="button" class="btn btn-success"
+										data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+								</div>
+							</li>
+						</div>
+						<div class="panel-footer">
+							&nbsp;
+							<button type="button" class="btn-xs btn-success pull-right"
+								title="Add level" data-bind="click: addLevel">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-5">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#skills"
+									aria-expanded="false" aria-controls="skills"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Skills
+								<button type="button" class="btn-xs btn-success pull-right"
+									title="Add Skill" data-bind="click: addSkill">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button>
+							</h3>
+						</div>
+						<div class="panel-body collapse in list-group" id="skills">
+							<div class="form-inline text-center row"
+								style="padding-bottom: 10px">
+								<div class="form-group col-md-6">
+									<label for="totalSkillTricks">Skill Tricks:</label>
+									<p id="totalSkillTricks" class="form-control-static"
+										data-bind="text: totalSkillTricks"></p>
+								</div>
+								<div class="form-group col-md-6">
+									<label for="totalAcp">Armor Check Penalty:</label>
+									<p id="totalAcp" class="form-control-static"
+										data-bind="text: totalAcp"></p>
+								</div>
+							</div>
+							<table class="table-condensed">
+								<thead>
+									<tr>
+										<th class="text-muted">* Trained Only, &dagger;ACP
+											(applied)</th>
+										<th>Mod</th>
+										<th>Ranks</th>
+										<th>Ability</th>
+										<th>Misc</th>
+									</tr>
+								</thead>
+								<tbody
+									data-bind="foreach: availableSkills.sort(skillSort)">
+									<tr
+										data-bind="css: {'text-danger': untrained}">
+										<td><button class="btn btn-link" data-toggle="modal"
+												data-target="#skillEditDialog"
+												data-bind="click: $root.setSelectedSkill">
+												<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+											</button> <span data-bind="text: name()"></span><span
+											data-bind="visible: trainedOnly">*</span><span
+											data-bind="visible: acp" style="font-weight: bold">&dagger;</span>
+											(<span data-bind="text: ability().substring(0, 3)"></span>)</td>
+										<td title="mod/roll"
+											data-bind="text: $parent.skillMod(name())" class="tableMod">14</td>
+										<td title="ranks"
+											data-bind="text: $parent.totalSkillRanks(name())">10</td>
+										<td title="ability mod"
+											data-bind="text: $parent.abilityMod(ability())">12</td>
+										<td title="misc"><input type="number"
+											class="form-control" data-bind="value: misc"/></td>
+									</tr>
+								</tbody>
+							</table>
+
+							<!-- <div class="input-group">
+								<label data-bind="text: $data" for="points"></label>
+								<input type="number" class="form-control" id="points">
+							</div> -->
+						</div>
+						<div class="panel-footer">
+							&nbsp;
+							<button type="button" class="btn-xs btn-success pull-right"
+								title="Add Skill" data-bind="click: addSkill">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Abilities tab -->
+			<div role="tabpanel" class="tab-pane" id="abilitiesTab">
+
+				<!-- Class -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse"
+									href="#classFeaturesPanel" aria-expanded="false"
+									aria-controls="classFeaturesPanel"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Class Features
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="classFeaturesPanel">
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control"
+									data-bind="value: classFeatures1"></textarea>
+							</div>
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control"
+									data-bind="value: classFeatures2"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Race -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse"
+									href="#raceFeaturesPanel" aria-expanded="false"
+									aria-controls="raceFeaturesPanel"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Race Features
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="raceFeaturesPanel">
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control"
+									data-bind="value: raceFeatures1"></textarea>
+							</div>
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control"
+									data-bind="value: raceFeatures2"></textarea>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Feats -->
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#featsPanel"
+									aria-expanded="false" aria-controls="featsPanel"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Feats
+							</h3>
+						</div>
+						<div class="panel-body collapse in row" id="featsPanel">
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control"
+									data-bind="value: feats1"></textarea>
+							</div>
+							<div class="col-md-6">
+								<textarea rows="20" class="form-control"
+									data-bind="value: feats2"></textarea>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<!-- Spells tab -->
+			<div role="tabpanel" class="tab-pane" id="spellsTab">
+
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<a role="button" data-toggle="collapse" href="#spells"
+									aria-expanded="false" aria-controls="spells"><span
+									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+								Spells
+								<!-- 	<button type="button" class="btn-xs btn-success pull-right"
+									title="Add spell" data-bind="click: addSpell">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button> -->
+							</h3>
+						</div>
+						<div class="panel-body collapse in list-group"
+							data-bind="sortable: spells" id="spells">
+							<!-- <li class="list-group-item row">
+								<div class="form-group col-md-8">
+									<label for="className">Class</label> <input type="text"
+										class="form-control" data-bind="value: name" id="className">
+								</div>
+								<div class="form-group col-md-2">
+									<label for="hdRoll">HD Roll</label> <input type="number"
+										class="form-control" data-bind="value: hdRoll" id="hdRoll">
+								</div>
+								<div class=" col-md-1">
+									<br />
+									<button type="button" class="btn" data-toggle="modal"
+										data-target="#skillsDialog" title="Edit skills">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										Skills
+									</button>
+								</div>
+								<div class="col-md-1"
+									data-bind="visible: ! confirmingDeletion()">
+									<br />
+									<button type="button" class="btn btn-danger"
+										data-bind="click: tryDeletion" title="Delete Level">
+										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									</button>
+								</div>
+								<div class="col-md-1" data-bind="visible: confirmingDeletion">
+									<button type="button" class="btn btn-danger"
+										data-bind="click: $parent.removeLevel"
+										title="Confirm deletion">Confirm</button>
+									<button type="button" class="btn btn-success"
+										data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+								</div>
+							</li> -->
+						</div>
+						<div class="panel-footer">
+							&nbsp;
+							<!-- <button type="button" class="btn-xs btn-success pull-right"
+								title="Add level" data-bind="click: addLevel">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button> -->
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- inventory tab -->
+			<div role="tabpanel" class="tab-pane" id="inventoryTab">All
+				character inventory. Track location, and whether an item or location
+				counts toward weight carried (IE, items in a bag of holding don't)</div>
+
+			<!-- Notes tab -->
+			<div role="tabpanel" class="tab-pane" id="notesTab">
+				<textarea rows="20" class="form-control" draggable="true"
+					data-bind="value: notes"></textarea>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer" class="span12 text-center"
+		style="padding-bottom: 50px">
+		<button class="btn btn-success" data-bind="click: save, enable: mine">
+			<span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
+			Save
+		</button>
+		<a class="btn btn-info" target="_blank" href="replace" id="exportLink"><span
+			class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>
+			Export</a>
+		<button type="button" class="btn btn-danger" data-toggle="modal"
+			data-target="#deleteConfirmationDialog" data-bind="enable: mine">
+			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			Delete
+		</button>
+
+	</div>
+
+	<!-- Hidden Template/Dialog stuff -->
+	<div class="modal fade" id="xpDialog" tabindex="-1" role="dialog"
+		aria-labelledby="xpModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="xpModalLabel">
+						<span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+						XP
+					</h4>
+				</div>
+				<div class="modal-body">
+					<button type="button" class="btn-xs btn-success" title="Add XP"
+						data-bind="click: addXp">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+					<div class="list-group row" data-bind="foreach: xpEntries">
+						<div class="col-md-4" style="margin-top: 10px">
+							<input class="form-control" type="number"
+								data-bind="value: entry"></input>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Done</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="classDialog" tabindex="-1" role="dialog"
+		aria-labelledby="classModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="classModalLabel">
+						<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+						Available Classes
+					</h4>
+
+					<button type="button" class="btn-xs btn-success pull-right"
+						title="Add class" data-bind="click: addClass">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="modal-body list-group" data-bind="sortable: classes">
+					<li class="list-group-item row">
+						<div class="form-group col-md-7">
+							<label for="className">Class</label> <input type="text"
+								class="form-control" data-bind="value: className" id="className"/>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="attackBonus">Attack Bonus</label> <select
+								id="attackBonus"
+								data-bind="options: $root.availableBaseAttackBonuses, value:baseAttackBonus"></select>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="fortSave">Fort Save</label> <select id="fortSave"
+								data-bind="options: $root.availableBaseSaves, value: baseFortSave"></select>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="refSave">Reflex Save</label> <select id="refSave"
+								data-bind="options: $root.availableBaseSaves, value: baseRefSave"></select>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="willSave">Will Save</label> <select id="willSave"
+								data-bind="options: $root.availableBaseSaves, value: baseWillSave"></select>
+						</div>
+						<div class="form-group col-md-12">
+							<label for="classSkills">Class Skills</label>
+							<div data-bind="foreach: skills" id="classSkills">
+								<div style="white-space: nowrap; display: inline">
+									<input type="checkbox" data-bind="checked: classSkill"><span
+										data-bind="text: name()"></span></input>&nbsp;
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1" data-bind="visible: ! confirmingDeletion()">
+							<br />
+							<button type="button" class="btn btn-danger"
+								data-bind="click: tryDeletion" title="Delete Level">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</div>
+						<div class="col-md-1" data-bind="visible: confirmingDeletion">
+							<button type="button" class="btn btn-danger"
+								data-bind="click: $root.removeClass" title="Confirm deletion">Confirm</button>
+							<button type="button" class="btn btn-success"
+								data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+						</div>
+					</li>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<!-- <button type="button" class="btn btn-success" data-dismiss="modal"
+						id="classSaveButton">Save</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="deleteConfirmationDialog" tabindex="-1"
+		role="dialog" aria-labelledby="deleteConfirmationLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="deleteConfirmationLabel">
+						<span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+						Delete Character?
+					</h4>
+				</div>
+				<div class="modal-body">
+					<p class="text-danger">
+						<span data-bind="text: name" class="characterNameDelete"></span>
+						will be permanently deleted. Are you sure? This cannot be undone!
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"
+						data-bind="click: deleteCharacter">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="skillEditDialog" tabindex="-1"
+		role="dialog" aria-labelledby="skillEditLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="skillEditLabel">
+						<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+						Edit Skill
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form data-bind="with: selectedSkill">
+						<label for="editSkillName">Skill</label> <input
+							class="form-control" data-bind="value: name" id="editSkillName"></input>
+						<label for="editSkillAbility">Ability</label> <select
+							class="form-control" data-bind="value: ability"
+							id="editSkillAbility">
+							<option>None</option>
+							<option>Strength</option>
+							<option>Dexterity</option>
+							<option>Constitution</option>
+							<option>Intelligence</option>
+							<option>Wisdom</option>
+							<option>Charisma</option>
+						</select>
+						<div>
+							<input type="checkbox" data-bind="checked: acp">Armor
+							Check Penalty</input>
+						</div>
+						<div>
+							<input type="checkbox" data-bind="checked: trainedOnly">Trained
+							Only</input>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal"
+						data-bind="click:saveEditSkill">Done</button>
+					<!--<button type="button" class="btn btn-default" data-dismiss="modal" data-bind="click:cancelEditSkill">Cancel</button>-->
+					<button type="button" class="btn btn-danger" data-dismiss="modal"
+						data-bind="click: deleteSkill">Delete</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

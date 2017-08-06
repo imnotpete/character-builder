@@ -1,5 +1,7 @@
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+
 function Character(character) {
-	console.log("character " + JSON.stringify(character));
 	var self = this;
 	self.name = ko.observable(character.name);
 	self.id = ko.observable(character.id);
@@ -9,13 +11,10 @@ function DashboardViewModel(data) {
 	var self = this;
 
 	self.characters = ko.observableArray([]);
-	console.log("data: " + JSON.stringify(data));
 
 	for (i in data) {
 		self.characters().push(new Character(data[i]));
 	}
-
-	console.log("characters: " + JSON.stringify(self.characters()));
 }
 
 function setupViewModel(data) {
@@ -28,8 +27,10 @@ function setupViewModel(data) {
 
 function importCharacter() {
 	var data = $("#characterJson").val();
-	$.ajax("characters", {
-		data : JSON.parse(data),
+	data = JSON.parse(data);
+	data.id = null;
+	$.ajax("/api/characters", {
+		data : data,
 		type : "post",
 		success : function(result) {
 			$.toaster({
@@ -53,6 +54,10 @@ function importCharacter() {
 	});
 }
 
+function loggedInHandler(username) {
+	
+}
+
 $(document).ready(function() {
 	// make error toast messages stay onscreen longer
 	$.toaster({
@@ -63,5 +68,12 @@ $(document).ready(function() {
 		}
 	});
 
-	$.getJSON("characters", setupViewModel);
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+
+	$.get("/api/users/loggedin", function(username) {
+		$("#username").text(username);
+		$.getJSON("/api/characters?owner=" + username, setupViewModel);
+	});	
 });

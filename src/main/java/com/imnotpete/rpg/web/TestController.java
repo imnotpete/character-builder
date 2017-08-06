@@ -1,14 +1,17 @@
 package com.imnotpete.rpg.web;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+//@RestController
 public class TestController {
 
 	@GetMapping("/test")
-	public String get() {
+	public String get(Authentication auth) {
+		System.out.println(auth.getName());
 		return "Hello world";
 	}
 	

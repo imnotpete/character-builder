@@ -1,6 +1,27 @@
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
+
+var loggedInUser;
+
 function CharacterViewModel(data) {
 	var self = this;
 	self.id = ko.observable(data.id);
+	console.log("data owner: " + data.owner);
+	self.owner = ko.observable(data.owner);
+	console.log("self owner: " + self.owner());
+
+	self.mine = ko.computed(function() {
+		console.log("checking mine");
+		if (null == self.id()) {
+			console.log("it's null");
+			return true;
+		}
+		console.log("mine? " + loggedInUser == self.owner())
+
+		console.log("loggedInUser " + loggedInUser);
+		console.log("owner " + self.owner());
+		return loggedInUser == self.owner();
+	});
 
 	var json = data.json;
 	if (json) {
@@ -12,7 +33,7 @@ function CharacterViewModel(data) {
 	setupLevelsTab(self, json);
 	setupMainTab(self, json);
 	setupAbilitiesTab(self, json);
-//	setupSpellsTab(self, json);
+	// setupSpellsTab(self, json);
 	// Inventory tab
 	setupNotesTab(self, json);
 
@@ -24,13 +45,17 @@ function CharacterViewModel(data) {
 		var name = $('#characterName').val();
 		if (!name || name === '') {
 			$('#characterName').parent().addClass('has-error');
-			$.toaster({priority : 'danger', title : 'Error', message : 'Your character needs a name!'});
+			$.toaster({
+				priority : 'danger',
+				title : 'Error',
+				message : 'Your character needs a name!'
+			});
 			return;
 		} else {
 			$('#characterName').parent().removeClass('has-error');
 		}
-		
-		$.ajax("characters", {
+
+		$.ajax("/api/characters", {
 			data : {
 				id : self.id,
 				name : self.name,
@@ -51,7 +76,7 @@ function CharacterViewModel(data) {
 						title : 'Success',
 						message : 'Redirecting...'
 					});
-					
+
 					setTimeout(function() {
 						window.location.href = "character.html?id=" + result;
 					}, 1500);
@@ -69,7 +94,7 @@ function CharacterViewModel(data) {
 	};
 
 	self.deleteCharacter = function() {
-		$.ajax("characters/" + self.id(), {
+		$.ajax("/api/characters/" + self.id(), {
 			type : "DELETE",
 			success : function(result) {
 				$.toaster({
@@ -92,6 +117,11 @@ function CharacterViewModel(data) {
 			}
 		});
 	};
+
+	self.skillSort = function(left, right) {
+		return left.name() == right.name() ? 0
+				: (left.name() < right.name() ? -1 : 1)
+	}
 }
 
 function setupViewModel(data) {
@@ -117,19 +147,40 @@ function getUrlParameter(param) {
 	}
 };
 
-$(document).ready(function() {
-	// make error toast messages stay onscreen longer
-	$.toaster({settings : {timeout : {danger : 10000}}});
-	
+function loggedInHandler(username) {
+	console.log("Loggedin request finished " + username);
+	loggedInUser = username;
+	$("#username").text(username);
 	var id = getUrlParameter("id");
 
 	if (id) {
-		var characterJsonUrl = "characters/" + id;
-		
+		var characterJsonUrl = "/api/characters/" + id;
+
 		$('#exportLink').prop('href', characterJsonUrl);
 		$.getJSON(characterJsonUrl, setupViewModel);
 	} else {
 		$('exportLink').hide();
 		setupViewModel({});
 	}
+}
+
+$(document).ready(function() {
+	// make error toast messages stay onscreen longer
+	$.toaster({
+		settings : {
+			timeout : {
+				danger : 10000
+			}
+		}
+	});
+
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+	
+	console.log("Started");
+	console.log("token: " + token);
+	console.log("header: " + header);
+	$.get("/api/users/loggedin", loggedInHandler);
+	console.log("Loggedin request sent");
 });
