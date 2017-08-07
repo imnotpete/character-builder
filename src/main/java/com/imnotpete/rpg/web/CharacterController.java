@@ -43,10 +43,12 @@ public class CharacterController {
 	}
 
 	@PostMapping
-	public Long saveCharacter(DndCharacter dndChar, Authentication auth) {
+	public Long saveCharacter(DndCharacter dndChar, Authentication auth) {		
 		String owner = validateOwnership(dndChar.getId(), auth);
 		
-		if (null == dndChar.getOwner()) {
+		if (null == owner) {
+			dndChar.setOwner(auth.getName());
+		} else if (null == dndChar.getOwner()) {
 			dndChar.setOwner(owner);
 		}
 		
@@ -56,8 +58,7 @@ public class CharacterController {
 
 	private String validateOwnership(Long charId, Authentication auth) {
 		String owner = charRepo.findOwnerById(charId);
-
-		if (!auth.getName().equals(owner)) {
+		if (null != owner && !auth.getName().equals(owner)) {
 			throw new AccessDeniedException("You don't own this character!");
 		}
 
