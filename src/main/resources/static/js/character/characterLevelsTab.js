@@ -252,7 +252,7 @@ function setupLevelsTab(self, data) {
 
 		var miscMod = parseInt(skill.misc()) || 0;
 		
-		return totalRanks + abilityMod + miscMod - acp;
+		return totalRanks + abilityMod + miscMod + acp;
 	}
 
 	for (i in data.classes) {
