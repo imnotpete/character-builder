@@ -219,15 +219,15 @@ function setupLevelsTab(self, data) {
 
 		return totalRanks;
 	};
+	
+	for (i in data.availableSkills) {
+		self.availableSkills().push(new Skill(data.availableSkills[i], self));
+	}
 
 	if (self.availableSkills().length < 1) {
 		for (i in defaultSkills) {
 			self.availableSkills().push(new Skill(defaultSkills[i], self));
 		}
-	}
-	
-	for (i in data.availableSkills) {
-		self.availableSkills().push(new Skill(data.availableSkills[i], self));
 	}
 
 	self.skillMod = function(skillName) {
@@ -248,7 +248,11 @@ function setupLevelsTab(self, data) {
 			abilityMod = self.abilityMod(skill.ability());
 		}
 
-		var acp = self.totalAcp();
+		var acp = 0;
+		
+		if (skill.acp()) {
+			acp = self.totalAcp();
+		}
 
 		var miscMod = parseInt(skill.misc()) || 0;
 		
