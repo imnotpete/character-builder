@@ -3,7 +3,7 @@ D&amp;D 3.5 character builder
 
 Current status: Very very early. No security. H2 embedded database.
 
-Depends on [https://projectlombok.org/](Project Lombok) -- make sure your IDE is set up right.
+Depends on [Project Lombok](https://projectlombok.org/) -- make sure your IDE is set up right.
 
 ## Building
 `mvn clean install` in main directory
