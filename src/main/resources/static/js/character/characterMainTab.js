@@ -115,7 +115,7 @@ function setupGeneral(self, data) {
 	self.hair = ko.observable(data.hair);
 	self.skin = ko.observable(data.skin);
 	self.age = ko.observable(data.age);
-	self.size = ko.observable(data.size);
+	self.size = ko.observable(data.size ? data.size : "Medium");
 	self.height = ko.observable(data.height);
 	self.weight = ko.observable(data.weight);
 	self.xpEntries = ko.observableArray([]);
@@ -249,9 +249,16 @@ function setupHealth(self, data) {
 		var conMod = self.abilityMod("Constitution");
 		var hpTemp = parseInt(self.hpTemp()) || 0;
 		var numLevels = self.levels().length;
-		var totalHdRolls = self.totalHdRolls();
-
-		return (numLevels * conMod) + hpTemp + totalHdRolls;
+		var hdRolls = self.totalHdRolls();
+		var total = hpTemp;
+		
+		for (i in hdRolls) {
+			var levelHp = conMod + hdRolls[i];
+			
+			total += Math.max(levelHp, 1);
+		}
+		
+		return total;
 	});
 
 	self.hpCurrent = ko.computed(function() {

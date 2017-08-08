@@ -291,14 +291,15 @@ function setupLevelsTab(self, data) {
 	});
 
 	self.totalHdRolls = ko.computed(function() {
-		var total = 0;
+		var rolls = [];
+		
 
 		for (i in self.levels()) {
 			var hdRoll = parseInt(self.levels()[i].hdRoll()) || 0;
-			total += hdRoll;
+			rolls.push(hdRoll);
 		}
 
-		return total;
+		return rolls;
 	});
 
 	self.classMap = ko.computed(function() {
