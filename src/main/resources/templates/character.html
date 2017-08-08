@@ -187,16 +187,7 @@
 							</div>
 							<div class="form-group col-md-4">
 								<label for="size">Size</label> <select class="form-control"
-									data-bind="value: size" id="size">
-									<option>Fine</option>
-									<option>Diminutive</option>
-									<option>Tiny</option>
-									<option>Small</option>
-									<option selected="selected">Medium</option>
-									<option>Large</option>
-									<option>Huge</option>
-									<option>Gargantuan</option>
-									<option>Colossal</option>
+									data-bind="options: sizes, value: size" id="size">
 								</select>
 							</div>
 							<div class="form-group col-md-4">
@@ -586,14 +577,23 @@
 						<div class="panel-body collapse in " id="attacks">
 
 							<div class="row">
-								<div class="form-group col-md-6">
+								<div class="form-group col-md-3">
 									<label for="bab">Base Attack Bonus</label> <input type="text"
-										class="form-control" data-bind="value: totalBaseAttackBonus"
+										class="form-control" data-bind="value: babBeforeSizeMod"
 										id="bab" readonly="readonly"></input>
 								</div>
-								<div class="form-group col-md-6">
+								<div class="form-group col-md-3">
 									<label for="tempBab">Temp BAB</label> <input type="number"
 										class="form-control" data-bind="value: tempBab" id="tempBab"></input>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="grappleMod">Grapple Modifier</label> <input type="text"
+										class="form-control" data-bind="value: grappleMod"
+										id="grappleMod" readonly="readonly"></input>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="tempGrapple">Temp Grapple</label> <input type="number"
+										class="form-control" data-bind="value: tempGrapple" id="tempGrapple"></input>
 								</div>
 							</div>
 							<div class="list-group" data-bind="sortable: attacks">

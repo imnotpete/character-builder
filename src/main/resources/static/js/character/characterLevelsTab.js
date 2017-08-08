@@ -256,7 +256,12 @@ function setupLevelsTab(self, data) {
 
 		var miscMod = parseInt(skill.misc()) || 0;
 		
-		return totalRanks + abilityMod + miscMod + acp;
+		var sizeHideMod = 0;
+		if (skillName.toLowerCase() === "hide") {
+			sizeHideMod = self.sizeMods().hideMod;
+		}
+		
+		return totalRanks + abilityMod + miscMod + acp + sizeHideMod;
 	}
 
 	for (i in data.classes) {
@@ -608,7 +613,8 @@ function Skill(data, parent) {
 	self.misc = ko.observable(data.misc);
 	
 	self.untrained = ko.computed(function() {
-		console.log("parent " + JSON.stringify (parent));
+//		console.log("parent " + JSON.stringify (parent));
+		console.log("untrained " + self.name() + "? " + parent.totalSkillRanks(self.name()));
 		return self.trainedOnly() && parent.totalSkillRanks(self.name())<1
 	});
 }
