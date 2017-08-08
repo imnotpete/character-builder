@@ -83,6 +83,8 @@
 
 	<div class="container">
 		<div class="h1">Login</div>
+		<div class="alert alert-danger" role="alert" th:if="${param.error}"><strong>Uh oh!</strong> There was a problem with your login attempt.</div>
+		<div class="alert alert-info" role="alert" th:if="${param.logout}"><strong>Bye!</strong> You have been logged out.</div>
 		<form name='f' action="login" method='POST' class="form-horizontal">
 			<input type="hidden" th:name="${_csrf.parameterName}"
 				th:value="${_csrf.token}" />
