@@ -6,20 +6,13 @@ var loggedInUser;
 function CharacterViewModel(data) {
 	var self = this;
 	self.id = ko.observable(data.id);
-	console.log("data owner: " + data.owner);
 	self.owner = ko.observable(data.owner);
-	console.log("self owner: " + self.owner());
 
 	self.mine = ko.computed(function() {
-		console.log("checking mine");
 		if (null == self.id()) {
-			console.log("it's null");
 			return true;
 		}
-		console.log("mine? " + loggedInUser == self.owner())
-
-		console.log("loggedInUser " + loggedInUser);
-		console.log("owner " + self.owner());
+		
 		return loggedInUser == self.owner();
 	});
 
@@ -148,7 +141,6 @@ function getUrlParameter(param) {
 };
 
 function loggedInHandler(username) {
-	console.log("Loggedin request finished " + username);
 	loggedInUser = username;
 	$("#username").text(username);
 	var id = getUrlParameter("id");
@@ -178,9 +170,5 @@ $(document).ready(function() {
 		xhr.setRequestHeader(header, token);
 	});
 	
-	console.log("Started");
-	console.log("token: " + token);
-	console.log("header: " + header);
 	$.get("/api/users/loggedin", loggedInHandler);
-	console.log("Loggedin request sent");
 });

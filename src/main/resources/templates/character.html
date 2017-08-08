@@ -824,7 +824,7 @@
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: availableSkills.sort(skillSort)">
-									<tr data-bind="css: {'text-danger': untrained}">
+									<tr data-bind="css: {'text-danger': untrained($parent.totalSkillRanks(name()))}">
 										<td><button class="btn btn-link" data-toggle="modal"
 												data-target="#skillEditDialog"
 												data-bind="click: $root.setSelectedSkill">

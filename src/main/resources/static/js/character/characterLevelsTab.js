@@ -613,9 +613,7 @@ function Skill(data, parent) {
 	self.trainedOnly = ko.observable(data.trainedOnly);
 	self.misc = ko.observable(data.misc);
 	
-	self.untrained = ko.computed(function() {
-//		console.log("parent " + JSON.stringify (parent));
-		console.log("untrained " + self.name() + "? " + parent.totalSkillRanks(self.name()));
-		return self.trainedOnly() && parent.totalSkillRanks(self.name())<1
-	});
+	self.untrained = function(totalSkillRanks) {
+		return self.trainedOnly() && totalSkillRanks<1
+	};
 }
