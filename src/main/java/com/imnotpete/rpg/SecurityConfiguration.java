@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	@Value("${com.imnotpete.rpg.rememberMeKey}")
+	private String rememberMeKey;
+	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryAuth = auth.inMemoryAuthentication();
@@ -39,7 +43,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.formLogin()
 				.loginPage("/login.html")
 				.loginProcessingUrl("/login")
-				.defaultSuccessUrl("/");
+				.defaultSuccessUrl("/")
+		.and()
+			.logout()
+				.deleteCookies("JSESSIONID")
+		.and()
+			.rememberMe()
+				.key(rememberMeKey);
 	}
 
 	@Bean
