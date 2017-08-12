@@ -17,7 +17,7 @@
 <script src="js/toaster/jquery.toaster.js"></script>
 <!-- end jQuery -->
 
-<link rel="icon" href="/favicon.png" type="image/x-icon"/>
+<link rel="icon" href="/favicon.png" type="image/x-icon" />
 
 <!--  Bootstrap -->
 <link
@@ -53,8 +53,9 @@
 </head>
 <body>
 
-	<input id="sessionTimeout" type="hidden" th:value="${#httpSession.getMaxInactiveInterval()}"></input>
-	
+	<input id="sessionTimeout" type="hidden"
+		th:value="${#httpSession.getMaxInactiveInterval()}"></input>
+
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -199,14 +200,8 @@
 									class="form-control" data-bind="value: height" id="height" />
 							</div>
 							<div class="form-group col-md-4">
-								<label for="weight">Weight</label>
-								<div class="input-group">
-
-									<input type="number" class="form-control"
-										data-bind="value: weight" id="weight"
-										aria-describedby="weight-addon" /> <span
-										class="input-group-addon" id="weight-addon">lbs</span>
-								</div>
+								<label for="weight">Weight</label> <input type="number"
+									class="form-control" data-bind="value: weight" id="weight" />
 							</div>
 							<div class="form-group col-md-4">
 								<label for="xpTotal">XP Total</label>
@@ -591,13 +586,14 @@
 										class="form-control" data-bind="value: tempBab" id="tempBab"></input>
 								</div>
 								<div class="form-group col-md-3">
-									<label for="grappleMod">Grapple Modifier</label> <input type="text"
-										class="form-control" data-bind="value: grappleMod"
+									<label for="grappleMod">Grapple Modifier</label> <input
+										type="text" class="form-control" data-bind="value: grappleMod"
 										id="grappleMod" readonly="readonly"></input>
 								</div>
 								<div class="form-group col-md-3">
-									<label for="tempGrapple">Temp Grapple</label> <input type="number"
-										class="form-control" data-bind="value: tempGrapple" id="tempGrapple"></input>
+									<label for="tempGrapple">Temp Grapple</label> <input
+										type="number" class="form-control"
+										data-bind="value: tempGrapple" id="tempGrapple"></input>
 								</div>
 							</div>
 							<div class="list-group" data-bind="sortable: attacks">
@@ -828,7 +824,8 @@
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: availableSkills.sort(skillSort)">
-									<tr data-bind="css: {'text-danger': untrained($parent.totalSkillRanks(name()))}">
+									<tr
+										data-bind="css: {'text-danger': untrained($parent.totalSkillRanks(name()))}">
 										<td><button class="btn btn-link" data-toggle="modal"
 												data-target="#skillEditDialog"
 												data-bind="click: $root.setSelectedSkill">
