@@ -21,6 +21,7 @@ Security is property-based right now -- users/passwords are configured directly 
 Works with either H2 or MySQL -- configured in the application.properties file.
 
 Bootstrap theme: https://bootswatch.com/journal/
+
 Favicon: http://www.favicon.cc/?action=icon&file_id=754619
 
 Markdown processing by: https://github.com/p01/mmd.js
