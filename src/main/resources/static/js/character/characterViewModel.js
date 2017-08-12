@@ -1,9 +1,11 @@
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
 
+// var isDirty = false;
 var loggedInUser;
 
 function CharacterViewModel(data) {
+	console.log("CharacterViewModel")
 	var self = this;
 	self.id = ko.observable(data.id);
 	self.owner = ko.observable(data.owner);
@@ -12,7 +14,7 @@ function CharacterViewModel(data) {
 		if (null == self.id()) {
 			return true;
 		}
-		
+
 		return loggedInUser == self.owner();
 	});
 
@@ -115,16 +117,61 @@ function CharacterViewModel(data) {
 		return left.name() == right.name() ? 0
 				: (left.name() < right.name() ? -1 : 1)
 	}
+
+	// var dirtyFlagInitialized;
+	//	
+	// // Always setup last
+	// self.isDirty = ko.computed(function() {
+	// console.log("in isDirty");
+	// // Only actually runs toJS on initial setup; every call after that skips,
+	// because we know it's dirty at that point.
+	// if (!dirtyFlagInitialized) {
+	// console.log("isDirty first run")
+	// ko.toJS(self);
+	// dirtyFlagInitialized = true;
+	// return false;
+	// }
+	//		
+	// console.log("isDirty true");
+	// isDrity = true;
+	// return true;
+	// });
+
+}
+
+function changeTracker(objectToTrack, hashFunction) {    
+	console.log("setup changeTracker");
+    hashFunction = hashFunction || ko.toJSON;
+    var lastCleanState = ko.observable(hashFunction(objectToTrack));
+    
+    var result = {
+        somethingHasChanged : ko.dependentObservable(function() {
+        	console.log("inside somethinghaschanged");
+            return hashFunction(objectToTrack) != lastCleanState()
+        }),
+        markCurrentStateAsClean : function() {
+        	console.log("inside markstateasclean");
+            lastCleanState(hashFunction(objectToTrack));   
+        }
+    };
+    
+    return function() { return result }
 }
 
 function setupViewModel(data) {
+	console.log("setupViewModel")
 	if (!data) {
 		data = {};
 	} else {
 		document.title = data.name + " :: Character Builder";
 	}
+	
+	var viewModel = new CharacterViewModel(data);
+	viewModel.tracker = new changeTracker(viewModel);
 
-	ko.applyBindings(new CharacterViewModel(data));
+	ko.applyBindings(viewModel);
+	
+	console.log("dirty? in setup: " + viewModel.tracker().somethingHasChanged());
 }
 
 function getUrlParameter(param) {
@@ -141,6 +188,7 @@ function getUrlParameter(param) {
 };
 
 function loggedInHandler(username) {
+	console.log("loggedInHandler")
 	loggedInUser = username;
 	$("#username").text(username);
 	var id = getUrlParameter("id");
@@ -171,6 +219,12 @@ $(document).ready(function() {
 	});
 
 	setupSessionTimeout();
-	
+
+	window.onbeforeunload = function() {
+		if (isDirty) {
+			return 'Are you sure you want to leave?';
+		}
+	};
+
 	$.get("/api/users/loggedin", loggedInHandler);
 });
