@@ -15,6 +15,14 @@
 	font-weight: bold;
 }
 
+.panel-body {
+	padding-bottom: 0px
+}
+
+.list-group {
+	margin-bottom: 0px
+}
+
 .form-control-static:not(.lead) {
 	font-weight: bold;
 }
