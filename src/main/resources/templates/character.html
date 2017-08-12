@@ -170,9 +170,9 @@
 									class="form-control" data-bind="value: gender" id="gender" />
 							</div>
 							<div class="form-group col-md-3">
-								<label for="gender">Class Level</label> <input type="text"
-									class="form-control" data-bind="value: classLevel"
-									id="classLevel" readonly="readonly" />
+								<label for="gender">Class Level</label>
+								<p class="form-control-static" data-bind="text: classLevel"
+									id="classLevel" />
 							</div>
 							<div class="form-group col-md-6">
 								<label for="eyes">Eyes</label> <input type="text"
@@ -186,7 +186,7 @@
 								<label for="skin">Skin</label> <input type="text"
 									class="form-control" data-bind="value: skin" id="skin" />
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-2">
 								<label for="age">Age</label> <input type="number"
 									class="form-control" data-bind="value: age" id="age" />
 							</div>
@@ -195,11 +195,11 @@
 									data-bind="options: sizes, value: size" id="size">
 								</select>
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-2">
 								<label for="height">Height</label> <input type="text"
 									class="form-control" data-bind="value: height" id="height" />
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-2">
 								<label for="weight">Weight</label> <input type="number"
 									class="form-control" data-bind="value: weight" id="weight" />
 							</div>
@@ -217,9 +217,9 @@
 								</div>
 							</div>
 							<div class="form-group col-md-4">
-								<label for="nextLevelXp">Next Level XP</label> <input
-									type="text" class="form-control" id="nextLevelXp"
-									data-bind="value: nextLevelXp" readonly="readonly" />
+								<label for="nextLevelXp">Next Level XP</label>
+								<p class="form-control-static" id="nextLevelXp"
+									data-bind="text: nextLevelXp" />
 							</div>
 						</div>
 					</div>
@@ -252,7 +252,7 @@
 								<tbody data-bind="foreach: abilityScores">
 									<tr>
 										<td data-bind="text: name"></td>
-										<td data-bind="text: mod" class="tableMod"></td>
+										<td data-bind="text: mod" class="form-control-static text-center"></td>
 										<td><input data-bind="value: roll" type="number"
 											class="form-control" /></td>
 										<td><input data-bind="value: racial" type="number"
@@ -291,25 +291,25 @@
 										aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
 								</div>
 							</div>
-							<div class="form-group col-md-4">
-								<label for="hpTotal">HP Total</label> <input type="number"
-									class="form-control" readonly="readonly"
-									data-bind="value: hpTotal" id="hpTotal" />
+							<div class="form-group col-md-2">
+								<label for="hpTotal">HP Total</label>
+								<p class="form-control-static" data-bind="text: hpTotal"
+									id="hpTotal" />
 							</div>
-							<div class="form-group col-md-4">
-								<label for="hpCurrent">HP Current</label> <input type="number"
-									class="form-control" readonly="readonly"
-									data-bind="value: hpCurrent" id="hpCurrent" />
+							<div class="form-group col-md-2">
+								<label for="hpCurrent">HP Current</label>
+								<p class="form-control-static" data-bind="text: hpCurrent"
+									id="hpCurrent" />
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-2">
 								<label for="hpTemp">Temp HP</label> <input type="number"
 									class="form-control" data-bind="value: hpTemp" id="hpTemp" />
 							</div>
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-3">
 								<label for="damage">Damage</label> <input type="number"
 									class="form-control" data-bind="value: damage" id="damage" />
 							</div>
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-3">
 								<label for="nonlethal">Nonlethal</label> <input type="number"
 									class="form-control" data-bind="value: nonlethal"
 									id="nonlethal" />
@@ -334,12 +334,11 @@
 							<div class="form-group col-md-3">
 								<fieldset>
 									<legend>
-										<small>Initiative</small>
+										<small>Initiative</small> <span class="pull-right"
+											data-bind="text: initiativeTotal"></span>
 									</legend>
-									<label for="initiativeTotal">Total</label> <input type="number"
-										class="form-control" readonly="readonly"
-										data-bind="value: initiativeTotal" id="initiativeTotal" /> <label
-										for="initiativeTemp">Temp</label> <input type="number"
+
+									<label for="initiativeTemp">Temp</label> <input type="number"
 										class="form-control" data-bind="value: initiativeTemp"
 										id="initiativeTemp" />
 								</fieldset>
@@ -428,39 +427,41 @@
 									aria-expanded="false" aria-controls="defense"><span
 									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
 								Defense
-								<!-- <button type="button" class="btn-xs btn-success pull-right"
-									title="Add attack" data-bind="click: addAttack"
-									id="addAttackButton">
-									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-								</button> -->
 							</h3>
 						</div>
 						<div class="panel-body collapse in " id="defense">
 							<div class="row ">
 								<div class="form-group col-md-4">
 									<fieldset>
-										<label for="acTotal">Armor Class</label> <input type="number"
-											class="form-control" readonly="readonly"
-											data-bind="value: acTotal" id="acTotal" /> <label
-											for="acTemp">Temp</label> <input type="number"
+										<legend>
+											<small>Armor Class</small> <span class="pull-right"
+												data-bind="text: acTotal"></span>
+										</legend>
+
+										<label for="acTemp">Temp</label> <input type="number"
 											class="form-control" data-bind="value: acTemp" id="acTemp" />
+
 									</fieldset>
 								</div>
 								<div class="form-group col-md-4">
 									<fieldset>
-										<label for="touchAcTotal">Touch</label> <input type="number"
-											class="form-control" readonly="readonly"
-											data-bind="value: touchAcTotal" id="touchAcTotal" /> <label
-											for="touchAcTemp">Temp</label> <input type="number"
+										<legend>
+											<small>Touch</small> <span class="pull-right"
+												data-bind="text: touchAcTotal"></span>
+										</legend>
+
+										<label for="touchAcTemp">Temp</label> <input type="number"
 											class="form-control" data-bind="value: touchAcTemp"
 											id="touchAcTemp" />
 									</fieldset>
 								</div>
 								<div class="form-group col-md-4">
 									<fieldset>
-										<label for="flatFootedAcTotal">Flat-Footed</label> <input
-											type="number" class="form-control" readonly="readonly"
-											data-bind="value: flatFootedAcTotal" id="flatFootedAcTotal" />
+										<legend>
+											<small>Flat-Footed</small> <span class="pull-right"
+												data-bind="text: flatFootedAcTotal"></span>
+										</legend>
+
 										<label for="flatFootedAcTemp">Temp</label> <input
 											type="number" class="form-control"
 											data-bind="value: flatFootedAcTemp" id="flatFootedAcTemp" />
@@ -547,13 +548,6 @@
 								</li>
 							</div>
 						</div>
-						<!-- <div class="panel-footer">
-							&nbsp;
-							<button type="button" class="btn-xs btn-success pull-right"
-								title="Add Attack" data-bind="click: addAttack">
-								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							</button>
-						</div> -->
 					</div>
 				</div>
 
@@ -577,18 +571,18 @@
 
 							<div class="row">
 								<div class="form-group col-md-3">
-									<label for="bab">Base Attack Bonus</label> <input type="text"
-										class="form-control" data-bind="value: babBeforeSizeMod"
-										id="bab" readonly="readonly"></input>
+									<label for="bab">Base Attack Bonus</label>
+									<p class="form-control-static text-center"
+										data-bind="text: babBeforeSizeMod" id="bab" />
 								</div>
 								<div class="form-group col-md-3">
 									<label for="tempBab">Temp BAB</label> <input type="number"
 										class="form-control" data-bind="value: tempBab" id="tempBab"></input>
 								</div>
 								<div class="form-group col-md-3">
-									<label for="grappleMod">Grapple Modifier</label> <input
-										type="text" class="form-control" data-bind="value: grappleMod"
-										id="grappleMod" readonly="readonly"></input>
+									<label for="grappleMod">Grapple Modifier</label>
+									<p class="form-control-static text-center" data-bind="text: grappleMod"
+										id="grappleMod" />
 								</div>
 								<div class="form-group col-md-3">
 									<label for="tempGrapple">Temp Grapple</label> <input
@@ -835,11 +829,11 @@
 											data-bind="visible: acp" style="font-weight: bold">&dagger;</span>
 											(<span data-bind="text: ability().substring(0, 3)"></span>)</td>
 										<td title="mod/roll"
-											data-bind="text: $parent.skillMod(name())" class="tableMod">14</td>
+											data-bind="text: $parent.skillMod(name())" class="form-control-static text-center">14</td>
 										<td title="ranks"
-											data-bind="text: $parent.totalSkillRanks(name())">10</td>
+											data-bind="text: $parent.totalSkillRanks(name())" class="text-center">10</td>
 										<td title="ability mod"
-											data-bind="text: $parent.abilityMod(ability())">12</td>
+											data-bind="text: $parent.abilityMod(ability())" class="text-center">12</td>
 										<td title="misc"><input type="number"
 											class="form-control" data-bind="value: misc" /></td>
 									</tr>
@@ -1092,7 +1086,7 @@
 				</div>
 				<div class="modal-body list-group" data-bind="sortable: classes">
 					<li class="list-group-item row">
-						<div class="form-group col-md-7">
+						<div class="form-group col-md-6">
 							<label for="className">Class</label> <input type="text"
 								class="form-control" data-bind="value: className" id="className" />
 						</div>
@@ -1101,26 +1095,17 @@
 								id="attackBonus"
 								data-bind="options: $root.availableBaseAttackBonuses, value:baseAttackBonus"></select>
 						</div>
-						<div class="form-group col-md-2">
+						<div class="form-group col-md-1">
 							<label for="fortSave">Fort Save</label> <select id="fortSave"
 								data-bind="options: $root.availableBaseSaves, value: baseFortSave"></select>
 						</div>
-						<div class="form-group col-md-2">
+						<div class="form-group col-md-1">
 							<label for="refSave">Reflex Save</label> <select id="refSave"
 								data-bind="options: $root.availableBaseSaves, value: baseRefSave"></select>
 						</div>
-						<div class="form-group col-md-2">
+						<div class="form-group col-md-1">
 							<label for="willSave">Will Save</label> <select id="willSave"
 								data-bind="options: $root.availableBaseSaves, value: baseWillSave"></select>
-						</div>
-						<div class="form-group col-md-12">
-							<label for="classSkills">Class Skills</label>
-							<div data-bind="foreach: skills" id="classSkills">
-								<div style="white-space: nowrap; display: inline">
-									<input type="checkbox" data-bind="checked: classSkill"><span
-										data-bind="text: name()"></span></input>&nbsp;
-								</div>
-							</div>
 						</div>
 						<div class="col-md-1" data-bind="visible: ! confirmingDeletion()">
 							<br />
@@ -1134,6 +1119,15 @@
 								data-bind="click: $root.removeClass" title="Confirm deletion">Confirm</button>
 							<button type="button" class="btn btn-success"
 								data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+						</div>
+						<div class="form-group col-md-12">
+							<label for="classSkills">Class Skills</label>
+							<div data-bind="foreach: skills" id="classSkills">
+								<div style="white-space: nowrap; display: inline">
+									<input type="checkbox" data-bind="checked: classSkill"><span
+										data-bind="text: name()"></span></input>&nbsp;
+								</div>
+							</div>
 						</div>
 					</li>
 				</div>

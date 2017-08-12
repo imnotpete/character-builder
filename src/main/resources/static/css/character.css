@@ -15,7 +15,7 @@
 	font-weight: bold;
 }
 
-.tableMod {
+.form-control-static:not(.lead) {
 	font-weight: bold;
 }
 
