@@ -41,6 +41,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/knockout-sortable/1.1.0/knockout-sortable.min.js"></script>
 <!-- end Knockout -->
 
+<script src="js/mmd.min.js"></script>
 <script src="js/session.js"></script>
 <script src="js/character/characterViewModel.js"></script>
 <script src="js/character/characterMainTab.js"></script>
@@ -252,7 +253,8 @@
 								<tbody data-bind="foreach: abilityScores">
 									<tr>
 										<td data-bind="text: name"></td>
-										<td data-bind="text: mod" class="form-control-static text-center"></td>
+										<td data-bind="text: mod"
+											class="form-control-static text-center"></td>
 										<td><input data-bind="value: roll" type="number"
 											class="form-control" /></td>
 										<td><input data-bind="value: racial" type="number"
@@ -468,7 +470,7 @@
 									</fieldset>
 								</div>
 							</div>
-							<div class="list-group" >
+							<div class="list-group">
 								<!-- Armor -->
 								<li class="list-group-item row">
 									<div class="form-group col-md-6">
@@ -581,8 +583,8 @@
 								</div>
 								<div class="form-group col-md-3">
 									<label for="grappleMod">Grapple Modifier</label>
-									<p class="form-control-static text-center" data-bind="text: grappleMod"
-										id="grappleMod" />
+									<p class="form-control-static text-center"
+										data-bind="text: grappleMod" id="grappleMod" />
 								</div>
 								<div class="form-group col-md-3">
 									<label for="tempGrapple">Temp Grapple</label> <input
@@ -829,11 +831,14 @@
 											data-bind="visible: acp" style="font-weight: bold">&dagger;</span>
 											(<span data-bind="text: ability().substring(0, 3)"></span>)</td>
 										<td title="mod/roll"
-											data-bind="text: $parent.skillMod(name())" class="form-control-static text-center">14</td>
+											data-bind="text: $parent.skillMod(name())"
+											class="form-control-static text-center">14</td>
 										<td title="ranks"
-											data-bind="text: $parent.totalSkillRanks(name())" class="text-center">10</td>
+											data-bind="text: $parent.totalSkillRanks(name())"
+											class="text-center">10</td>
 										<td title="ability mod"
-											data-bind="text: $parent.abilityMod(ability())" class="text-center">12</td>
+											data-bind="text: $parent.abilityMod(ability())"
+											class="text-center">12</td>
 										<td title="misc"><input type="number"
 											class="form-control" data-bind="value: misc" /></td>
 									</tr>
@@ -937,79 +942,27 @@
 			</div>
 
 			<!-- Spells tab -->
-			<div role="tabpanel" class="tab-pane" id="spellsTab">
-
-				<div class="col-md-12">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								<a role="button" data-toggle="collapse" href="#spells"
-									aria-expanded="false" aria-controls="spells"><span
-									class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-								Spells
-								<!-- 	<button type="button" class="btn-xs btn-success pull-right"
-									title="Add spell" data-bind="click: addSpell">
-									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-								</button> -->
-							</h3>
-						</div>
-						<div class="panel-body collapse in list-group"
-							data-bind="sortable: spells" id="spells">
-							<!-- <li class="list-group-item row">
-								<div class="form-group col-md-8">
-									<label for="className">Class</label> <input type="text"
-										class="form-control" data-bind="value: name" id="className">
-								</div>
-								<div class="form-group col-md-2">
-									<label for="hdRoll">HD Roll</label> <input type="number"
-										class="form-control" data-bind="value: hdRoll" id="hdRoll">
-								</div>
-								<div class=" col-md-1">
-									<br />
-									<button type="button" class="btn" data-toggle="modal"
-										data-target="#skillsDialog" title="Edit skills">
-										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-										Skills
-									</button>
-								</div>
-								<div class="col-md-1"
-									data-bind="visible: ! confirmingDeletion()">
-									<br />
-									<button type="button" class="btn btn-danger"
-										data-bind="click: tryDeletion" title="Delete Level">
-										<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-									</button>
-								</div>
-								<div class="col-md-1" data-bind="visible: confirmingDeletion">
-									<button type="button" class="btn btn-danger"
-										data-bind="click: $parent.removeLevel"
-										title="Confirm deletion">Confirm</button>
-									<button type="button" class="btn btn-success"
-										data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
-								</div>
-							</li> -->
-						</div>
-						<div class="panel-footer">
-							&nbsp;
-							<!-- <button type="button" class="btn-xs btn-success pull-right"
-								title="Add level" data-bind="click: addLevel">
-								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							</button> -->
-						</div>
-					</div>
-				</div>
-
+			<div role="tabpanel" class="tab-pane container" id="spellsTab">
+				<div class="lead">Not yet implemented.</div>
+				<p>In the meantime, this <a href="https://docs.google.com/spreadsheets/d/1BvdzusxSUIrF-7zWAARoxoGsIKfveE4_ebWnCOc2XaI/edit?usp=sharing" target="_blank">Google Sheet</a> is a usable spellbook. Add your own spells as needed.</p>
 			</div>
 
 			<!-- inventory tab -->
-			<div role="tabpanel" class="tab-pane" id="inventoryTab">All
-				character inventory. Track location, and whether an item or location
-				counts toward weight carried (IE, items in a bag of holding don't)</div>
+			<div role="tabpanel" class="tab-pane container" id="inventoryTab">
+				<div class="lead">Not yet implemented.</div>
+				<p>In the meantime, this <a href="https://docs.google.com/spreadsheets/d/13cj5J9WkMtoF7wvzvhPnMszspzz3-C3z2QIF_peOC08/edit?usp=sharing" target="_blank">Google Sheet</a> works well for tracking inventory and weight.</p>
+			</div>
 
 			<!-- Notes tab -->
-			<div role="tabpanel" class="tab-pane" id="notesTab">
-				<textarea rows="20" class="form-control" draggable="true"
-					data-bind="value: notes"></textarea>
+			<div role="tabpanel" class="tab-pane container" id="notesTab">
+				<div id="notesRendered"
+					data-bind="visible: !editingNotes(), html: notesRendered"></div>
+				<div data-bind="visible: editingNotes">
+					<p>Supports basic MarkDown syntax as detailed <a target="_blank" href="https://github.com/p01/mmd.js">here</a>.</p>
+					<textarea rows="20" class="form-control" draggable="true"
+						data-bind="value: notes"></textarea>
+				</div>
+				<button class="btn btn-xs" data-bind="click: toggleEditingNotes">Edit</button>
 			</div>
 		</div>
 	</div>
