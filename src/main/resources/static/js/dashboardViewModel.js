@@ -23,6 +23,8 @@ function setupViewModel(data) {
 	}
 
 	ko.applyBindings(new DashboardViewModel(data));
+	
+	resetSessionTimer();
 }
 
 function importCharacter() {
@@ -54,10 +56,6 @@ function importCharacter() {
 	});
 }
 
-function loggedInHandler(username) {
-	
-}
-
 $(document).ready(function() {
 	// make error toast messages stay onscreen longer
 	$.toaster({
@@ -72,6 +70,8 @@ $(document).ready(function() {
 		xhr.setRequestHeader(header, token);
 	});
 
+	setupSessionTimeout();
+	
 	$.get("/api/users/loggedin", function(username) {
 		$("#username").text(username);
 		$.getJSON("/api/characters?owner=" + username, setupViewModel);

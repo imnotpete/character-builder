@@ -89,6 +89,7 @@
 		<div class="alert alert-info" role="alert" th:if="${param.logout}">
 			<strong>Bye!</strong> You have been logged out.
 		</div>
+		
 		<form name='f' action="login" method='POST' class="form-horizontal">
 			<input type="hidden" th:name="${_csrf.parameterName}"
 				th:value="${_csrf.token}" />

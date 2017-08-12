@@ -41,9 +41,13 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/knockout-sortable/1.1.0/knockout-sortable.min.js"></script>
 <!-- end Knockout -->
 
+<script src="js/session.js"></script>
 <script src="js/dashboardViewModel.js"></script>
 </head>
 <body>
+	
+	<input id="sessionTimeout" type="hidden" th:value="${#httpSession.getMaxInactiveInterval()}"></input>
+
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -86,6 +90,7 @@
 	<div class="container">
 		<!--  style="margin-bottom: 0px; padding-right:0px;"  data-bind="foreach: characters"  class="pull-right"-->
 		<div class="h1">My Characters</div>
+		
 		<a href="character.html">New Character</a>
 		<div class="list-group" style="margin-bottom:0px" data-bind="foreach: characters">
 			<a
