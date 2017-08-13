@@ -98,7 +98,6 @@
 
 	<div class="container-fluid">
 		<div class="">
-			<div data-bind="visible: tracker().somethingHasChanged()">Dirty!</div>
 			<div class="form-group">
 				<label for="characterName" class="control-label">Character
 					Name</label><input type="text" class="form-control input-lg"
@@ -146,17 +145,8 @@
 							</div>
 							<div class="form-group col-md-4">
 								<label for="alignment">Alignment</label> <select
-									class="form-control" data-bind="value: alignment"
+									class="form-control" data-bind="options: alignments, value: alignment, optionsCaption: 'Choose one...'"
 									id="alignment">
-									<option>Lawful Good</option>
-									<option>Neutral Good</option>
-									<option>Chaotic Good</option>
-									<option>Lawful Neutral</option>
-									<option>True Neutral</option>
-									<option>Chaotic Neutral</option>
-									<option>Lawful Evil</option>
-									<option>Neutral Evil</option>
-									<option>Chaotic Evil</option>
 								</select>
 							</div>
 							<div class="form-group col-md-6">
@@ -194,7 +184,7 @@
 							</div>
 							<div class="form-group col-md-4">
 								<label for="size">Size</label> <select class="form-control"
-									data-bind="options: sizes, value: size" id="size">
+									data-bind="options: sizes, value: size, optionsCaption: 'Choose one...'" id="size">
 								</select>
 							</div>
 							<div class="form-group col-md-2">
@@ -377,10 +367,6 @@
 
 							<div class="form-group col-md-4">
 								<fieldset>
-									<!-- 
-									<legend>
-										<small>Saves</small>
-									</legend> -->
 									<table class="table-condensed">
 										<thead>
 											<tr>
@@ -970,7 +956,7 @@
 
 	<div id="footer" class="span12 text-center"
 		style="padding-bottom: 50px">
-		<button class="btn btn-success" data-bind="click: save, enable: mine">
+		<button class="btn btn-success" data-bind="click: save, enable: mine() &amp;&amp; tracker().somethingHasChanged()">
 			<span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
 			Save
 		</button>
@@ -1161,7 +1147,6 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success" data-dismiss="modal"
 						data-bind="click:saveEditSkill">Done</button>
-					<!--<button type="button" class="btn btn-default" data-dismiss="modal" data-bind="click:cancelEditSkill">Cancel</button>-->
 					<button type="button" class="btn btn-danger" data-dismiss="modal"
 						data-bind="click: deleteSkill">Delete</button>
 				</div>

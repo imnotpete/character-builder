@@ -7,7 +7,8 @@ function setupNotesTab(self, data) {
 	self.notes = ko.observable(data.notes);
 	
 	self.notesRendered = ko.computed(function() {
-		return mmd(self.notes());
+		var notes = self.notes() || "";
+		return mmd(notes);
 	});
 	
 	self.toggleEditingNotes = function() {

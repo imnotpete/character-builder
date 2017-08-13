@@ -1,59 +1,59 @@
 var sizeMap = {
-		Fine : {
-			name : "Fine",
-			sizeMod : 8,
-			grappleMod : -16,
-			hideMod : 16
-		},
-		Diminutive : {
-			name : "Diminutive",
-			sizeMod : 4,
-			grappleMod : -12,
-			hideMod : 12
-		},
-		Tiny : {
-			name : "Tiny",
-			sizeMod : 2,
-			grappleMod : -8,
-			hideMod : 8
-		},
-		Small : {
-			name : "Small",
-			sizeMod : 1,
-			grappleMod : -4,
-			hideMod : 4
-		},
-		Medium : {
-			name : "Medium",
-			sizeMod : 0,
-			grappleMod : 0,
-			hideMod : 0
-		},
-		Large : {
-			name : "Large",
-			sizeMod : -1,
-			grappleMod : 4,
-			hideMod : -4
-		},
-		Huge : {
-			name : "Huge",
-			sizeMod : -2,
-			grappleMod : 8,
-			hideMod : -8
-		},
-		Gargantuan : {
-			name : "Gargantuan",
-			sizeMod : -4,
-			grappleMod : 12,
-			hideMod : -12
-		},
-		Colossal : {
-			name : "Colossal",
-			sizeMod : -8,
-			grappleMod : 16,
-			hideMod : -16
-		}
-	};
+	Fine : {
+		name : "Fine",
+		sizeMod : 8,
+		grappleMod : -16,
+		hideMod : 16
+	},
+	Diminutive : {
+		name : "Diminutive",
+		sizeMod : 4,
+		grappleMod : -12,
+		hideMod : 12
+	},
+	Tiny : {
+		name : "Tiny",
+		sizeMod : 2,
+		grappleMod : -8,
+		hideMod : 8
+	},
+	Small : {
+		name : "Small",
+		sizeMod : 1,
+		grappleMod : -4,
+		hideMod : 4
+	},
+	Medium : {
+		name : "Medium",
+		sizeMod : 0,
+		grappleMod : 0,
+		hideMod : 0
+	},
+	Large : {
+		name : "Large",
+		sizeMod : -1,
+		grappleMod : 4,
+		hideMod : -4
+	},
+	Huge : {
+		name : "Huge",
+		sizeMod : -2,
+		grappleMod : 8,
+		hideMod : -8
+	},
+	Gargantuan : {
+		name : "Gargantuan",
+		sizeMod : -4,
+		grappleMod : 12,
+		hideMod : -12
+	},
+	Colossal : {
+		name : "Colossal",
+		sizeMod : -8,
+		grappleMod : 16,
+		hideMod : -16
+	}
+};
 
 function setupMainTab(self, data) {
 	if (!data) {
@@ -94,15 +94,10 @@ function AbilityScore(data) {
 	});
 }
 
-/*
- * 
- * <option>Fine</option> <option>Diminutive</option> <option>Tiny</option>
- * <option>Small</option> <option selected="selected">Medium</option>
- * <option>Large</option> <option>Huge</option> <option>Gargantuan</option>
- * <option>Colossal</option>
- */
-
 function setupGeneral(self, data) {
+	self.alignments = [ "Lawful Good", "Neutral Good", "Chaotic Good",
+			"Lawful Neutral", "True Neutral", "Chaotic Neutral", "Lawful Evil",
+			"Neutral Evil", "Chaotic Evil" ];
 	self.sizes = [ "Fine", "Diminutive", "Tiny", "Small", "Medium", "Large",
 			"Huge", "Gargantuan", "Colossal" ];
 
@@ -115,7 +110,7 @@ function setupGeneral(self, data) {
 	self.hair = ko.observable(data.hair);
 	self.skin = ko.observable(data.skin);
 	self.age = ko.observable(data.age);
-	self.size = ko.observable(data.size ? data.size : "Medium");
+	self.size = ko.observable(data.size);
 	self.height = ko.observable(data.height);
 	self.weight = ko.observable(data.weight);
 	self.xpEntries = ko.observableArray([]);
@@ -146,7 +141,8 @@ function setupGeneral(self, data) {
 	};
 
 	self.sizeMods = ko.computed(function() {
-		return sizeMap[self.size()];
+		return sizeMap[self.size()] || sizeMap['Medium'];
+		;
 	})
 }
 
@@ -251,13 +247,13 @@ function setupHealth(self, data) {
 		var numLevels = self.levels().length;
 		var hdRolls = self.totalHdRolls();
 		var total = hpTemp;
-		
+
 		for (i in hdRolls) {
 			var levelHp = conMod + hdRolls[i];
-			
+
 			total += Math.max(levelHp, 1);
 		}
-		
+
 		return total;
 	});
 
@@ -443,11 +439,11 @@ function setupAttacks(self, data) {
 
 		return total + tempBab;
 	});
-	
+
 	self.totalBaseAttackBonus = ko.computed(function() {
 		var babBeforeSizeMod = self.babBeforeSizeMod();
 		var sizeAttackMod = self.sizeMods().sizeMod;
-		
+
 		return babBeforeSizeMod + sizeAttackMod;
 	});
 
@@ -528,7 +524,8 @@ function setupDefense(self, data) {
 		var acTemp = parseInt(self.acTemp()) || 0;
 		var sizeAcMod = self.sizeMods().sizeMod;
 
-		return 10 + acTemp + self.touchAcBonus() + self.flatFootedAcBonus() + sizeAcMod;
+		return 10 + acTemp + self.touchAcBonus() + self.flatFootedAcBonus()
+				+ sizeAcMod;
 	});
 
 	self.touchAcTotal = ko.computed(function() {
