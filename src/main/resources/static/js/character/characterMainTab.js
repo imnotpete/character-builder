@@ -495,8 +495,7 @@ function setupDefense(self, data) {
 		return armorPercent + shieldPercent;
 	});
 
-	self.touchAcBonus = ko.computed(function() {
-		var touchAcTemp = parseInt(self.touchAcTemp()) || 0;
+	self.dexAcBonus = ko.computed(function() {
 		var dexMod = self.abilityMod("Dexterity");
 
 		var armorMaxDex = parseInt(self.armor().maxDex());
@@ -509,6 +508,13 @@ function setupDefense(self, data) {
 		if (null != shieldMaxDex && !isNaN(shieldMaxDex)) {
 			dexMod = Math.min(dexMod, shieldMaxDex);
 		}
+
+		return dexMod;
+	});
+
+	self.touchAcBonus = ko.computed(function() {
+		var touchAcTemp = parseInt(self.touchAcTemp()) || 0;
+		var dexMod = self.dexAcBonus();
 
 		return touchAcTemp + dexMod;
 	});
@@ -525,8 +531,11 @@ function setupDefense(self, data) {
 		var acTemp = parseInt(self.acTemp()) || 0;
 		var sizeAcMod = self.sizeMods().sizeMod;
 
-		return 10 + acTemp + self.touchAcBonus() + self.flatFootedAcBonus()
-				+ sizeAcMod;
+		var dexMod = self.dexAcBonus();
+		var armorAc = parseInt(self.armor().acBonus()) || 0;
+		var shieldAc = parseInt(self.shield().acBonus()) || 0;
+
+		return 10 + acTemp + dexMod + armorAc + shieldAc + sizeAcMod;
 	});
 
 	self.touchAcTotal = ko.computed(function() {
