@@ -451,7 +451,8 @@ function setupAttacks(self, data) {
 		var tempGrapple = parseInt(self.tempGrapple()) || 0;
 		var attackBonus = self.babBeforeSizeMod();
 		var sizeGrappleMod = self.sizeMods().grappleMod;
-		var totalGrappleMod = attackBonus + tempGrapple + sizeGrappleMod;
+		var strengthMod = self.abilityMod("Strength");
+		var totalGrappleMod = attackBonus + tempGrapple + sizeGrappleMod + strengthMod;
 
 		return totalGrappleMod;
 	});
