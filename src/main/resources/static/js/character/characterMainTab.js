@@ -82,7 +82,7 @@ function AbilityScore(data) {
 	self.misc2 = ko.observable(data.misc2);
 	self.misc3 = ko.observable(data.misc3);
 
-	self.mod = ko.computed(function() {
+	self.score = ko.computed(function() {
 		var roll = parseInt(self.roll()) || 0;
 		var racial = parseInt(self.racial()) || 0;
 		var misc1 = parseInt(self.misc1()) || 0;
@@ -90,7 +90,12 @@ function AbilityScore(data) {
 		var misc3 = parseInt(self.misc3()) || 0;
 
 		var totalScore = roll + racial + misc1 + misc2 + misc3;
-		return Math.floor((totalScore - 10) / 2);
+		return totalScore;
+	});
+
+	self.mod = ko.computed(function() {
+		var score = self.score();
+		return Math.floor((score - 10) / 2);
 	});
 }
 
