@@ -243,15 +243,16 @@ function Defense(data) {
 
 function setupHealth(self, data) {
 	self.hpTemp = ko.observable(data.hpTemp);
+	self.hpOther = ko.observable(data.hpOther);
 	self.damage = ko.observable(data.damage);
 	self.nonlethal = ko.observable(data.nonlethal);
 
 	self.hpTotal = ko.computed(function() {
 		var conMod = self.abilityMod("Constitution");
-		var hpTemp = parseInt(self.hpTemp()) || 0;
+		var hpOther = parseInt(self.hpOther()) || 0;
 		var numLevels = self.levels().length;
 		var hdRolls = self.totalHdRolls();
-		var total = hpTemp;
+		var total = hpOther;
 
 		for (i in hdRolls) {
 			var levelHp = conMod + hdRolls[i];
@@ -264,8 +265,9 @@ function setupHealth(self, data) {
 
 	self.hpCurrent = ko.computed(function() {
 		var hpTotal = parseInt(self.hpTotal()) || 0;
+		var hpTemp = parseInt(self.hpTemp()) || 0;
 		var damage = parseInt(self.damage()) || 0;
-		return hpTotal - damage;
+		return hpTotal + hpTemp - damage;
 	});
 
 	self.hpPercent = ko.computed(function() {
@@ -275,6 +277,11 @@ function setupHealth(self, data) {
 		}
 
 		var hpTotal = parseInt(self.hpTotal()) || 0;
+
+		if (hpCurrent >= hpTotal) {
+			return 100;
+		}
+
 		return Math.trunc(hpCurrent / hpTotal * 100);
 	});
 
