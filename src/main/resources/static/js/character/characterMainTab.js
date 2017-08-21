@@ -524,7 +524,13 @@ function setupDefense(self, data) {
 		var armorAc = parseInt(self.armor().acBonus()) || 0;
 		var shieldAc = parseInt(self.shield().acBonus()) || 0;
 
-		return flatFootedAcTemp + armorAc + shieldAc;
+		var dexMod = self.dexAcBonus();
+		if (dexMod > 0) {
+			// positive dexMod doesn't count towards FF
+			dexMod = 0;
+		}
+
+		return flatFootedAcTemp + armorAc + shieldAc + dexMod;
 	});
 
 	self.acTotal = ko.computed(function() {
