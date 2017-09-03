@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="content">
+		<div id="notesRendered"
+			data-bind="visible: !editingNotes(), html: notesRendered"></div>
+		<div data-bind="visible: editingNotes">
+			<p>
+				Supports basic MarkDown syntax as detailed <a target="_blank"
+					href="https://github.com/p01/mmd.js">here</a>.
+			</p>
+			<textarea rows="20" class="form-control" draggable="true"
+				data-bind="value: notes"></textarea>
+		</div>
+		<button class="btn btn-xs" data-bind="click: toggleEditingNotes">Edit</button>
+	</div>
+</body>
+
+</html>

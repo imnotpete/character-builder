@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="content">
+		<!-- Class -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#classFeaturesPanel"
+							aria-expanded="false" aria-controls="classFeaturesPanel"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+						Class Features
+					</h3>
+				</div>
+				<div class="panel-body collapse in row" id="classFeaturesPanel">
+					<div class="col-md-6">
+						<textarea rows="20" class="form-control"
+							data-bind="value: classFeatures1"></textarea>
+					</div>
+					<div class="col-md-6">
+						<textarea rows="20" class="form-control"
+							data-bind="value: classFeatures2"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Race -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#raceFeaturesPanel"
+							aria-expanded="false" aria-controls="raceFeaturesPanel"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a> Race
+						Features
+					</h3>
+				</div>
+				<div class="panel-body collapse in row" id="raceFeaturesPanel">
+					<div class="col-md-6">
+						<textarea rows="20" class="form-control"
+							data-bind="value: raceFeatures1"></textarea>
+					</div>
+					<div class="col-md-6">
+						<textarea rows="20" class="form-control"
+							data-bind="value: raceFeatures2"></textarea>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Feats -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#featsPanel"
+							aria-expanded="false" aria-controls="featsPanel"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+						Feats
+					</h3>
+				</div>
+				<div class="panel-body collapse in row" id="featsPanel">
+					<div class="col-md-6">
+						<textarea rows="20" class="form-control" data-bind="value: feats1"></textarea>
+					</div>
+					<div class="col-md-6">
+						<textarea rows="20" class="form-control" data-bind="value: feats2"></textarea>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="content">
+
+		<!-- General Information -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#generalInfo"
+							aria-expanded="false" aria-controls="generalInfo"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+						General Information
+					</h3>
+				</div>
+				<div class="panel-body collapse in row" id="generalInfo">
+
+					<div class="form-group col-md-12">
+						<label for="classBreakdown">Classes</label>
+						<p id="classBreakdown" class="form-control-static lead"
+							data-bind="text: classBreakdown"></p>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="alignment">Alignment</label> <select
+							class="form-control"
+							data-bind="options: alignments, value: alignment, optionsCaption: 'Choose one...'"
+							id="alignment">
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="race">Race</label> <input type="text"
+							class="form-control" data-bind="value: race" id="race" />
+					</div>
+					<div class="form-group col-md-6">
+						<label for="deity">Deity</label> <input type="text"
+							class="form-control" data-bind="value: deity" id="deity" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="gender">Gender</label> <input type="text"
+							class="form-control" data-bind="value: gender" id="gender" />
+					</div>
+					<div class="form-group col-md-3">
+						<label for="gender">Class Level</label>
+						<p class="form-control-static" data-bind="text: classLevel"
+							id="classLevel" />
+					</div>
+					<div class="form-group col-md-6">
+						<label for="eyes">Eyes</label> <input type="text"
+							class="form-control" data-bind="value: eyes" id="eyes" />
+					</div>
+					<div class="form-group col-md-6">
+						<label for="hair">Hair</label> <input type="text"
+							class="form-control" data-bind="value: hair" id="hair" />
+					</div>
+					<div class="form-group col-md-6">
+						<label for="skin">Skin</label> <input type="text"
+							class="form-control" data-bind="value: skin" id="skin" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="age">Age</label> <input type="number"
+							class="form-control" data-bind="value: age" id="age" />
+					</div>
+					<div class="form-group col-md-4">
+						<label for="size">Size</label> <select class="form-control"
+							data-bind="options: sizes, value: size, optionsCaption: 'Choose one...'"
+							id="size">
+						</select>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="height">Height</label> <input type="text"
+							class="form-control" data-bind="value: height" id="height" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="weight">Weight</label> <input type="number"
+							class="form-control" data-bind="value: weight" id="weight" />
+					</div>
+					<div class="form-group col-md-4">
+						<label for="xpTotal">XP Total</label>
+						<div class="input-group">
+							<input id="xpTotal" type="text" class="form-control"
+								data-bind="value: xpTotal" readonly="readonly" /> <span
+								class="input-group-btn">
+								<button class="btn btn-default" type="button"
+									data-toggle="modal" data-target="#xpDialog" title="Edit XP">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</button>
+							</span>
+						</div>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="nextLevelXp">Next Level XP</label>
+						<p class="form-control-static" id="nextLevelXp"
+							data-bind="text: nextLevelXp" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Ability Scores -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#abilityScores"
+							aria-expanded="false" aria-controls="abilityScores"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+						Ability Scores
+					</h3>
+				</div>
+				<div class="panel-body collapse in" id="abilityScores">
+					<table class="table-condensed">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Mod</th>
+								<th>Score</th>
+								<th>Roll</th>
+								<th>Racial</th>
+								<th>Misc</th>
+								<th>Misc</th>
+								<th>Misc</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: abilityScores">
+							<tr>
+								<td data-bind="text: name"></td>
+								<td data-bind="text: mod"
+									class="form-control-static text-center"></td>
+								<td data-bind="text: score"
+									class="form-control-static text-center"></td>
+								<td><input data-bind="value: roll" type="number"
+									class="form-control" /></td>
+								<td><input data-bind="value: racial" type="number"
+									class="form-control" /></td>
+								<td><input data-bind="value: misc1" type="number"
+									class="form-control" /></td>
+								<td><input data-bind="value: misc2" type="number"
+									class="form-control" /></td>
+								<td><input data-bind="value: misc3" type="number"
+									class="form-control" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Status -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#health"
+							aria-expanded="false" aria-controls="health"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+						Health <span id="condition"
+							data-bind="attr : {'class' : healthBadgeClasses}, text: healthBadgeText"
+							class="label label-success">Alive</span>
+					</h3>
+				</div>
+				<div class="panel-body collapse in row" id="health">
+					<div class="col-md-12">
+						<div class="progress" style="text-align: vertical">
+							<div id="hpProgress" role="progressbar"
+								data-bind="attr:{'aria-valuenow': hpPercent(), 'class' : healthBarClasses}, style:{width: hpPercent()+'%'}, text: hpPercent()+'%'"
+								aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
+						</div>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="hpTotal">HP Total</label>
+						<p class="form-control-static" data-bind="text: hpTotal"
+							id="hpTotal" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="hpCurrent">HP Current</label>
+						<p class="form-control-static" data-bind="text: hpCurrent"
+							id="hpCurrent" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="hpOther">Other</label> <input type="number"
+							class="form-control" data-bind="value: hpOther" id="hpOther" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="hpTemp">Temp HP</label> <input type="number"
+							class="form-control" data-bind="value: hpTemp" id="hpTemp" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="damage">Damage</label> <input type="number"
+							class="form-control" data-bind="value: damage" id="damage" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="nonlethal">Nonlethal</label> <input type="number"
+							class="form-control" data-bind="value: nonlethal" id="nonlethal" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Other Statistics -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#otherStats"
+							aria-expanded="false" aria-controls="otherStats"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+						Other Statistics
+					</h3>
+				</div>
+				<div class="panel-body collapse in row" id="otherStats">
+
+					<div class="form-group col-md-3">
+						<fieldset>
+							<legend>
+								<small>Initiative</small> <span class="pull-right"
+									data-bind="text: initiativeTotal"></span>
+							</legend>
+
+							<label for="initiativeTemp">Temp</label> <input type="number"
+								class="form-control" data-bind="value: initiativeTemp"
+								id="initiativeTemp" />
+						</fieldset>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="damageReduction" title="Damage Reduction">DR</label> <input
+							type="text" class="form-control"
+							data-bind="value: damageReduction" id="damageReduction" />
+					</div>
+					<div class="form-group col-md-4">
+						<label for="energyResistance">Energy Resistance</label> <input
+							type="text" class="form-control"
+							data-bind="value: energyResistance" id="energyResistance" />
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="speed">Speed</label> <input type="text"
+							class="form-control" data-bind="value: speed" id="speed" />
+					</div>
+					<div class="form-group col-md-3">
+						<label for="spellResistance" title="Spell Resistance">SR</label> <input
+							type="text" class="form-control"
+							data-bind="value: spellResistance" id="spellResistance" />
+					</div>
+
+					<div class="form-group col-md-3">
+						<label for="totalSpellFailurePercent"
+							title="Total Spell Failure Percent">Spell Failure %</label>
+						<p class="form-control-static"
+							data-bind="text: totalSpellFailurePercent"
+							id="totalSpellFailurePercent"></p>
+					</div>
+
+					<div class="form-group col-md-4">
+						<fieldset>
+							<table class="table-condensed">
+								<thead>
+									<tr>
+										<th>Save</th>
+										<th>Total</th>
+										<th>Temp</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td title="Fortitude">Fort</td>
+										<td><p class="form-control-static"
+												data-bind="text: fortSave" id="fortSave"></p></td>
+										<td><input type="number" data-bind="value: fortTemp"
+											class="form-control" id="fortTemp" /></td>
+									</tr>
+									<tr>
+										<td title="Reflex">Ref</td>
+										<td><p class="form-control-static"
+												data-bind="text: refSave" id="refSave"></p></td>
+										<td><input type="number" data-bind="value: refTemp"
+											class="form-control" id="refTemp" /></td>
+									</tr>
+									<tr>
+										<td>Will</td>
+										<td><p class="form-control-static"
+												data-bind="text: willSave" id="willSave"></p></td>
+										<td><input type="number" data-bind="value: willTemp"
+											class="form-control" id="willTemp" /></td>
+									</tr>
+								</tbody>
+							</table>
+						</fieldset>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- Defense -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#defense"
+							aria-expanded="false" aria-controls="defense"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+						Defense
+					</h3>
+				</div>
+				<div class="panel-body collapse in " id="defense">
+					<div class="row ">
+						<div class="form-group col-md-4">
+							<fieldset>
+								<legend>
+									<small>Armor Class</small> <span class="pull-right"
+										data-bind="text: acTotal"></span>
+								</legend>
+
+								<label for="acTemp">Temp</label> <input type="number"
+									class="form-control" data-bind="value: acTemp" id="acTemp" />
+
+							</fieldset>
+						</div>
+						<div class="form-group col-md-4">
+							<fieldset>
+								<legend>
+									<small>Touch</small> <span class="pull-right"
+										data-bind="text: touchAcTotal"></span>
+								</legend>
+
+								<label for="touchAcTemp">Temp</label> <input type="number"
+									class="form-control" data-bind="value: touchAcTemp"
+									id="touchAcTemp" />
+							</fieldset>
+						</div>
+						<div class="form-group col-md-4">
+							<fieldset>
+								<legend>
+									<small>Flat-Footed</small> <span class="pull-right"
+										data-bind="text: flatFootedAcTotal"></span>
+								</legend>
+
+								<label for="flatFootedAcTemp">Temp</label> <input type="number"
+									class="form-control" data-bind="value: flatFootedAcTemp"
+									id="flatFootedAcTemp" />
+							</fieldset>
+						</div>
+					</div>
+					<div class="list-group">
+						<!-- Armor -->
+						<li class="list-group-item row">
+							<div class="form-group col-md-6">
+								<label for="armorName">Armor</label> <input type="text"
+									class="form-control" data-bind="value: armor().name"
+									id="armorName" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="acBonus">AC Bonus</label> <input type="number"
+									class="form-control" data-bind="value: armor().acBonus"
+									id="acBonus" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="maxDex">Max Dex</label> <input type="number"
+									class="form-control" data-bind="value: armor().maxDex"
+									id="maxDex" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="acp">ACP</label> <input type="number"
+									class="form-control" data-bind="value: armor().acp" id="acp" />
+							</div>
+							<div class="form-group col-md-3">
+								<label for="spellFailurePercent">Spell Failure %</label> <input
+									type="number" class="form-control"
+									data-bind="value: armor().spellFailurePercent"
+									id="spellFailurePercent" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="speed">Speed</label> <input type="number"
+									class="form-control" data-bind="value: armor().speed"
+									id="speed" />
+							</div>
+							<div class="form-group col-md-7">
+								<label for="defenseNotes">Notes</label> <input type="text"
+									class="form-control" data-bind="value: armor().notes"
+									id="notes" />
+							</div>
+						</li>
+
+						<!-- Shield -->
+						<li class="list-group-item row">
+							<div class="form-group col-md-6">
+								<label for="armorName">Shield</label> <input type="text"
+									class="form-control" data-bind="value: shield().name"
+									id="armorName" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="acBonus">AC Bonus</label> <input type="number"
+									class="form-control" data-bind="value: shield().acBonus"
+									id="acBonus" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="maxDex">Max Dex</label> <input type="number"
+									class="form-control" data-bind="value: shield().maxDex"
+									id="maxDex" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="acp">ACP</label> <input type="number"
+									class="form-control" data-bind="value: shield().acp" id="acp" />
+							</div>
+							<div class="form-group col-md-3">
+								<label for="spellFailurePercent">Spell Failure %</label> <input
+									type="number" class="form-control"
+									data-bind="value: shield().spellFailurePercent"
+									id="spellFailurePercent" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="speed">Speed</label> <input type="number"
+									class="form-control" data-bind="value: shield().speed"
+									id="speed" />
+							</div>
+							<div class="form-group col-md-7">
+								<label for="defenseNotes">Notes</label> <input type="text"
+									class="form-control" data-bind="value: shield().notes"
+									id="notes" />
+							</div>
+						</li>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Attacks -->
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#attacks"
+							aria-expanded="false" aria-controls="attacks"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+						Attacks
+						<button type="button" class="btn-xs btn-success pull-right"
+							title="Add attack" data-bind="click: addAttack"
+							id="addAttackButton">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+					</h3>
+				</div>
+				<div class="panel-body collapse in " id="attacks">
+
+					<div class="row">
+						<div class="form-group col-md-3">
+							<label for="bab">Base Attack Bonus</label>
+							<p class="form-control-static text-center"
+								data-bind="text: babBeforeSizeMod" id="bab" />
+						</div>
+						<div class="form-group col-md-3">
+							<label for="tempBab">Temp BAB</label> <input type="number"
+								class="form-control" data-bind="value: tempBab" id="tempBab"></input>
+						</div>
+						<div class="form-group col-md-3">
+							<label for="grappleMod">Grapple Modifier</label>
+							<p class="form-control-static text-center"
+								data-bind="text: grappleMod" id="grappleMod" />
+						</div>
+						<div class="form-group col-md-3">
+							<label for="tempGrapple">Temp Grapple</label> <input
+								type="number" class="form-control"
+								data-bind="value: tempGrapple" id="tempGrapple"></input>
+						</div>
+					</div>
+					<div class="list-group" data-bind="sortable: attacks">
+						<li class="list-group-item row">
+							<div class="form-group col-md-6">
+								<label for="attackName">Name</label> <input type="text"
+									class="form-control" data-bind="value: name" id="attackName" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="attackBonus">Bonus</label>
+								<p class="form-control-static" data-bind="text: attackBonus"
+									id="attackBonus"></p>
+							</div>
+							<div class="form-group col-md-2">
+								<label for="tempAttackBonus">Temp BAB</label> <input
+									type="number" class="form-control"
+									data-bind="value: tempAttackBonus" id="tempAttackBonus" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="attackAbility">Ability</label> <select
+									class="form-control" data-bind="value: ability"
+									id="attackAbility">
+									<option></option>
+									<option>Strength</option>
+									<option>Dexterity</option>
+									<option>Constitution</option>
+									<option>Intelligence</option>
+									<option>Wisdom</option>
+									<option>Charisma</option>
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="attackDamage">Damage</label> <input type="text"
+									class="form-control" data-bind="value: damage"
+									id="attackDamage" />
+							</div>
+							<div class="form-group col-md-3">
+								<label for="attackType">Type</label> <input type="text"
+									class="form-control" data-bind="value: type" id="attackType" />
+							</div>
+							<div class="form-group col-md-3">
+								<label for="range">Range</label> <input type="text"
+									class="form-control" data-bind="value: range" id="range" />
+							</div>
+							<div class="form-group col-md-3">
+								<label for="ammunition">Ammunition</label> <input type="text"
+									class="form-control" data-bind="value: ammunition"
+									id="ammunition" />
+							</div>
+							<div class="form-group col-md-7">
+								<label for="attackNotes">Notes</label> <input type="text"
+									class="form-control" data-bind="value: notes" id="attackNotes" />
+							</div>
+							<div class="form-group col-md-3">
+								<label for="critical">Critical</label> <input type="text"
+									class="form-control" data-bind="value: critical" id="critical" />
+							</div>
+							<div class="col-md-2" data-bind="visible: ! confirmingDeletion()">
+								<br />
+								<button type="button" class="btn btn-danger"
+									data-bind="click: tryDeletion" title="Delete attack">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</div>
+							<div class="col-md-2" data-bind="visible: confirmingDeletion">
+								<button type="button" class="btn btn-danger"
+									data-bind="click: $parent.removeAttack"
+									title="Confirm deletion">Confirm</button>
+								<button type="button" class="btn btn-success"
+									data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+							</div>
+						</li>
+					</div>
+				</div>
+				<div class="panel-footer">
+					&nbsp;
+					<button type="button" class="btn-xs btn-success pull-right"
+						title="Add Attack" data-bind="click: addAttack">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+		
+		<!-- XP Modal Dialog -->
+		<div class="modal fade" id="xpDialog" tabindex="-1" role="dialog"
+			aria-labelledby="xpModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="xpModalLabel">
+							<span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+							XP
+						</h4>
+					</div>
+					<div class="modal-body">
+						<button type="button" class="btn-xs btn-success" title="Add XP"
+							data-bind="click: addXp">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+						<div class="list-group row" data-bind="foreach: xpEntries">
+							<div class="col-md-4" style="margin-top: 10px">
+								<input class="form-control" type="number"
+									data-bind="value: entry"></input>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Done</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="content">
+		<div class="col-md-7">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#levels"
+							aria-expanded="false" aria-controls="levels"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a> <span
+							data-bind="text: levels().length"></span> Levels &mdash; <span
+							data-bind="text: classBreakdown"></span>
+						<button type="button" class="btn-xs btn-success pull-right"
+							title="Add level" data-bind="click: addLevel">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn-xs pull-right"
+							data-toggle="modal" data-target="#classDialog"
+							title="Edit classes">
+							<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+							Classes
+						</button>
+					</h3>
+				</div>
+				<div class="panel-body collapse in list-group"
+					data-bind="sortable: levels" id="levels">
+					<li class="list-group-item row classLevel">
+						<div class="col-md-1">
+							<br />
+							<h4 class="pull-right" data-bind="text: $index()+1"></h4>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="charClass">Class</label> <select class="form-control"
+								id="charClass"
+								data-bind="options: $root.classes, value: className, optionsText: 'className', optionsValue: 'className', optionsCaption: 'Choose...'"></select>
+						</div>
+						<div class="form-group col-md-2">
+							<label for="hdRoll">HD Roll</label> <input type="number"
+								class="form-control" data-bind="value: hdRoll" id="hdRoll" />
+						</div>
+						<div class=" col-md-2">
+							<br />
+							<button type="button" class="btn"
+								data-bind="click: toggleEditingSkills" title="Edit skills">
+								<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+								Skills
+							</button>
+						</div>
+						<div class="col-md-1" data-bind="visible: ! confirmingDeletion()">
+							<br />
+							<button type="button" class="btn btn-danger"
+								data-bind="click: tryDeletion" title="Delete Level">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</div>
+						<div class="col-md-12" data-bind="visible: editingSkills()">
+							<div class="form-inline text-center" style="padding-bottom: 10px">
+								<div class="form-group">
+									<label for="skillTricks">Skill Trick</label> <input
+										id="skillTricks" type="checkbox" class="form-control "
+										placeholder="Tricks" data-bind="checked: skillTrick" />
+								</div>
+								<div class="form-group">
+									<label for="totalSkillPointsSpent">Points Spent</label>
+									<p id="totalSkillPointsSpent" class="form-control-static"
+										data-bind="text: levelSkillPointsSpent"></p>
+								</div>
+							</div>
+							<div class="row" style="padding-bottom: 5px"
+								data-bind="foreach: skillPoints">
+								<div class="col-md-4">
+									<div class="input-group"
+										data-bind="css: {'has-success': isClassSkill()}">
+										<div style="width: 11em; text-align: right"
+											class="input-group-addon" data-bind="text: name()"></div>
+										<input type="number" class="form-control" placeholder="Points"
+											data-bind="value: points" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-1" data-bind="visible: confirmingDeletion">
+							<button type="button" class="btn btn-danger"
+								data-bind="click: $parent.removeLevel" title="Confirm deletion">Confirm</button>
+							<button type="button" class="btn btn-success"
+								data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+						</div>
+					</li>
+				</div>
+				<div class="panel-footer">
+					&nbsp;
+					<button type="button" class="btn-xs btn-success pull-right"
+						title="Add level" data-bind="click: addLevel">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-5">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a role="button" data-toggle="collapse" href="#skills"
+							aria-expanded="false" aria-controls="skills"><span
+							class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+						Skills
+						<button type="button" class="btn-xs btn-success pull-right"
+							title="Add Skill" data-bind="click: addSkill">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+					</h3>
+				</div>
+				<div class="panel-body collapse in list-group" id="skills">
+					<div class="form-inline text-center row"
+						style="padding-bottom: 10px">
+						<div class="form-group col-md-6">
+							<label for="totalSkillTricks">Skill Tricks:</label>
+							<p id="totalSkillTricks" class="form-control-static"
+								data-bind="text: totalSkillTricks"></p>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="totalAcp">Armor Check Penalty:</label>
+							<p id="totalAcp" class="form-control-static"
+								data-bind="text: totalAcp"></p>
+						</div>
+					</div>
+					<table class="table-condensed">
+						<thead>
+							<tr>
+								<th class="text-muted">* Trained Only, &dagger;ACP
+									(applied)</th>
+								<th>Mod</th>
+								<th>Ranks</th>
+								<th>Ability</th>
+								<th>Misc</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: availableSkills.sort(skillSort)">
+							<tr
+								data-bind="css: {'text-danger': untrained($parent.totalSkillRanks(name()))}">
+								<td><button class="btn btn-link" data-toggle="modal"
+										data-target="#skillEditDialog"
+										data-bind="click: $root.setSelectedSkill">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									</button> <span data-bind="text: name()"></span><span
+									data-bind="visible: trainedOnly">*</span><span
+									data-bind="visible: acp" style="font-weight: bold">&dagger;</span>
+									(<span data-bind="text: ability().substring(0, 3)"></span>)</td>
+								<td title="mod/roll" data-bind="text: $parent.skillMod(name())"
+									class="form-control-static text-center">14</td>
+								<td title="ranks"
+									data-bind="text: $parent.totalSkillRanks(name())"
+									class="text-center">10</td>
+								<td title="ability mod"
+									data-bind="text: $parent.abilityMod(ability())"
+									class="text-center">12</td>
+								<td title="misc"><input type="number" class="form-control"
+									data-bind="value: misc" /></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- <div class="input-group">
+								<label data-bind="text: $data" for="points"></label>
+								<input type="number" class="form-control" id="points">
+							</div> -->
+				</div>
+				<div class="panel-footer">
+					&nbsp;
+					<button type="button" class="btn-xs btn-success pull-right"
+						title="Add Skill" data-bind="click: addSkill">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Class Modal Dialog -->
+		<div class="modal fade" id="classDialog" tabindex="-1" role="dialog"
+			aria-labelledby="classModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="classModalLabel">
+							<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+							Available Classes
+						</h4>
+
+						<button type="button" class="btn-xs btn-success pull-right"
+							title="Add class" data-bind="click: addClass">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+					</div>
+					<div class="modal-body list-group" data-bind="sortable: classes">
+						<li class="list-group-item row">
+							<div class="form-group col-md-6">
+								<label for="className">Class</label> <input type="text"
+									class="form-control" data-bind="value: className"
+									id="className" />
+							</div>
+							<div class="form-group col-md-2">
+								<label for="attackBonus">Attack Bonus</label> <select
+									id="attackBonus"
+									data-bind="options: $root.availableBaseAttackBonuses, value:baseAttackBonus"></select>
+							</div>
+							<div class="form-group col-md-1">
+								<label for="fortSave">Fort Save</label> <select id="fortSave"
+									data-bind="options: $root.availableBaseSaves, value: baseFortSave"></select>
+							</div>
+							<div class="form-group col-md-1">
+								<label for="refSave">Reflex Save</label> <select id="refSave"
+									data-bind="options: $root.availableBaseSaves, value: baseRefSave"></select>
+							</div>
+							<div class="form-group col-md-1">
+								<label for="willSave">Will Save</label> <select id="willSave"
+									data-bind="options: $root.availableBaseSaves, value: baseWillSave"></select>
+							</div>
+							<div class="col-md-1" data-bind="visible: ! confirmingDeletion()">
+								<br />
+								<button type="button" class="btn btn-danger"
+									data-bind="click: tryDeletion" title="Delete Level">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+							</div>
+							<div class="col-md-1" data-bind="visible: confirmingDeletion">
+								<button type="button" class="btn btn-danger"
+									data-bind="click: $root.removeClass" title="Confirm deletion">Confirm</button>
+								<button type="button" class="btn btn-success"
+									data-bind="click: cancelDeletion" title="Cancel deletion">Cancel</button>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="classSkills">Class Skills</label>
+								<div data-bind="foreach: skills" id="classSkills">
+									<div style="white-space: nowrap; display: inline">
+										<input type="checkbox" data-bind="checked: classSkill"><span
+											data-bind="text: name()"></span></input>&nbsp;
+									</div>
+								</div>
+							</div>
+						</li>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<!-- <button type="button" class="btn btn-success" data-dismiss="modal"
+						id="classSaveButton">Save</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Skill Modal Dialog -->
+		<div class="modal fade" id="skillEditDialog" tabindex="-1"
+			role="dialog" aria-labelledby="skillEditLabel">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="skillEditLabel">
+							<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+							Edit Skill
+						</h4>
+					</div>
+					<div class="modal-body">
+						<form data-bind="with: selectedSkill">
+							<label for="editSkillName">Skill</label> <input
+								class="form-control" data-bind="value: name" id="editSkillName"></input>
+							<label for="editSkillAbility">Ability</label> <select
+								class="form-control" data-bind="value: ability"
+								id="editSkillAbility">
+								<option>None</option>
+								<option>Strength</option>
+								<option>Dexterity</option>
+								<option>Constitution</option>
+								<option>Intelligence</option>
+								<option>Wisdom</option>
+								<option>Charisma</option>
+							</select>
+							<div>
+								<input type="checkbox" data-bind="checked: acp">Armor
+								Check Penalty</input>
+							</div>
+							<div>
+								<input type="checkbox" data-bind="checked: trainedOnly">Trained
+								Only</input>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success" data-dismiss="modal"
+							data-bind="click:saveEditSkill">Done</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal"
+							data-bind="click: deleteSkill">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
