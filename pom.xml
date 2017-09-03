@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.imnotpete.rpg</groupId>
-	<artifactId>charsheet-dnd35</artifactId>
+	<artifactId>character-builder</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>charsheet-dnd35</name>
-	<description>Character sheet tracker for D&amp;D 3.5</description>
+	<name>character-builder</name>
+	<description>Character Builder for RPGs</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
