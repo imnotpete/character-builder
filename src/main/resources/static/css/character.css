@@ -3,9 +3,9 @@
   cursor: -webkit-grabbing;
 }
 
-/* a {
-	color: #0000EE;
-} */
+.character-tabs {
+	padding-bottom: 1em;
+}
 
 .form-control {
 	padding: 3px;
