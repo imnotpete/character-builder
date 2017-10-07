@@ -589,7 +589,7 @@ function getBaseAttackBonus(classLevel, bonusLevel) {
 		return avgAttacks[classLevel - 1];
 		break;
 	case "Poor":
-		return classLevel / 2;
+		return Math.floor(classLevel / 2);
 		break;
 	}
 }
