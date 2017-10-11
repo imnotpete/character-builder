@@ -1,7 +1,7 @@
 # characterbuilder
 D&amp;D 3.5 character builder
 
-Current status: Very very early.
+Current status: Very very early. Built mainly for personal use.
 
 Depends on [Project Lombok](https://projectlombok.org/) -- make sure your IDE is set up right.
 
