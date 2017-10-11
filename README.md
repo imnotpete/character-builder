@@ -5,6 +5,10 @@ Current status: Very very early.
 
 Depends on [Project Lombok](https://projectlombok.org/) -- make sure your IDE is set up right.
 
+Does not currently track inventory or spells. Here are a couple decent Google Sheets to handle those:
+* [Inventory](https://docs.google.com/spreadsheets/d/13cj5J9WkMtoF7wvzvhPnMszspzz3-C3z2QIF_peOC08/edit?usp=sharing)
+* [Spellbook](https://docs.google.com/spreadsheets/d/1BvdzusxSUIrF-7zWAARoxoGsIKfveE4_ebWnCOc2XaI/edit?usp=sharing)
+
 ## Building
 `mvn clean install` in main directory
 
