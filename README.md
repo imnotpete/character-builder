@@ -9,7 +9,7 @@ Depends on [Project Lombok](https://projectlombok.org/) -- make sure your IDE is
 `mvn clean install` in main directory
 
 ## Running
-`java -jar target/charsheet-dnd35-<version>.jar`
+`java -jar target/character-builder-<version>.jar`
 
 ## Details
 Frontend is Bootstrap/jQuery/KnockoutJS
