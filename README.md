@@ -1,9 +1,7 @@
 # characterbuilder
 D&amp;D 3.5 character builder
 
-Current status: Usable but incomplete. 
-
-User/password configured in properties file.
+Current status: Usable but incomplete.
 
 Does not currently track inventory or spells. Here are a couple decent Google Sheets to handle those:
 * [Inventory](https://docs.google.com/spreadsheets/d/13cj5J9WkMtoF7wvzvhPnMszspzz3-C3z2QIF_peOC08/edit?usp=sharing)
