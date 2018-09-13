@@ -1,13 +1,15 @@
 # characterbuilder
 D&amp;D 3.5 character builder
 
-Current status: Usable but incomplete. User/password configured in properties file. Links out to Google Docs for interim spellbook/inventory.
+Current status: Usable but incomplete. 
 
-Depends on [Project Lombok](https://projectlombok.org/) -- make sure your IDE is set up right.
+User/password configured in properties file.
 
 Does not currently track inventory or spells. Here are a couple decent Google Sheets to handle those:
 * [Inventory](https://docs.google.com/spreadsheets/d/13cj5J9WkMtoF7wvzvhPnMszspzz3-C3z2QIF_peOC08/edit?usp=sharing)
 * [Spellbook](https://docs.google.com/spreadsheets/d/1BvdzusxSUIrF-7zWAARoxoGsIKfveE4_ebWnCOc2XaI/edit?usp=sharing)
+
+Depends on [Project Lombok](https://projectlombok.org/) -- make sure your IDE is set up right.
 
 ## Building
 `mvn clean install` in main directory
