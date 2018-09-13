@@ -1,7 +1,7 @@
 # characterbuilder
 D&amp;D 3.5 character builder
 
-Current status: Very very early. Built mainly for personal use.
+Current status: Usable but incomplete. User/password configured in properties file. Links out to Google Docs for interim spellbook/inventory.
 
 Depends on [Project Lombok](https://projectlombok.org/) -- make sure your IDE is set up right.
 
