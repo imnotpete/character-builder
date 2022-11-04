@@ -1,7 +1,12 @@
 # characterbuilder
 D&amp;D 3.5 character builder
 
-Current status: Usable but incomplete.
+Easily track your D&D 3.5e character, in a source-agnostic way. Add details of your classes, then the tool does the math for you and displays it all in a usable interface. Supports multiple characters, as well as import/export (custom format).
+
+![charsheet-index](https://user-images.githubusercontent.com/11043/200011399-11120969-f868-4ec4-8e64-8943a3952671.png)
+![charsheet-main](https://user-images.githubusercontent.com/11043/200011441-ef039818-ecda-4ad7-bb6d-850e678a4360.png)
+![charsheet-classes](https://user-images.githubusercontent.com/11043/200011517-bc2523d8-54b6-40d1-8e4e-e40d5c681b07.png)
+![charsheet-classconfig](https://user-images.githubusercontent.com/11043/200011544-d606a9fa-2866-4085-ab86-22c38fc3fcad.png)
 
 Does not currently track inventory or spells. Here are a couple decent Google Sheets to handle those:
 * [Inventory](https://docs.google.com/spreadsheets/d/13cj5J9WkMtoF7wvzvhPnMszspzz3-C3z2QIF_peOC08/edit?usp=sharing)
